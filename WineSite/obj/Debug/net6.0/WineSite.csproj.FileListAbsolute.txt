@@ -256,3 +256,15 @@ C:\Users\Admin\Downloads\WineSite\WineSite\WineSite\obj\Debug\net6.0\refint\Wine
 C:\Users\Admin\Downloads\WineSite\WineSite\WineSite\obj\Debug\net6.0\WineSite.pdb
 C:\Users\Admin\Downloads\WineSite\WineSite\WineSite\obj\Debug\net6.0\WineSite.genruntimeconfig.cache
 C:\Users\Admin\Downloads\WineSite\WineSite\WineSite\obj\Debug\net6.0\ref\WineSite.dll
+C:\Users\Admin\Desktop\WineSite\WineSite\obj\Debug\net6.0\WineSite.csproj.AssemblyReference.cache
+C:\Users\Admin\Desktop\WineSite\WineSite\obj\Debug\net6.0\WineSite.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Admin\Desktop\WineSite\WineSite\obj\Debug\net6.0\WineSite.AssemblyInfoInputs.cache
+C:\Users\Admin\Desktop\WineSite\WineSite\obj\Debug\net6.0\WineSite.AssemblyInfo.cs
+C:\Users\Admin\Desktop\WineSite\WineSite\obj\Debug\net6.0\WineSite.csproj.CoreCompileInputs.cache
+C:\Users\Admin\Desktop\WineSite\WineSite\obj\Debug\net6.0\WineSite.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Admin\Desktop\WineSite\WineSite\obj\Debug\net6.0\WineSite.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Admin\Desktop\WineSite\WineSite\obj\Debug\net6.0\WineSite.RazorAssemblyInfo.cache
+C:\Users\Admin\Desktop\WineSite\WineSite\obj\Debug\net6.0\WineSite.RazorAssemblyInfo.cs
+C:\Users\Admin\Desktop\WineSite\WineSite\obj\Debug\net6.0\WineSite.dll
+C:\Users\Admin\Desktop\WineSite\WineSite\obj\Debug\net6.0\refint\WineSite.dll
+C:\Users\Admin\Desktop\WineSite\WineSite\obj\Debug\net6.0\WineSite.pdb
