@@ -1,0 +1,35 @@
+﻿@model IEnumerable<AllRecipeViewModel>
+@{
+    ViewBag.Title = "Рецепти";
+}
+<h2 class="text-center">@ViewBag.Title</h2>
+
+
+<body class="black-bg">
+<div class="container">
+    <!-- За да ограничите ширината на съдържанието -->
+    <div class="row">
+        <div class="col">
+            <!-- Използвайте колони за адаптивност -->
+            <div class="row">
+                @foreach (var evt in Model)
+                {
+                    <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+                        <!-- Променете md-4 на lg-3 -->
+                        <a href="@Url.Action("Details", "Recipe", new { id = evt.Id })" class="event-card position-relative">
+                            <div class="card text-bg-dark position-relative">
+                                <img src="@evt.ImageUrl" class="card-img img-fluid" alt="Event Image">
+                                <div class="card-img-overlay">
+                                    <h5 class="card-text">@evt.Name</h5>
+                                </div>
+                            </div>
+                            <div class="event-card-overlay"></div> <!-- Затъмнен слой -->
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
+

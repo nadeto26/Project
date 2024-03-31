@@ -238,7 +238,7 @@ namespace WineSite.Data.Migrations
                         {
                             Id = "dea12856-c198-4129-b3f3-b893d8395082",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "bdea0e0e-7607-4b9d-94bc-9cc02551494f",
+                            ConcurrencyStamp = "0b434507-ea08-435a-b15f-bc35a6766dd1",
                             Email = "petarkarapetrov@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "Petar",
@@ -246,9 +246,9 @@ namespace WineSite.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "petarkarapetrov@gmail.com",
                             NormalizedUserName = "petarkarapetrov@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEITt8CuuVqePpWE8R6EvSGfoCNnTbLBg1g5dwFlcngFnBIEIfkD7v2bJfeMVfPYk0g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDvTgKq6FAOOtqw0Sr3l1lyDF/aaGIalOnAEeLVhI3YxJaFaqSty+tz+ZqEPuB13MQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "91960877-0831-4967-87d3-1227853cdcd6",
+                            SecurityStamp = "c95e8ed2-f8be-4eb9-b95f-1aabc4d9de2e",
                             TwoFactorEnabled = false,
                             UserName = "petarkarapetrov@gmail.com"
                         },
@@ -256,7 +256,7 @@ namespace WineSite.Data.Migrations
                         {
                             Id = "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7ba76bbf-054f-4c65-b990-a6a382e8b7e2",
+                            ConcurrencyStamp = "a3247cdc-4c52-4170-996f-13f07f252dde",
                             Email = "ivana.burgilova@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "Ivana",
@@ -264,9 +264,9 @@ namespace WineSite.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ivana.burgilova@gmail.com",
                             NormalizedUserName = "ivana.burgilova@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEKqL0wiOZRiwBQfO3MrZ/iq6kAvmr69ij/VN5ynbXfm90sXuXeuMHuUADME1p04q0w==",
+                            PasswordHash = "AQAAAAEAACcQAAAAELan8RFd6wLhV68K83fsp1ygFCkTyD3juC99XmXcq6T6L4oUebfomxbRz7DooyvQYQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d02010a2-039e-4fe7-b09b-970fd52e0c4a",
+                            SecurityStamp = "b805f697-78b1-4c2c-a876-d3ef79f32def",
                             TwoFactorEnabled = false,
                             UserName = "ivana.burgilova@gmail.com"
                         });
@@ -362,59 +362,43 @@ namespace WineSite.Data.Migrations
                     b.ToTable("EventWineBuyers");
                 });
 
-            modelBuilder.Entity("WineSite.Data.Models.MoreInformation", b =>
+            modelBuilder.Entity("WineSite.Data.Models.Recipe", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasComment("MoreInformation's identifier");
+                        .HasComment("Recipe's identifier");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)")
-                        .HasComment("More information description");
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)")
+                        .HasComment("Recipe the way of preparation");
 
                     b.Property<string>("ImageUrl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
-                        .HasComment("More information imageUrl");
+                        .HasComment("Recipe imageUrl");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
-                        .HasComment("Wine's name");
+                        .HasComment("Recipe's name");
 
                     b.Property<string>("Notes")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
-                        .HasComment("Wine's Notes");
-
-                    b.Property<string>("Specifics")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
-                        .HasComment("Wine's specifics");
-
-                    b.Property<int>("TypeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("VinarId")
-                        .HasColumnType("int");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasComment("Recipe's necessary ingredients");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TypeId");
+                    b.ToTable("Recipes");
 
-                    b.HasIndex("VinarId");
-
-                    b.ToTable("MoreInformation");
-
-                    b.HasComment("More information about the wine");
+                    b.HasComment("Recipe");
                 });
 
             modelBuilder.Entity("WineSite.Data.Models.Type", b =>
@@ -709,25 +693,6 @@ namespace WineSite.Data.Migrations
                     b.Navigation("Wine");
                 });
 
-            modelBuilder.Entity("WineSite.Data.Models.MoreInformation", b =>
-                {
-                    b.HasOne("WineSite.Data.Models.Type", "Type")
-                        .WithMany("MoreInformation")
-                        .HasForeignKey("TypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WineSite.Data.Models.Vinar", "Vinar")
-                        .WithMany("MoreInformation")
-                        .HasForeignKey("VinarId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Type");
-
-                    b.Navigation("Vinar");
-                });
-
             modelBuilder.Entity("WineSite.Data.Models.Vinar", b =>
                 {
                     b.HasOne("WineSite.Data.Models.ApplicationUser", "User")
@@ -760,15 +725,11 @@ namespace WineSite.Data.Migrations
 
             modelBuilder.Entity("WineSite.Data.Models.Type", b =>
                 {
-                    b.Navigation("MoreInformation");
-
                     b.Navigation("Wines");
                 });
 
             modelBuilder.Entity("WineSite.Data.Models.Vinar", b =>
                 {
-                    b.Navigation("MoreInformation");
-
                     b.Navigation("Wines");
                 });
 #pragma warning restore 612, 618

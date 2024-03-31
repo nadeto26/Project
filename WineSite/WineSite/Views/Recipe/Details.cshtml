@@ -1,0 +1,37 @@
+﻿@model AllRecipeViewModel
+
+@{
+    ViewBag.Title = Model.Name;
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+
+
+<div class="container" style="display:inline">
+    <div class="row">
+        <div class="col-12">
+            <img class="img-fluid" src="@Model.ImageUrl" alt="Recipe Image" style="width: 100%;">
+        </div>
+
+        <div class="card col-8 border-0">
+            <br />
+            <br />
+            <h2>Необходими продукти:</h2>
+            <ul>
+                @foreach (var note in Model.Notes.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    <li>@note</li>
+                }
+            </ul>
+            <br />
+            <br />
+            <h2>Начин на приготвяне:</h2>
+            <p>@Model.Description</p>
+
+        </div>
+        <p></p>
+
+
+    </div>
+</div>
+

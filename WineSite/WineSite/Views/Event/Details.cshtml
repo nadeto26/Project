@@ -1,0 +1,33 @@
+﻿@model EventsViewModel
+
+@{
+    ViewBag.Title = "Събития детайли";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div class="container" style="display:inline">
+    <div class="row">
+        <div class="col-4">
+            <img class="card-img-top" style="width: 20rem;"
+                 src="@Model.ImageUrl" alt="House Image">
+        </div>
+        <div class="card col-8 border-0">
+            <p style="font-size:25px;"><u>@Model.Name</u></p>
+            <p>Located in: <b>@Model.Address</b></p>
+            <p>@Model.HostName</p>
+            <p>@Model.Features</p>
+            <p>@Model.Preferences</p>
+            <p>@Model.Description</p>
+             
+            </div>
+            <p></p>
+
+        <a class="btn btn-warning btn-sm" asp-controller="Event" asp-action="Edit"
+           asp-route-id="@Model.Id">Редактирай</a>
+        <a class="ml-2 btn btn-danger btn-sm" asp-controller="Event" asp-action="Delete" asp-route-id="@Model.Id">Изтрия</a>
+        <a class="ml-2 btn btn-danger btn-sm" asp-controller="Event" asp-action="DetailsDelivery" asp-route-id="@Model.Id">Запише се</a>
+        </div>
+    </div>
+ 

@@ -27,7 +27,7 @@ namespace WineSite.Data
 
         public DbSet<Events> Events { get; set; } = null!;
         public DbSet<EventWineBuyer> EventWineBuyers { get; set; } = null!;
-        public DbSet<MoreInformation> MoreInformation { get; set; } = null!;
+        public DbSet<Recipe> Recipes { get; set; } = null!;
         public DbSet<Type> Types { get; set; } = null!;
         public DbSet<Vinar> Vinar { get; set; } = null!;
         public DbSet<Wine> Wines { get; set; } = null!;

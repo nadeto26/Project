@@ -20,11 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\Event\" />
-    <Folder Include="Models\Receipt\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Update="Areas\Identity\Pages\Account\_ViewImports.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>

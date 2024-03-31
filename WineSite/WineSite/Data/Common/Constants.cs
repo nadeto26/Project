@@ -40,14 +40,11 @@ namespace WineSite.Data
             public const int NameMaxLength = 50;
             public const int NameMinLength = 3;
 
-            public const int DescriptionMaxLength = 1000;
+            public const int DescriptionMaxLength = 2000;
             public const int DescriptionMinLength = 20;
 
-            public const int NameSpecificsMaxLength = 50;
-            public const int NameSpecificsMinLength = 10;
-
-            public const int NotesMaxLength = 50;
-            public const int NotesMinLength = 5;
+            public const int NotesMaxLength = 100;
+            public const int NotesMinLength = 20;
         }
 
         public static class Events
