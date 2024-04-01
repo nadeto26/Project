@@ -124,6 +124,26 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = V2luZVNpdGVcQXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Admin/Downloads/WineSite/WineSite/WineSite/Views/Event/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = V2luZVNpdGVcVmlld3NcRXZlbnRcQWRkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Downloads/WineSite/WineSite/WineSite/Views/Event/All.cshtml]
+build_metadata.AdditionalFiles.TargetPath = V2luZVNpdGVcVmlld3NcRXZlbnRcQWxsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Downloads/WineSite/WineSite/WineSite/Views/Event/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = V2luZVNpdGVcVmlld3NcRXZlbnRcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Downloads/WineSite/WineSite/WineSite/Views/Event/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = V2luZVNpdGVcVmlld3NcRXZlbnRcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Downloads/WineSite/WineSite/WineSite/Views/Event/DetailsDelivery.cshtml]
+build_metadata.AdditionalFiles.TargetPath = V2luZVNpdGVcVmlld3NcRXZlbnRcRGV0YWlsc0RlbGl2ZXJ5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Admin/Downloads/WineSite/WineSite/WineSite/Views/Home/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = V2luZVNpdGVcVmlld3NcSG9tZVxFcnJvci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -138,6 +158,18 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Admin/Downloads/WineSite/WineSite/WineSite/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = V2luZVNpdGVcVmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Downloads/WineSite/WineSite/WineSite/Views/Recipe/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = V2luZVNpdGVcVmlld3NcUmVjaXBlXEFkZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Downloads/WineSite/WineSite/WineSite/Views/Recipe/All.cshtml]
+build_metadata.AdditionalFiles.TargetPath = V2luZVNpdGVcVmlld3NcUmVjaXBlXEFsbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Downloads/WineSite/WineSite/WineSite/Views/Recipe/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = V2luZVNpdGVcVmlld3NcUmVjaXBlXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Admin/Downloads/WineSite/WineSite/WineSite/Views/Shared/Error.cshtml]

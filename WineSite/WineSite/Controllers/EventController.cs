@@ -1,8 +1,11 @@
 ﻿using EventsWebsite.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using System.Security.Claims;
 using WineSite.Data;
 using WineSite.Data.Models;
+using WineSite.Models.Event;
 
 namespace WineSite.Controllers
 {
@@ -23,6 +26,31 @@ namespace WineSite.Controllers
             };
 
             return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Add(EventsViewModel mode)
+        {
+            var adEvent = new Events()
+            {
+                Name = mode.Name,
+                HostName = mode.HostName,
+                Address = mode.Address,
+                DateTime = mode.DateTime,
+                Description = mode.Description,
+                ImageUrl = mode.ImageUrl,
+                PriceTicket = mode.PriceTicket,
+                WineList = mode.WineList,
+                Features = mode.Features,
+                Preferences = mode.Preferences,
+                MoreInformation = mode.MoreInformation,
+                Duration = mode.Duration,
+            };
+
+            context.Events.Add(adEvent);
+            await context.SaveChangesAsync();
+
+            return RedirectToAction("Add", "Event");
         }
 
         public async Task<bool> Exist(int id)
@@ -66,31 +94,7 @@ namespace WineSite.Controllers
             return View(eventModel);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Add(EventsViewModel mode)
-        {
-            var adEvent = new Events()
-            {
-                 Name = mode.Name,
-                 HostName = mode.HostName,
-                 Address = mode.Address,
-                 DateTime = mode.DateTime,
-                 Description = mode.Description,
-                 ImageUrl = mode.ImageUrl,
-                 PriceTicket = mode.PriceTicket,
-                 WineList = mode.WineList,
-                 Features = mode.Features,
-                 Preferences = mode.Preferences,
-                 MoreInformation = mode.MoreInformation,
-                 Duration = mode.Duration,
-            };
-
-            context.Events.Add(adEvent);
-            await context.SaveChangesAsync();
-
-            return RedirectToAction("Add", "Event");
-
-        }
+        
 
         public async Task<IActionResult> All()
         {
@@ -183,23 +187,110 @@ namespace WineSite.Controllers
         [HttpPost]
         public async Task<IActionResult> DetailsDelivery(DeliveryDetailsViewModel admode)
         {
-            var adDelivery = new DeliveryDetails()
+            var adDelivery = new TicketDelivery()
             {
                 FullName = admode.FullName,
                 Address = admode.Address,
                 City = admode.City,
-                PostCode = admode.PostalCode
+                PostCode = admode.PostalCode,
+                PhoneNumber = admode.PhoneNumber
             };
-            await context.DeliveryDetails.AddAsync(adDelivery);
-            context.SaveChangesAsync();
-
+            await context.TicketDeliveries.AddAsync(adDelivery);
+            await context.SaveChangesAsync();
             return RedirectToAction("Confirmation");
         }
 
-
-        public async Task<IActionResult> Photo()
+        public IActionResult Confirmation()
         {
             return View();
         }
+
+        // за записване за билети 
+        public async Task<IActionResult> AddToCart(int id)
+        {
+            var adToAdd = await context.Events.FindAsync(id);
+
+            if (adToAdd == null)
+            {
+                return BadRequest();
+            }
+
+            string currentUserId = GetUserId();
+
+            var entry = new TicketBuyer()
+            {
+                BuyerId =  currentUserId,
+                EventId = adToAdd.Id
+            };
+
+            context.TicketBuyers.Add(entry);
+            await context.SaveChangesAsync();
+
+           
+            return RedirectToAction("CartTickets", "Event");
+
+        }
+
+        public async Task<IActionResult> CartTickets()
+        {
+            string currentUserId = GetUserId();
+
+            var userTicket = await context
+                .TicketBuyers
+                .Where(ab => ab.BuyerId == currentUserId)
+                .Select(ab => new AddToCartViewModel()
+                {
+                    Id = ab.Events.Id,
+                    TicketName = ab.Events.Name,
+                    PricePerTicket = ab.Events.PriceTicket,
+                    ImageUrl = ab.Events.ImageUrl,
+                    Quentity = ab.Quantity
+                })
+            .ToListAsync();
+
+             
+
+            return View(userTicket);
+        }
+
+        
+
+        
+        public async Task<IActionResult> AdminOrders()
+        {
+            var toDisplay = await context
+                .AdminTicketBasket.Select(d => new AdminOrdersViewModel
+                {
+                    EventName = d.TicketBuyer.Events.Name,
+                    Adress = d.Delivery.Address,
+                    FullName = d.Delivery.FullName,
+                    PhoneNumber = d.Delivery.PhoneNumber,
+                    PostCode = d.Delivery.PostCode,
+                    Quantity = d.TicketBuyer.Quantity,
+                    WholePrice= d.TicketBuyer.WholePrice,
+
+                })
+                .ToListAsync();
+
+            return View(toDisplay);
+        }
+
+        public async Task AddToAdminTicketBasket(int ticketDeliveryId, int eventId, string buyerId)
+        {
+            var adminTicketBasket = new AdminTicketBasket
+            {
+                TicketDeliveryId = ticketDeliveryId,
+                EventId = eventId,
+                BuyerId = buyerId
+            };
+
+            context.AdminTicketBasket.Add(adminTicketBasket);
+            await context.SaveChangesAsync();
+        }
+
+
+        private string GetUserId()
+         => User.FindFirstValue(ClaimTypes.NameIdentifier);
+
     }
 }

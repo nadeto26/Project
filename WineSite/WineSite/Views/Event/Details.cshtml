@@ -1,4 +1,5 @@
-﻿@model EventsViewModel
+﻿@using EventsWebsite.Models;
+@model EventsViewModel
 
 @{
     ViewBag.Title = "Събития детайли";
@@ -27,7 +28,7 @@
         <a class="btn btn-warning btn-sm" asp-controller="Event" asp-action="Edit"
            asp-route-id="@Model.Id">Редактирай</a>
         <a class="ml-2 btn btn-danger btn-sm" asp-controller="Event" asp-action="Delete" asp-route-id="@Model.Id">Изтрия</a>
-        <a class="ml-2 btn btn-danger btn-sm" asp-controller="Event" asp-action="DetailsDelivery" asp-route-id="@Model.Id">Запише се</a>
+        <a class="ml-2 btn btn-danger btn-sm" asp-controller="Event" asp-action="AddToCart" asp-route-id="@Model.Id">Запише се</a>
         </div>
     </div>
  

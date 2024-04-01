@@ -4,11 +4,21 @@ using static WineSite.Data.Constants.Events;
 
 namespace WineSite.Data.Models
 {
+    [Comment("Info for events")]
     public class Events // ще бъде добавено от админа 
     {
         [Key]
         [Comment("Event identifier")]
-        public int Id { get; set; }
+        public int Id { get; set; }  
+
+        [Required]
+        [Comment("Event name")]
+        [MaxLength(NameMaxLength)]
+        public string Name { get; set; } = null!;
+
+        [Required]
+        [Comment("Event imageUrl")]
+        public string ImageUrl { get; set; } = null!;
 
         [Required]
         [Comment("Event date and time")]
