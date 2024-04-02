@@ -76,7 +76,7 @@ namespace WineSite.Areas.Identity.Pages.Account
         {
             returnUrl ??= Url.Content("~/");
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 var user = new ApplicationUser()
                 {

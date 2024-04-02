@@ -19,7 +19,6 @@ namespace WineSite.Data
             builder.ApplyConfiguration(new TypeConfiguration());
             builder.ApplyConfiguration(new WineConfiguration());
             builder.ApplyConfiguration(new WineBuyerConfiguration());
-            builder.ApplyConfiguration(new AdminBasketConfiguration());
             builder.ApplyConfiguration(new TicketBuyerConfiguration());
 
             base.OnModelCreating(builder);
@@ -33,7 +32,7 @@ namespace WineSite.Data
         public DbSet<Wine> Wines { get; set; } = null!;
         public DbSet<TicketBuyer> TicketBuyers { get; set; } = null!;
         public DbSet<TicketDelivery> TicketDeliveries { get; set; } = null!;
-        public DbSet<AdminTicketBasket> AdminTicketBasket { get; set;} = null!;
+        public DbSet<Orders> Orders { get; set; } = null!;
 
 
     }

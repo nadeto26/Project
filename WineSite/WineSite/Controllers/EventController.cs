@@ -88,7 +88,12 @@ namespace WineSite.Controllers
             {
                 return BadRequest();
             }
-
+            var eventCountInTicketBuyers = context.TicketBuyers.Count(t => t.EventId == id);
+            if (eventCountInTicketBuyers > 3)
+            {
+                 
+                return RedirectToAction("All");
+            }
             var eventModel = await EventDetailsId(id);
 
             return View(eventModel);
@@ -193,16 +198,61 @@ namespace WineSite.Controllers
                 Address = admode.Address,
                 City = admode.City,
                 PostCode = admode.PostalCode,
-                PhoneNumber = admode.PhoneNumber
+                PhoneNumber = admode.PhoneNumber,
+                Email = admode.Email
             };
             await context.TicketDeliveries.AddAsync(adDelivery);
             await context.SaveChangesAsync();
             return RedirectToAction("Confirmation");
         }
 
-        public IActionResult Confirmation()
+
+        public async Task<IActionResult> Confirmation()
         {
-            return View();
+                string currentUserId = GetUserId();
+
+                var user = await context.Users.FirstOrDefaultAsync(u => u.Id == currentUserId);
+                if (user == null)
+                {
+                    return BadRequest("User not found");
+                }
+
+                var deliveryDetails = await context.TicketDeliveries.FirstOrDefaultAsync(dd => dd.Email == user.Email);
+                if (deliveryDetails == null)
+                {
+                    return BadRequest("Delivery details not found");
+                }
+
+                var cartEvents = await context.TicketBuyers
+                    .Include(eb => eb.Events)
+                    .Where(eb => eb.BuyerId == currentUserId)
+                    .ToListAsync();
+
+                foreach (var eventBuyer in cartEvents)
+                {
+                    var order = new Orders
+                    {
+                        FullName = deliveryDetails.FullName,
+                        Address = deliveryDetails.Address,
+                        City = deliveryDetails.City,
+                        PostCode = deliveryDetails.PostCode,
+                        Phonenumber = deliveryDetails.PhoneNumber,
+                        BuyerId = currentUserId,
+                        EventId = eventBuyer.Events.Id,
+                        EventName = eventBuyer.Events.Name,
+                        QuentityEvent = 1 // Set the default quantity here, or adjust as needed
+                    };
+
+                    context.Orders.Add(order);
+                }
+
+                context.TicketBuyers.RemoveRange(cartEvents);
+
+                await context.SaveChangesAsync();
+
+                return View();
+            
+
         }
 
         // за записване за билети 
@@ -235,9 +285,8 @@ namespace WineSite.Controllers
         {
             string currentUserId = GetUserId();
 
-            var userTicket = await context
-                .TicketBuyers
-                .Where(ab => ab.BuyerId == currentUserId)
+            var userTickets = await context.TicketBuyers
+                .Where(ab => ab.BuyerId == currentUserId /*&& ab.IsPurchased*/) // Само закупените билети
                 .Select(ab => new AddToCartViewModel()
                 {
                     Id = ab.Events.Id,
@@ -246,48 +295,10 @@ namespace WineSite.Controllers
                     ImageUrl = ab.Events.ImageUrl,
                     Quentity = ab.Quantity
                 })
-            .ToListAsync();
-
-             
-
-            return View(userTicket);
-        }
-
-        
-
-        
-        public async Task<IActionResult> AdminOrders()
-        {
-            var toDisplay = await context
-                .AdminTicketBasket.Select(d => new AdminOrdersViewModel
-                {
-                    EventName = d.TicketBuyer.Events.Name,
-                    Adress = d.Delivery.Address,
-                    FullName = d.Delivery.FullName,
-                    PhoneNumber = d.Delivery.PhoneNumber,
-                    PostCode = d.Delivery.PostCode,
-                    Quantity = d.TicketBuyer.Quantity,
-                    WholePrice= d.TicketBuyer.WholePrice,
-
-                })
                 .ToListAsync();
 
-            return View(toDisplay);
+            return View(userTickets);
         }
-
-        public async Task AddToAdminTicketBasket(int ticketDeliveryId, int eventId, string buyerId)
-        {
-            var adminTicketBasket = new AdminTicketBasket
-            {
-                TicketDeliveryId = ticketDeliveryId,
-                EventId = eventId,
-                BuyerId = buyerId
-            };
-
-            context.AdminTicketBasket.Add(adminTicketBasket);
-            await context.SaveChangesAsync();
-        }
-
 
         private string GetUserId()
          => User.FindFirstValue(ClaimTypes.NameIdentifier);

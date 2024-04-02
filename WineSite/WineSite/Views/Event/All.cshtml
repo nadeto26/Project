@@ -21,16 +21,19 @@
             <div class="col">
                 <!-- Използвайте колони за адаптивност -->
                 <center>
-                    @foreach (var evt in Model)
+                    @if (Model.Count() <= 3)
                     {
-                        <a href="@Url.Action("Details", "Event", new { id = evt.Id })" class="event-card">
-                            <div class="card text-bg-dark position-relative">
-                                <img src="@evt.ImageUrl" class="card-img img-fluid" alt="Event Image">
-                                <div class="card-img-overlay">
-                                    <h5 class="card-text">@evt.Name</h5>
+                        @foreach (var evt in Model)
+                        {
+                            <a href="@Url.Action("Details", "Event", new { id = evt.Id })" class="event-card">
+                                <div class="card text-bg-dark position-relative">
+                                    <img src="@evt.ImageUrl" class="card-img img-fluid" alt="Event Image">
+                                    <div class="card-img-overlay">
+                                        <h5 class="card-text">@evt.Name</h5>
+                                    </div>
                                 </div>
-                            </div>
-                        </a>
+                            </a>
+                        }
                     }
                 </center>
             </div>

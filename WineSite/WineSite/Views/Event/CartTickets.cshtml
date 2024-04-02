@@ -17,32 +17,30 @@
             <img class="card-img-top" src="@item.ImageUrl" alt="Product Image">
             <div class="card-body">
                 <h5 class="card-title">@item.TicketName</h5>
-
                 <p class="card-text"><span class="fw-bold">Price:</span> @item.PricePerTicket BGN</p>
-
                 <div class="form-group">
-                    <label for="quantity-@item.Id">Количество:</label>
+                    <label for="quantity-@item.Quentity">Количество:</label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <button class="btn btn-outline-secondary" type="button" onclick="decreaseQuantity(@item.Id)">-</button>
                         </div>
-                        <input id="quantity-@item.Id" type="number" class="form-control" value="1" min="1">
+                        <input id="quantity-@item.Quentity" type="number" class="form-control" value="1" min="1">
                         <div class="input-group-append">
                             <button class="btn btn-outline-secondary" type="button" onclick="increaseQuantity(@item.Id)">+</button>
                         </div>
                     </div>
                 </div>
 
-                @* <button type="submit" class="btn btn-primary">Update Quantity</button>*@
-                <br>
-                <br>
+               
 
                 <form asp-controller="Furniture" asp-action="RemoveFromCart" asp-route-id="@item.Id" method="post">
                     <button type="submit" class="btn btn-danger btn-block fw-bold">Премахни</button>
                 </form>
+
             </div>
         </div>
     }
+
 </div>
 
 <div class="text-center mt-4">

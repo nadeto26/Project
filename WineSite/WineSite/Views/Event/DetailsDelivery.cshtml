@@ -29,6 +29,7 @@
         <input asp-for="PhoneNumber" class="form-control" />
         <span asp-validation-for="PhoneNumber" class="text-danger"></span>
     </div>
+
     <form action="@Url.Action("Confirmation", "Event")" method="get">
         <button type="submit" class="btn btn-primary">Потвърди</button>
     </form>

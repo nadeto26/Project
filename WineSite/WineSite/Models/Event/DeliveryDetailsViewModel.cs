@@ -14,6 +14,10 @@ namespace EventsWebsite.Models
         [Display(Name = "Адрес")]
         public string Address { get; set; } = null!;
 
+        [Required(ErrorMessage = "Моля, въведете имейла, с който се регистрирахте.")]
+        [Display(Name = "Имейл")]
+        public string Email { get; set; } = null!;
+
         [Required(ErrorMessage = "Моля, въведете град за доставка.")]
         [Display(Name = "Град")]
         public string City { get; set; } = null!;

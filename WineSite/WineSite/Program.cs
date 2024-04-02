@@ -46,14 +46,14 @@ namespace WineSite
 
             if (app.Environment.IsDevelopment())
             {
-                app.UseExceptionHandler("/Home/Error/500");
-                app.UseStatusCodePagesWithRedirects("/Home/Error?statusCode={0}");
-                app.UseHsts();
+                app.UseDeveloperExceptionPage();
+                app.UseMigrationsEndPoint();
             }
             else
             {
-                app.UseDeveloperExceptionPage();
-                app.UseMigrationsEndPoint();
+                app.UseExceptionHandler("/Home/Error/500");
+                app.UseStatusCodePagesWithRedirects("/Home/Error?statusCode={0}");
+                app.UseHsts();
             }
 
             app.UseHttpsRedirection();

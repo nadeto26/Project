@@ -95,6 +95,11 @@ namespace WineSite.Data
             //Adress 
             public const int TicketDeliveryAdressMaxLength = 100;
             public const int TicketDeliveryAdressMinLength = 5;
+
+            //Email
+            public const int TicketDeliveryEmailMaxLength = 50;
+            public const int TicketDeliveryEmailMinLength = 7;
+
         }
     }
 }

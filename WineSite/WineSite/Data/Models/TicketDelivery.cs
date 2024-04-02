@@ -20,6 +20,11 @@ namespace WineSite.Data.Models
         public string Address { get; set; } = null!;
 
         [Required]
+        [Comment("Tickets delivery user email")]
+        [MaxLength(TicketDeliveryEmailMaxLength)]
+        public string Email { get; set; } = null!;
+
+        [Required]
         [Comment("Tickets delivery user phone number")]
         public string PhoneNumber { get; set; } = null!;
 

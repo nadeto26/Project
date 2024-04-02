@@ -159,27 +159,6 @@ namespace WineSite.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("WineSite.Data.Models.AdminTicketBasket", b =>
-                {
-                    b.Property<int>("TicketDeliveryId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("BuyerId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("EventId")
-                        .HasColumnType("int");
-
-                    b.HasKey("TicketDeliveryId");
-
-                    b.HasIndex("EventId", "BuyerId");
-
-                    b.ToTable("AdminTicketBasket");
-
-                    b.HasComment("Info for the admin dor the orders of tickets");
-                });
-
             modelBuilder.Entity("WineSite.Data.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
@@ -259,7 +238,7 @@ namespace WineSite.Data.Migrations
                         {
                             Id = "dea12856-c198-4129-b3f3-b893d8395082",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "991de6bf-772d-4bb4-a0c8-76a721bae0e1",
+                            ConcurrencyStamp = "6d0bc094-9599-4cc8-925b-04c6789502fb",
                             Email = "petarkarapetrov@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "Petar",
@@ -267,9 +246,9 @@ namespace WineSite.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "petarkarapetrov@gmail.com",
                             NormalizedUserName = "petarkarapetrov@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEOZG1MeNfkS0zYITidwPYCnRBD0Re/JKSL/XP9yqLcMb8Nl+gymnhLtPXSeAIo61tQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEEHNF655nTxLtn+2bGk8ckw1UN5eMA9v8CzCbIvTiwHUazQ4yHh/8D6viff9xDP9zg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "a78c1d40-6e85-498f-9acc-c8139be0774b",
+                            SecurityStamp = "96ec46b3-a6d5-4ace-99f2-23d470afe1bf",
                             TwoFactorEnabled = false,
                             UserName = "petarkarapetrov@gmail.com"
                         },
@@ -277,7 +256,7 @@ namespace WineSite.Data.Migrations
                         {
                             Id = "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "cf9e4fea-c9db-453d-90d9-5ff43cd38f8c",
+                            ConcurrencyStamp = "62621c88-af1d-437a-8162-3b41094a2dba",
                             Email = "ivana.burgilova@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "Ivana",
@@ -285,9 +264,9 @@ namespace WineSite.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ivana.burgilova@gmail.com",
                             NormalizedUserName = "ivana.burgilova@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEB6xKclPRrKj4YVpyujTBkuAtJxBdX/tcrdMV46HgDr6G75lDVg/m+9q4VX2qnZTWg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBh4Zv3NN3P5QLJQgZC6srAtKurD4wWxbHbPvvNWjCj7uMsHza5aD9gdHdgsUC0PDQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "4c97f290-0b59-4882-8a77-fbb5c0760b74",
+                            SecurityStamp = "36b08cd0-feff-48fb-b3df-044e94942aa3",
                             TwoFactorEnabled = false,
                             UserName = "ivana.burgilova@gmail.com"
                         });
@@ -376,6 +355,61 @@ namespace WineSite.Data.Migrations
                     b.HasComment("Info for events");
                 });
 
+            modelBuilder.Entity("WineSite.Data.Models.Orders", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("BuyerId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("EventId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("EventName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phonenumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PostCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("QuentityEvent")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BuyerId");
+
+                    b.HasIndex("EventId");
+
+                    b.ToTable("Orders");
+                });
+
             modelBuilder.Entity("WineSite.Data.Models.Recipe", b =>
                 {
                     b.Property<int>("Id")
@@ -458,6 +492,12 @@ namespace WineSite.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasComment("Tickets delivery city");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasComment("Tickets delivery user email");
 
                     b.Property<string>("FullName")
                         .IsRequired()
@@ -764,23 +804,23 @@ namespace WineSite.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("WineSite.Data.Models.AdminTicketBasket", b =>
+            modelBuilder.Entity("WineSite.Data.Models.Orders", b =>
                 {
-                    b.HasOne("WineSite.Data.Models.TicketDelivery", "Delivery")
+                    b.HasOne("WineSite.Data.Models.ApplicationUser", "Buyer")
                         .WithMany()
-                        .HasForeignKey("TicketDeliveryId")
+                        .HasForeignKey("BuyerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("WineSite.Data.Models.TicketBuyer", "TicketBuyer")
+                    b.HasOne("WineSite.Data.Models.Events", "Events")
                         .WithMany()
-                        .HasForeignKey("EventId", "BuyerId")
+                        .HasForeignKey("EventId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Delivery");
+                    b.Navigation("Buyer");
 
-                    b.Navigation("TicketBuyer");
+                    b.Navigation("Events");
                 });
 
             modelBuilder.Entity("WineSite.Data.Models.TicketBuyer", b =>
