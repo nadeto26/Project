@@ -5,22 +5,37 @@
         <form method="post">
             <div class="form-group">
                 <label asp-for="Name"></label>
-                <input asp-for="Name" class="form-control" placeholder="Name...">
+                <input asp-for="Name" class="form-control" placeholder="Име">
                 <span asp-validation-for="Name" class="small text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Country"></label>
-                <input asp-for="Country" class="form-control" placeholder="Country...">
+                <input asp-for="Country" class="form-control" placeholder="Държава">
                 <span asp-validation-for="Country" class="small text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Importer"></label>
+                <input asp-for="Importer" class="form-control" placeholder="Вносител">
+                <span asp-validation-for="Importer" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Manufucturer"></label>
+                <input asp-for="Manufucturer" class="form-control" placeholder="Производство">
+                <span asp-validation-for="Manufucturer" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Sort"></label>
+                <input asp-for="Sort" class="form-control" placeholder="Сорт">
+                <span asp-validation-for="Sort" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="Description"></label>
-                <textarea asp-for="Description" rows="4" class="form-control" placeholder="Two bedrooms..."></textarea>
+                <textarea asp-for="Description" rows="4" class="form-control" placeholder="Description..."></textarea>
                 <span asp-validation-for="Description" class="small text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ImageUrl"></label>
-                <input asp-for="ImageUrl" class="form-control" placeholder="Your fine URL here...">
+                <input asp-for="ImageUrl" class="form-control" placeholder="Your image URL here...">
                 <span asp-validation-for="ImageUrl" class="small text-danger"></span>
             </div>
             <div class="form-group">
@@ -31,9 +46,9 @@
             <div class="form-group">
                 <label asp-for="TypeId"></label>
                 <select asp-for="TypeId" class="form-control">
-                    @foreach (var category in Model.Types)
+                    @foreach (var types in Model.Types)
                     {
-                        <option value="@category.Id">@category.Name</option>
+                        <option value="@types.Id">@types.TypeName</option>
                     }
                 </select>
                 <span asp-validation-for="TypeId" class="small text-danger"></span>
@@ -42,6 +57,7 @@
             <div class="text-center">
                 <input class="btn btn-primary mt-3" type="submit" value="Save" />
             </div>
+
         </form>
     </div>
 </div>

@@ -2,6 +2,7 @@
 using static WineSite.Data.Constants.Wine;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.CodeAnalysis.Operations;
 
 namespace WineSite.Data.Models
 {
@@ -67,13 +68,8 @@ namespace WineSite.Data.Models
         [Comment("Wine's bottle in ml")]
         public int Bottle  { get; set; }
 
-        [Required]
-        public int VinarId { get; set; }
+        public int Quantity { get; set; }
 
-        
-        public Vinar Vinar { get; set; } = null!;
-
-        
 
 
     }

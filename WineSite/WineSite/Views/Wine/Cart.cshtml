@@ -1,6 +1,67 @@
-﻿@model AllWinesQuaryModel
+﻿@model IEnumerable<WineCart>
 @{
-    ViewBag.Tittle = "Количка";
+    ViewBag.Title = "Количка";
+
+    // Изчисляване на общата цена, като се вземат предвид цените на всички продукти
+    decimal totalPrice = Model.Sum(item => item.Price);
 }
-<h2 class="text-center">@ViewBag.Titlle</h2>
+
+<h2 class="text-center">@ViewBag.Title</h2>
 <hr />
+
+<div class="row justify-content-center">
+    @foreach (var item in Model)
+    {
+        <div class="card col-md-4 mb-4">
+            <img class="card-img-top" src="@item.ImageUrl" alt="Product Image">
+            <div class="card-body">
+                <h5 class="card-title">@item.Name</h5>
+
+                <p class="card-text"><span class="fw-bold">Price:</span> @item.Price BGN</p>
+
+                <div class="form-group">
+                    <label for="quantity-@item.Id">Количество:</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <button class="btn btn-outline-secondary" type="button" onclick="decreaseQuantity(@item.Id)">-</button>
+                        </div>
+                        <input id="quantity-@item.Id" type="number" class="form-control" value="1" min="1">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button" onclick="increaseQuantity(@item.Id)">+</button>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <form asp-controller="Wine" asp-action="DeleteFromCart" asp-route-id="@item.Id" method="post">
+                    <button type="submit" class="btn btn-danger btn-block fw-bold">Премахни</button>
+                </form>
+            </div>
+        </div>
+    }
+</div>
+
+<div class="text-center mt-4">
+    <h4>Total Price: <span id="total-price">@totalPrice</span> BGN</h4>
+</div>
+
+<form action="@Url.Action("DetailsDelivery","Wine")" method="get">
+    <button type="submit" class="btn btn-success">Завърши поръчката</button>
+</form>
+
+@section Scripts {
+    <script>
+        // Функция за актуализиране на общата цена
+        function updateTotalPrice() {
+            var totalPrice = 0;
+            $('.card').each(function () {
+                var price = parseFloat($(this).find('.card-text .price').text());
+                var quantity = parseInt($(this).find('.quantity-input').val());
+                totalPrice += price * quantity;
+            });
+            $('#total-price').text(totalPrice.toFixed(2));
+        }
+    </script>
+
+
+}

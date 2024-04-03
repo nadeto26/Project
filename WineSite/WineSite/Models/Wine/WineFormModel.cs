@@ -66,6 +66,8 @@ namespace WineSite.Models.Wine
         [Display(Name = "Бутилка")]
         public int Bottle { get; set; }
 
+        public int Quantity { get; set; }
+
         public IEnumerable<WineTypeServicesModel> Types { get; set; }
            = new List<WineTypeServicesModel>();
 

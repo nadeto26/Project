@@ -59,7 +59,7 @@ namespace WineSite.Data.SeedDb
                 Harvest = 2020,
                 AlcoholContent = 12,
                 Bottle = 750,
-                VinarId = Vinar.Id
+               
             };
             SecondWine = new Wine()
             {
@@ -76,8 +76,7 @@ namespace WineSite.Data.SeedDb
                 Sort = "Grillo",
                 Harvest = 2020,
                 AlcoholContent = 12,
-                Bottle = 750,
-                VinarId = Vinar.Id
+                Bottle = 750,  
             };
             ThirdWine = new Wine()
             {
@@ -95,7 +94,7 @@ namespace WineSite.Data.SeedDb
                 Harvest = 2020,
                 AlcoholContent = 12,
                 Bottle = 750,
-                VinarId = Vinar.Id
+                
             };
         }
 

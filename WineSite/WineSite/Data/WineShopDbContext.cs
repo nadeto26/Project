@@ -25,7 +25,7 @@ namespace WineSite.Data
         }
 
         public DbSet<Events> Events { get; set; } = null!;
-        public DbSet<WineBuyer> EventWineBuyers { get; set; } = null!;
+        public DbSet<WineBuyer> WineBuyers { get; set; } = null!;
         public DbSet<Recipe> Recipes { get; set; } = null!;
         public DbSet<Type> Types { get; set; } = null!;
         public DbSet<Vinar> Vinar { get; set; } = null!;
@@ -33,7 +33,7 @@ namespace WineSite.Data
         public DbSet<TicketBuyer> TicketBuyers { get; set; } = null!;
         public DbSet<TicketDelivery> TicketDeliveries { get; set; } = null!;
         public DbSet<Orders> Orders { get; set; } = null!;
-
-
+        public DbSet<OrderWine> OrderWines { get; set; } = null!;
+        public DbSet<WineDelivery> WineDeliveries { get; set; } = null!;
     }
 }

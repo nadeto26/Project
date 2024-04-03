@@ -1,11 +1,9 @@
-﻿using EventsWebsite.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using System.Security.Claims;
 using WineSite.Data;
 using WineSite.Models.Admin;
-using WineSite.Models.Event;
+ 
 
 namespace WineSite.Controllers
 {
@@ -25,6 +23,7 @@ namespace WineSite.Controllers
                     FullName = d.FullName,
                     PostCode = d.PostCode,
                     Address = d.Address,
+                    Email = d.Email,
                     City = d.City,
                     QuentityEvent = d.QuentityEvent,
                     EventName = d.EventName,
@@ -34,6 +33,22 @@ namespace WineSite.Controllers
 
             return View(toDisplay);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteOrder(int orderId)
+        {
+            var order = await context.Orders.FirstOrDefaultAsync(o => o.Id == orderId);
+            if (order == null)
+            {
+                return NotFound();
+            }
+
+            context.Orders.Remove(order);
+            await context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Orders));
+        }
+
 
         private string GetUserId()
         => User.FindFirstValue(ClaimTypes.NameIdentifier);

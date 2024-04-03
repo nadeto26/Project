@@ -22,5 +22,8 @@ namespace WineSite.Data.Models
         [Required]
         [ForeignKey("WineId")]
         public Wine Wine { get; set; } = null!;
+
+        [Comment("Wine quantity")]
+        public int Quantity  { get; set; }
     }
 }

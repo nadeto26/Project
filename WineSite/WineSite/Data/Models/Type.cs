@@ -19,8 +19,6 @@ namespace WineSite.Data.Models
         [Comment("Type Name")]
         public string Name  { get; set; } = null!;
 
-         
-
         public IEnumerable<Wine>Wines { get; set; }
         
     }

@@ -234,6 +234,7 @@ namespace WineSite.Controllers
                     {
                         FullName = deliveryDetails.FullName,
                         Address = deliveryDetails.Address,
+                        Email = deliveryDetails.Email,
                         City = deliveryDetails.City,
                         PostCode = deliveryDetails.PostCode,
                         Phonenumber = deliveryDetails.PhoneNumber,

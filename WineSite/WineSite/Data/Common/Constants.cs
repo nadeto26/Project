@@ -101,5 +101,20 @@ namespace WineSite.Data
             public const int TicketDeliveryEmailMinLength = 7;
 
         }
+
+        public static class WineDelivery
+        {
+            //FullName 
+            public const int WineDeliveryNameMaxLength = 50;
+            public const int WineDeliveryNameMinLength = 5;
+
+            //Adress 
+            public const int WineDeliveryAdressMaxLength = 100;
+            public const int WineDeliveryAdressMinLength = 5;
+
+            //Email
+            public const int WineDeliveryEmailMaxLength = 50;
+            public const int WineDeliveryEmailMinLength = 7;
+        }
     }
 }

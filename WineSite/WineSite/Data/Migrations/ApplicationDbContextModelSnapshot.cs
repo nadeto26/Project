@@ -238,7 +238,7 @@ namespace WineSite.Data.Migrations
                         {
                             Id = "dea12856-c198-4129-b3f3-b893d8395082",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "6d0bc094-9599-4cc8-925b-04c6789502fb",
+                            ConcurrencyStamp = "a2ac5ec0-ac96-4154-bdfe-76cf90e9e32c",
                             Email = "petarkarapetrov@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "Petar",
@@ -246,9 +246,9 @@ namespace WineSite.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "petarkarapetrov@gmail.com",
                             NormalizedUserName = "petarkarapetrov@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEHNF655nTxLtn+2bGk8ckw1UN5eMA9v8CzCbIvTiwHUazQ4yHh/8D6viff9xDP9zg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGv10u9mYphNz8rg9Q00wMa+nNhmhz+eBzG2yiAZS67PaNovQK3OMOemxrkGY7XoaQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "96ec46b3-a6d5-4ace-99f2-23d470afe1bf",
+                            SecurityStamp = "9ba7cdeb-6522-499e-8b1a-35d3d607f01a",
                             TwoFactorEnabled = false,
                             UserName = "petarkarapetrov@gmail.com"
                         },
@@ -256,7 +256,7 @@ namespace WineSite.Data.Migrations
                         {
                             Id = "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "62621c88-af1d-437a-8162-3b41094a2dba",
+                            ConcurrencyStamp = "1528f99c-46b4-4bc1-aea5-7f69ec4fdc68",
                             Email = "ivana.burgilova@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "Ivana",
@@ -264,9 +264,9 @@ namespace WineSite.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ivana.burgilova@gmail.com",
                             NormalizedUserName = "ivana.burgilova@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBh4Zv3NN3P5QLJQgZC6srAtKurD4wWxbHbPvvNWjCj7uMsHza5aD9gdHdgsUC0PDQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAELhHF4NmEOZ7ej0Nw+pf0FAYaNHn8jlfJfMWqf3IVGYXhOTupFDECU5Y6qwPseU+2A==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "36b08cd0-feff-48fb-b3df-044e94942aa3",
+                            SecurityStamp = "8429686d-d7a8-430a-9d55-a2585f8da761",
                             TwoFactorEnabled = false,
                             UserName = "ivana.burgilova@gmail.com"
                         });
@@ -408,6 +408,61 @@ namespace WineSite.Data.Migrations
                     b.HasIndex("EventId");
 
                     b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("WineSite.Data.Models.OrderWine", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("BuyerId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phonenumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PostCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("QuentityWine")
+                        .HasColumnType("int");
+
+                    b.Property<int>("WineId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("WineName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BuyerId");
+
+                    b.HasIndex("WineId");
+
+                    b.ToTable("OrderWines");
                 });
 
             modelBuilder.Entity("WineSite.Data.Models.Recipe", b =>
@@ -653,6 +708,9 @@ namespace WineSite.Data.Migrations
                         .HasColumnType("decimal(18,2)")
                         .HasComment("Wine's price");
 
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
                     b.Property<string>("Sort")
                         .IsRequired()
                         .HasMaxLength(70)
@@ -662,7 +720,7 @@ namespace WineSite.Data.Migrations
                     b.Property<int>("TypeId")
                         .HasColumnType("int");
 
-                    b.Property<int>("VinarId")
+                    b.Property<int?>("VinarId")
                         .HasColumnType("int");
 
                     b.Property<int>("Year")
@@ -693,9 +751,9 @@ namespace WineSite.Data.Migrations
                             Manufucturer = "Cantine Sociale Paolini Societa Cooperativa Agricola – Marsala, Italy",
                             Name = "Био бялов вино Сицилианско",
                             Price = 9.99m,
+                            Quantity = 0,
                             Sort = "Grillo",
                             TypeId = 1,
-                            VinarId = 1,
                             Year = 2020
                         },
                         new
@@ -711,9 +769,9 @@ namespace WineSite.Data.Migrations
                             Manufucturer = "Cantine Sociale Paolini Societa Cooperativa Agricola – Marsala, Italy",
                             Name = "Био вино червено Nеro D'Avola",
                             Price = 9.99m,
+                            Quantity = 0,
                             Sort = "Grillo",
                             TypeId = 2,
-                            VinarId = 1,
                             Year = 2020
                         },
                         new
@@ -729,9 +787,9 @@ namespace WineSite.Data.Migrations
                             Manufucturer = "Cantine Sociale Paolini Societa Cooperativa Agricola – Marsala, Italy",
                             Name = "Био вино розе JP.Chenet Cinsault-Grenache",
                             Price = 9.99m,
+                            Quantity = 0,
                             Sort = "Grillo",
                             TypeId = 3,
-                            VinarId = 1,
                             Year = 2020
                         });
                 });
@@ -744,13 +802,65 @@ namespace WineSite.Data.Migrations
                     b.Property<string>("BuyerId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int")
+                        .HasComment("Wine quantity");
+
                     b.HasKey("WineId", "BuyerId");
 
                     b.HasIndex("BuyerId");
 
-                    b.ToTable("EventWineBuyers");
+                    b.ToTable("WineBuyers");
 
                     b.HasComment("Wine cart");
+                });
+
+            modelBuilder.Entity("WineSite.Data.Models.WineDelivery", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasComment("Wine delivery user adress");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasComment("Wine delivery city");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasComment("Wine delivery user email");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasComment("Wine delivery user full name ");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasComment("Wine delivery user phone number");
+
+                    b.Property<string>("PostCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasComment("Wine delivery city postcode");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("WineDeliveries");
+
+                    b.HasComment("Info for wine delivery");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -823,6 +933,25 @@ namespace WineSite.Data.Migrations
                     b.Navigation("Events");
                 });
 
+            modelBuilder.Entity("WineSite.Data.Models.OrderWine", b =>
+                {
+                    b.HasOne("WineSite.Data.Models.ApplicationUser", "Buyer")
+                        .WithMany()
+                        .HasForeignKey("BuyerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WineSite.Data.Models.Wine", "Wines")
+                        .WithMany()
+                        .HasForeignKey("WineId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Buyer");
+
+                    b.Navigation("Wines");
+                });
+
             modelBuilder.Entity("WineSite.Data.Models.TicketBuyer", b =>
                 {
                     b.HasOne("WineSite.Data.Models.ApplicationUser", "Buyer")
@@ -861,15 +990,11 @@ namespace WineSite.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("WineSite.Data.Models.Vinar", "Vinar")
+                    b.HasOne("WineSite.Data.Models.Vinar", null)
                         .WithMany("Wines")
-                        .HasForeignKey("VinarId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("VinarId");
 
                     b.Navigation("Type");
-
-                    b.Navigation("Vinar");
                 });
 
             modelBuilder.Entity("WineSite.Data.Models.WineBuyer", b =>
