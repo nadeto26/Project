@@ -11,8 +11,127 @@ html {
 html {
   position: relative;
   min-height: 100%;
+
 }
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#background {
+    height: 100%;
+    width: 100%;
+    background-image: url('./images/background.jpg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+#bg-img {
+    position: absolute;
+    background-color: black;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0.8;
+    z-index: 0;
+}
+
+#background p {
+    position: absolute;
+    width: 60%;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 60px;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    line-height: 100px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+
+.buttons {
+    position: absolute;
+    top: calc(40% + 100px);
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+}
+
+.bulgaria, .english {
+    background-color: rgb(202, 198, 225);
+    color: rgb(38, 38, 69);
+    border: 2px solid;
+    border-radius: 20px;
+    border: none;
+    padding: 10px 25px;
+    margin: 30px;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+    .bulgaria:hover, .english:hover {
+        background-color: rgb(38, 38, 69);
+        color: rgb(202, 198, 225);
+    }
 
 body {
   margin-bottom: 60px;
 }
+
+.event-card {
+    position: relative;
+    overflow: hidden; /* Скрива прозрачния слой */
+}
+
+    .event-card:hover .event-card-overlay {
+        opacity: 0.7; /* Непрозрачност на затъмнения слой при ховър */
+    }
+
+.event-card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black; /* Цвят на затъмнен слой */
+    opacity: 0; /* Начална непрозрачност */
+    transition: opacity 0.3s ease; /* Плавен преход при промяна на непрозрачността */
+}
+
+.event-card:hover .card-text {
+    color: white; /* Променя цвета на текста на черен при ховър */
+}
+
+.card-text {
+    color: white; /* Цвят на текста по подразбиране */
+}
+
+.reduced-height-carousel {
+    max-height: 400px;  
+    /*overflow: hidden;*/ /* Скриване на съдържанието, което надвишава височината на карусела */
+}
+
+.carousel-item img {
+    max-height: 400px;  
+    width: auto; 
+}
+
+ 
+ 
+
+
+
+
+
+ 

@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using WineSite.Contracts;
 using WineSite.Data;
 using WineSite.Data.Models;
+using WineSite.Infrastructure;
 using WineSite.Services;
 
 namespace WineSite
@@ -33,6 +34,7 @@ namespace WineSite
                 options.Password.RequireNonAlphanumeric = false;
 
             })
+                  .AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<WineShopDbContext>();
 
             builder.Services.AddControllersWithViews();
@@ -40,8 +42,8 @@ namespace WineSite
             builder.Services.AddScoped<IWineServices, WineServices>();
 
             var app = builder.Build();
+            app.SeedAdmin();
 
-            
             if (app.Environment.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

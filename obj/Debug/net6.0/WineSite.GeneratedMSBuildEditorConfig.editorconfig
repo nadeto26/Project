@@ -1,0 +1,245 @@
+is_global = true
+build_property.TargetFramework = net6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = WineSite
+build_property.RootNamespace = WineSite
+build_property.ProjectDir = C:\Users\Admin\Downloads\WineSite\WineSite\
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\Admin\Downloads\WineSite\WineSite
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/Users/Admin/Downloads/WineSite/WineSite/Areas/Identity/Pages/Account/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxMb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Downloads/WineSite/WineSite/Areas/Identity/Pages/Account/Register.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxSZWdpc3Rlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Downloads/WineSite/WineSite/Areas/Identity/Pages/Account/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxfVmlld0ltcG9ydHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Downloads/WineSite/WineSite/Areas/Identity/Pages/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZhbGlkYXRpb25TY3JpcHRzUGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Downloads/WineSite/WineSite/Areas/Identity/Pages/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Downloads/WineSite/WineSite/Views/Home/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxFcnJvci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Downloads/WineSite/WineSite/Views/Home/Error400.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxFcnJvcjQwMC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Downloads/WineSite/WineSite/Views/Home/Error401.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxFcnJvcjQwMS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Downloads/WineSite/WineSite/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Downloads/WineSite/WineSite/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Downloads/WineSite/WineSite/Views/Shared/_LoginPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Mb2dpblBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Downloads/WineSite/WineSite/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Downloads/WineSite/WineSite/Views/Wine/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2luZVxBZGQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Downloads/WineSite/WineSite/Views/Wine/All.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2luZVxBbGwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Downloads/WineSite/WineSite/Views/Wine/Cart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2luZVxDYXJ0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Downloads/WineSite/WineSite/Views/Wine/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2luZVxEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Downloads/WineSite/WineSite/Views/Wine/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2luZVxEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Downloads/WineSite/WineSite/Views/Wine/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2luZVxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Downloads/WineSite/WineSite/Views/Wine/_WineFormPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2luZVxfV2luZUZvcm1QYXJ0aWFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Downloads/WineSite/WineSite/Views/Wine/_WinePartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2luZVxfV2luZVBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Downloads/WineSite/WineSite/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Downloads/WineSite/WineSite/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Downloads/WineSite/WineSite/WineSite/Areas/Identity/Pages/Account/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = V2luZVNpdGVcQXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxMb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Downloads/WineSite/WineSite/WineSite/Areas/Identity/Pages/Account/Register.cshtml]
+build_metadata.AdditionalFiles.TargetPath = V2luZVNpdGVcQXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxSZWdpc3Rlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Downloads/WineSite/WineSite/WineSite/Areas/Identity/Pages/Account/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = V2luZVNpdGVcQXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxfVmlld0ltcG9ydHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Downloads/WineSite/WineSite/WineSite/Areas/Identity/Pages/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = V2luZVNpdGVcQXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZhbGlkYXRpb25TY3JpcHRzUGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Downloads/WineSite/WineSite/WineSite/Areas/Identity/Pages/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = V2luZVNpdGVcQXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Downloads/WineSite/WineSite/WineSite/Views/Event/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = V2luZVNpdGVcVmlld3NcRXZlbnRcQWRkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Downloads/WineSite/WineSite/WineSite/Views/Event/AdminOrders.cshtml]
+build_metadata.AdditionalFiles.TargetPath = V2luZVNpdGVcVmlld3NcRXZlbnRcQWRtaW5PcmRlcnMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Downloads/WineSite/WineSite/WineSite/Views/Event/All.cshtml]
+build_metadata.AdditionalFiles.TargetPath = V2luZVNpdGVcVmlld3NcRXZlbnRcQWxsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Downloads/WineSite/WineSite/WineSite/Views/Event/CartTickets.cshtml]
+build_metadata.AdditionalFiles.TargetPath = V2luZVNpdGVcVmlld3NcRXZlbnRcQ2FydFRpY2tldHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Downloads/WineSite/WineSite/WineSite/Views/Event/Confirmation.cshtml]
+build_metadata.AdditionalFiles.TargetPath = V2luZVNpdGVcVmlld3NcRXZlbnRcQ29uZmlybWF0aW9uLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Downloads/WineSite/WineSite/WineSite/Views/Event/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = V2luZVNpdGVcVmlld3NcRXZlbnRcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Downloads/WineSite/WineSite/WineSite/Views/Event/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = V2luZVNpdGVcVmlld3NcRXZlbnRcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Downloads/WineSite/WineSite/WineSite/Views/Event/DetailsDelivery.cshtml]
+build_metadata.AdditionalFiles.TargetPath = V2luZVNpdGVcVmlld3NcRXZlbnRcRGV0YWlsc0RlbGl2ZXJ5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Downloads/WineSite/WineSite/WineSite/Views/Home/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = V2luZVNpdGVcVmlld3NcSG9tZVxFcnJvci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Downloads/WineSite/WineSite/WineSite/Views/Home/Error400.cshtml]
+build_metadata.AdditionalFiles.TargetPath = V2luZVNpdGVcVmlld3NcSG9tZVxFcnJvcjQwMC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Downloads/WineSite/WineSite/WineSite/Views/Home/Error401.cshtml]
+build_metadata.AdditionalFiles.TargetPath = V2luZVNpdGVcVmlld3NcSG9tZVxFcnJvcjQwMS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Downloads/WineSite/WineSite/WineSite/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = V2luZVNpdGVcVmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Downloads/WineSite/WineSite/WineSite/Views/Recipe/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = V2luZVNpdGVcVmlld3NcUmVjaXBlXEFkZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Downloads/WineSite/WineSite/WineSite/Views/Recipe/All.cshtml]
+build_metadata.AdditionalFiles.TargetPath = V2luZVNpdGVcVmlld3NcUmVjaXBlXEFsbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Downloads/WineSite/WineSite/WineSite/Views/Recipe/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = V2luZVNpdGVcVmlld3NcUmVjaXBlXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Downloads/WineSite/WineSite/WineSite/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = V2luZVNpdGVcVmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Downloads/WineSite/WineSite/WineSite/Views/Shared/_LoginPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = V2luZVNpdGVcVmlld3NcU2hhcmVkXF9Mb2dpblBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Downloads/WineSite/WineSite/WineSite/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = V2luZVNpdGVcVmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Downloads/WineSite/WineSite/WineSite/Views/Wine/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = V2luZVNpdGVcVmlld3NcV2luZVxBZGQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Downloads/WineSite/WineSite/WineSite/Views/Wine/All.cshtml]
+build_metadata.AdditionalFiles.TargetPath = V2luZVNpdGVcVmlld3NcV2luZVxBbGwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Downloads/WineSite/WineSite/WineSite/Views/Wine/Cart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = V2luZVNpdGVcVmlld3NcV2luZVxDYXJ0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Downloads/WineSite/WineSite/WineSite/Views/Wine/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = V2luZVNpdGVcVmlld3NcV2luZVxEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Downloads/WineSite/WineSite/WineSite/Views/Wine/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = V2luZVNpdGVcVmlld3NcV2luZVxEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Downloads/WineSite/WineSite/WineSite/Views/Wine/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = V2luZVNpdGVcVmlld3NcV2luZVxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Downloads/WineSite/WineSite/WineSite/Views/Wine/_WineFormPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = V2luZVNpdGVcVmlld3NcV2luZVxfV2luZUZvcm1QYXJ0aWFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Downloads/WineSite/WineSite/WineSite/Views/Wine/_WinePartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = V2luZVNpdGVcVmlld3NcV2luZVxfV2luZVBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Downloads/WineSite/WineSite/WineSite/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = V2luZVNpdGVcVmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Downloads/WineSite/WineSite/WineSite/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = V2luZVNpdGVcVmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Downloads/WineSite/WineSite/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-cqxkudn1hy
+
+[C:/Users/Admin/Downloads/WineSite/WineSite/WineSite/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = V2luZVNpdGVcVmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-kgl7fi4xii

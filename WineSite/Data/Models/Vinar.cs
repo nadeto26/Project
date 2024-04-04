@@ -21,6 +21,6 @@ namespace WineSite.Data.Models
 
         public IEnumerable<Wine> Wines { get; set; }
 
-        public IEnumerable<MoreInformation> MoreInformation { get; set; }
+        
     }
 }

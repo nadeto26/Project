@@ -4,8 +4,5 @@
     {
          Newest=0,
          Price
-
-
-
     }
 }

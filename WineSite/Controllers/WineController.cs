@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections;
+using System.Data;
 using System.Security.Claims;
 using WineSite.Contracts;
 using WineSite.Models.Wine;
@@ -7,6 +9,7 @@ using WineSite.Services.Wine.Models;
 
 namespace WineSite.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class WineController : Controller
     {
         private readonly IWineServices _wines;

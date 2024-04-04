@@ -1,4 +1,5 @@
 ﻿using System.Dynamic;
+using System.Reflection.Metadata;
 
 namespace WineSite.Data
 {
@@ -40,18 +41,18 @@ namespace WineSite.Data
             public const int NameMaxLength = 50;
             public const int NameMinLength = 3;
 
-            public const int DescriptionMaxLength = 1000;
+            public const int DescriptionMaxLength = 2000;
             public const int DescriptionMinLength = 20;
 
-            public const int NameSpecificsMaxLength = 50;
-            public const int NameSpecificsMinLength = 10;
-
-            public const int NotesMaxLength = 50;
-            public const int NotesMinLength = 5;
+            public const int NotesMaxLength = 100;
+            public const int NotesMinLength = 20;
         }
 
         public static class Events
         {
+            public const int NameMaxLength = 50;
+            public const int NameMinLength = 3;
+
             public const int AdressMaxLength = 50;
             public const int AdressMinLength = 10;
 
@@ -83,6 +84,22 @@ namespace WineSite.Data
             //LastName
             public const int UserLastNameMaxLength = 15;
             public const int UserLastNameMinLength = 3;
+        }
+
+        public static class TicketDelivery
+        {
+            //FullName 
+            public const int TicketDeliveryNameMaxLength = 50;
+            public const int TicketDeliveryNameMinLength = 5;
+
+            //Adress 
+            public const int TicketDeliveryAdressMaxLength = 100;
+            public const int TicketDeliveryAdressMinLength = 5;
+
+            //Email
+            public const int TicketDeliveryEmailMaxLength = 50;
+            public const int TicketDeliveryEmailMinLength = 7;
+
         }
     }
 }

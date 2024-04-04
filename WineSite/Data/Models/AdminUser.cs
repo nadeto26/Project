@@ -1,5 +1,8 @@
-﻿namespace WineSite.Data.Models
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace WineSite.Data.Models
 {
+    [Comment("Admin prop")]
     public class AdminUser
     {
         public const string AdminRoleName = "Administrator";

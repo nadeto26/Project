@@ -8,7 +8,6 @@ namespace WineSite.Data.Models
     {
         public Type()
         {
-            MoreInformation = new List<MoreInformation>();
             Wines = new List<Wine>();
         }
         [Key]
@@ -20,7 +19,7 @@ namespace WineSite.Data.Models
         [Comment("Type Name")]
         public string Name  { get; set; } = null!;
 
-        public IEnumerable<MoreInformation> MoreInformation { get; set; }
+         
 
         public IEnumerable<Wine>Wines { get; set; }
         
