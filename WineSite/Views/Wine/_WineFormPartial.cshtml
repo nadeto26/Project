@@ -31,9 +31,9 @@
             <div class="form-group">
                 <label asp-for="TypeId"></label>
                 <select asp-for="TypeId" class="form-control">
-                    @foreach (var category in Model.Types)
+                    @foreach (var type in Model.Types)
                     {
-                        <option value="@category.Id">@category.Name</option>
+                        <option value="@type.Id">@type.Name</option>
                     }
                 </select>
                 <span asp-validation-for="TypeId" class="small text-danger"></span>

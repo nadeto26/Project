@@ -91,11 +91,11 @@ body {
 
 .event-card {
     position: relative;
-    overflow: hidden; /* Скрива прозрачния слой */
+    overflow: hidden; 
 }
 
     .event-card:hover .event-card-overlay {
-        opacity: 0.7; /* Непрозрачност на затъмнения слой при ховър */
+        opacity: 0.7;  
     }
 
 .event-card-overlay {
@@ -104,28 +104,58 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: black; /* Цвят на затъмнен слой */
-    opacity: 0; /* Начална непрозрачност */
-    transition: opacity 0.3s ease; /* Плавен преход при промяна на непрозрачността */
+    background-color: black;  
+    opacity: 0;  
+    transition: opacity 0.3s ease; 
 }
 
 .event-card:hover .card-text {
-    color: white; /* Променя цвета на текста на черен при ховър */
+    color: white;  
 }
 
 .card-text {
-    color: white; /* Цвят на текста по подразбиране */
+    color: white;  
 }
 
 .reduced-height-carousel {
     max-height: 400px;  
-    /*overflow: hidden;*/ /* Скриване на съдържанието, което надвишава височината на карусела */
+    
 }
 
 .carousel-item img {
     max-height: 400px;  
     width: auto; 
 }
+
+.img{
+    max-height: 400px;
+    width: auto;
+}
+
+body.black-bg {
+    background-color: #000;  
+    color: #fff;  
+}
+
+ 
+.container {
+    width: 80%;  
+    margin: 0 auto;  
+    padding: 20px; 
+}
+
+ 
+h1 {
+    color: #fff; 
+}
+
+.custom-div {
+    background-color: #000; /* Черен фон */
+    color: #fff; /* Бял текст */
+    padding: 10px; /* Вътрешен отстъп */
+}
+
+
 
  
  

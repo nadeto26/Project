@@ -9,7 +9,6 @@ using WineSite.Services.Wine.Models;
 
 namespace WineSite.Controllers
 {
-    [Authorize(Roles = "Administrator")]
     public class WineController : Controller
     {
         private readonly IWineServices _wines;

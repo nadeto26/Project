@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using WineSite.Contracts;
 using WineSite.Data;
 using WineSite.Data.Models;
-using WineSite.Infrastructure;
 using WineSite.Services;
 
 namespace WineSite
@@ -34,26 +33,27 @@ namespace WineSite
                 options.Password.RequireNonAlphanumeric = false;
 
             })
-                  .AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<WineShopDbContext>();
 
             builder.Services.AddControllersWithViews();
             builder.Services.AddScoped<IVinarServices, VinarServices>();
             builder.Services.AddScoped<IWineServices, WineServices>();
+            builder.Services.AddScoped<IRecipeServices, RecipeServices>();
+            builder.Services.AddScoped<IEventServices, EventServices>();
 
             var app = builder.Build();
-            app.SeedAdmin();
 
+            
             if (app.Environment.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseMigrationsEndPoint();
-            }
-            else
             {
                 app.UseExceptionHandler("/Home/Error/500");
                 app.UseStatusCodePagesWithRedirects("/Home/Error?statusCode={0}");
                 app.UseHsts();
+            }
+            else
+            {
+                app.UseDeveloperExceptionPage();
+                app.UseMigrationsEndPoint();
             }
 
             app.UseHttpsRedirection();
