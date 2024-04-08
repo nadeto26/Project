@@ -7,6 +7,7 @@ using System.Security.Claims;
 using WineSite.Contracts;
 using WineSite.Infrastructure;
 using WineSite.Models.Wine;
+using WineSite.Services;
 using WineSite.Services.Wine.Models;
 
 namespace WineSite.Controllers
@@ -20,7 +21,17 @@ namespace WineSite.Controllers
             _wines = wines;
              
         }
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
+            bool result = await _wines.DeleteWineAsync(id);
+            if (!result)
+            {
+                return NotFound();
+            }
 
+            return RedirectToAction("All");
+        }
         public async Task<IActionResult> All([FromQuery] AllWinesQuaryModel query)
         {
             var queryResult = _wines.All(
@@ -87,27 +98,65 @@ namespace WineSite.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            
-            return View(new WineFormModel());
+            if(await _wines.Exist(id)== false)
+            {
+                return BadRequest();
+            }
+
+            var wine = await _wines.WineDetailsById(id);
+
+            var wineTypeId = await _wines.GetWineTypeId(wine.Id);
+
+            var wineModel = new WineFormModel()
+            {
+                Name = wine.Name,
+                TypeId = wineTypeId,
+                Year = wine.Year,
+                ImageUrl = wine.ImageUrl,
+                Description = wine.Description,
+                Country = wine.Country,
+                Importer = wine.Importer,
+                AlcoholContent = wine.AlcoholContent,
+                Bottle = wine.Bottle,
+                Harvest = wine.Harvest,
+                Manufucturer = wine.Manufucturer,
+                Sort = wine.Sort,
+                Price  = wine.Price,
+                Types = await _wines.AllTypes()
+            };
+
+            return View(wineModel);
         }
 
         [HttpPost]
         public async Task<IActionResult> Edit(int id, WineFormModel wine)
         {
+            if(await _wines.Exist(id) == false)
+            {
+                return this.View();
+            }
+
+            if(await _wines.TypeExist(wine.TypeId) == false)
+            {
+                this.ModelState.AddModelError(nameof(wine.TypeId),
+                    "Type does not exist");
+            }
+
+            if(!ModelState.IsValid)
+            {
+                wine.Types = await _wines.AllTypes();
+
+                return View(wine);
+            }
+
+            _wines.Edit(id, wine.Name, wine.TypeId, wine.Year, wine.ImageUrl, wine.Description,
+                wine.Country, wine.Manufucturer, wine.Price, wine.Sort, wine.Harvest, wine.AlcoholContent,
+                wine.Bottle, wine.Importer);
+
             return RedirectToAction(nameof(Details), new { id = "1" });
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Delete(int id)
-        {
-            return View(new WineFormModel());
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Delete(WineFormModel wine)
-        {
-            return View(nameof(All));
-        }
+         
 
         public async Task<IActionResult> Cart()
         {
@@ -123,6 +172,8 @@ namespace WineSite.Controllers
         {
             return RedirectToAction(nameof(Cart));
         }
+
+        
 
         private string GetUserId()
        => User.FindFirstValue(ClaimTypes.NameIdentifier);

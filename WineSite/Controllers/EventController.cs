@@ -31,8 +31,6 @@ namespace WineSite.Controllers
             return View(eventModel);
         }
 
-       
-
         public async Task<IActionResult> Details(int id)
         {
             if (!await eventServices.ExistAsync(id))
@@ -167,6 +165,20 @@ namespace WineSite.Controllers
             {
                 var eventModel = await eventServices.GetEventAsync(id);
                 return View(eventModel);
+            }
+            catch (ArgumentException)
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, EventsViewModel events)
+        {
+            try
+            {
+                await eventServices.UpdateEventAsync(id, events);
+                return RedirectToAction("All", "Event");
             }
             catch (ArgumentException)
             {

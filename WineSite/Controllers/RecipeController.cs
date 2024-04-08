@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using EventsWebsite.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
@@ -40,6 +41,67 @@ namespace WineSite.Controllers
 
             return View(recipeModel);
         }
+
+        [HttpGet]
+        public IActionResult Add()
+        {
+            ReceiptViewModel model = new ReceiptViewModel();
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Add(ReceiptViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                await recipeServices.AddRecipeAsync(model);
+                return RedirectToAction("Add");
+            }
+
+           
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, ReceiptViewModel events)
+        {
+            try
+            {
+                await recipeServices.UpdateRecipeAsync(id, events);
+                return RedirectToAction("All", "Recipe");
+            }
+            catch (ArgumentException)
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            try
+            {
+                var eventModel = await recipeServices.GetRecipeAsync(id);
+                return View(eventModel);
+            }
+            catch (ArgumentException)
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
+            bool result = await recipeServices.DeleteRecipeAsync(id);
+            if (!result)
+            {
+                return NotFound();
+            }
+
+            return RedirectToAction("All");
+        }
+
 
     }
 

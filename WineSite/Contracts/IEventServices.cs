@@ -26,6 +26,8 @@ namespace WineSite.Contracts
 
         Task<EventsViewModel> GetEventAsync(int id);
 
+        Task UpdateEventAsync(int id, EventsViewModel events);
+
         Task<bool> DeleteEventAsync(int id);
 
         Task<bool> AddEventToCartAsync(int eventId, string userId);

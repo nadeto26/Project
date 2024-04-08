@@ -100,7 +100,6 @@ namespace WineSite.Services
                 Sort = sort,
                 Harvest = harvest,
                 Bottle = bottle,
-                //VinarId = vinarId,
                 AlcoholContent = alcoholcontent,
                 Importer = importer 
             };
@@ -169,6 +168,27 @@ namespace WineSite.Services
                 
         }
 
+        public async Task<int> GetWineTypeId(int wineId)
+        {
+            var wine = await _db.Wines.FindAsync(wineId);
+            if (wine != null)
+            {
+                return wine.TypeId;
+            }
+            return -1;  
+        }
 
+        public async Task<bool> DeleteWineAsync(int id)
+        {
+            var wineToDelete = await _db.Wines.FindAsync(id);
+            if (wineToDelete == null)
+            {
+                return false; // Връщаме false, ако събитието не е намерено
+            }
+
+            _db.Wines.Remove(wineToDelete);
+            await _db.SaveChangesAsync();
+            return true;
+        }
     }
 }

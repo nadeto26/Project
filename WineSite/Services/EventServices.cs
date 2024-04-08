@@ -269,6 +269,29 @@ namespace WineSite.Services
             return true;
         }
 
-         
+        public async Task UpdateEventAsync(int id, EventsViewModel events)
+        {
+            var eventToEdit = await _context.Events.FindAsync(id);
+
+            if (eventToEdit == null)
+            {
+                throw new ArgumentException("Event not found");
+            }
+
+            eventToEdit.Name = events.Name;
+            eventToEdit.Features = events.Features;
+            eventToEdit.Description = events.Description;
+            eventToEdit.PriceTicket = events.PriceTicket;
+            eventToEdit.WineList = events.WineList;
+            eventToEdit.Address = events.Address;
+            eventToEdit.DateTime = events.DateTime;
+            eventToEdit.HostName = events.HostName;
+            eventToEdit.Duration = events.Duration;
+            eventToEdit.ImageUrl = events.ImageUrl;
+            eventToEdit.Preferences = events.Preferences;
+            eventToEdit.MoreInformation = events.MoreInformation;
+
+            await _context.SaveChangesAsync();
+        }
     }
 }

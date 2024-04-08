@@ -36,6 +36,11 @@
         </div>
         <p></p>
 
+        <a class="btn btn-warning btn-sm" asp-controller="Recipe" asp-action="Edit" asp-route-id="@Model.Id">Редактирай</a>
+        <form asp-controller="Recipe" asp-action="Delete" asp-route-id="@Model.Id" method="post">
+            <button type="submit" class="ml-2 btn btn-danger btn-sm">Изтрий</button>
+        </form>
+
 
     </div>
 </div>

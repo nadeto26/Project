@@ -1,4 +1,5 @@
-﻿using WineSite.Models.Receipt;
+﻿using EventsWebsite.Models;
+using WineSite.Models.Receipt;
 
 namespace WineSite.Contracts
 {
@@ -9,5 +10,13 @@ namespace WineSite.Contracts
         Task<bool> ExistAsync(int id);
 
         Task<AllRecipeViewModel?> GetRecipeDetailsByIdAsync(int id);
+
+        Task AddRecipeAsync(ReceiptViewModel model);
+
+        Task<ReceiptViewModel> GetRecipeAsync(int id);
+
+        Task UpdateRecipeAsync(int id, ReceiptViewModel events);
+
+        Task<bool> DeleteRecipeAsync(int id);
     }
 }

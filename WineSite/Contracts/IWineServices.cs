@@ -34,6 +34,10 @@ namespace WineSite.Contracts
             string sort, int harvest, int alcoholcontent,
             int bottle, string importer);
 
+        Task<int> GetWineTypeId(int wineId);
+
+        Task<bool> DeleteWineAsync(int id);
+
 
 
 
