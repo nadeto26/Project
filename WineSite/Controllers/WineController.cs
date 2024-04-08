@@ -39,10 +39,6 @@ namespace WineSite.Controllers
             return View(query);
         }
 
-       
-
-
-
         public async Task<IActionResult> Details(int id)
         {
             if(await _wines.Exist(id) == false)

@@ -37,15 +37,11 @@ namespace WineSite.Services
                     || w.Country.ToLower().Contains(searchItem.ToLower()));
             }
 
-            //winesQuery = sorting switch
-            //{
-            //    WineSorting.Price => winesQuery
-            //    .OrderBy(t => t.Price),
-            //    WineSorting.Newest => winesQuery
-            //    .OrderBy(w => w.Name)
-            //    .ThenByDescending(w => w.Id),
-            //    _=> winesQuery.OrderByDescending(w => w.Id)
-            //};
+            winesQuery = sorting switch
+            {
+                WineSorting.LowestPrice => winesQuery.OrderByDescending(f => f.Price),
+                WineSorting.HighestPrice => winesQuery.OrderBy(f => f.Price),
+            };
 
             var wines = winesQuery
                 .Skip((currentPage - 1) * wineperPage)

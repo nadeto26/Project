@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
+using System.Xml.Linq;
 using WineSite.Contracts;
 using WineSite.Data;
 using WineSite.Data.Models;
@@ -15,6 +16,28 @@ namespace WineSite.Services
         public EventServices(WineShopDbContext context)
         {
             _context = context;
+        }
+
+        public async Task AddEventAsync(EventsViewModel model)
+        {
+            var adEvent = new Events()
+            {
+                Name = model.Name,
+                HostName = model.HostName,
+                Address = model.Address,
+                DateTime = model.DateTime,
+                Description = model.Description,
+                ImageUrl = model.ImageUrl,
+                PriceTicket = model.PriceTicket,
+                WineList = model.WineList,
+                Features = model.Features,
+                Preferences = model.Preferences,
+                MoreInformation = model.MoreInformation,
+                Duration = model.Duration,
+            };
+
+            _context.Events.Add(adEvent);
+            await _context.SaveChangesAsync();
         }
 
         public async Task<bool> AddEventToCartAsync(int eventId, string userId)
@@ -56,9 +79,8 @@ namespace WineSite.Services
 
         public async Task ConfirmOrderAsync(string currentUserId)
         {
-            var user = await _context.Users.FindAsync(currentUserId);
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == currentUserId);
 
-            //FirstOrDefaultAsync(u => u.Id == currentUserId);
             if (user == null)
             {
                 throw new Exception("User not found");
@@ -82,15 +104,18 @@ namespace WineSite.Services
                     FullName = deliveryDetails.FullName,
                     Address = deliveryDetails.Address,
                     City = deliveryDetails.City,
+                    Email = deliveryDetails.Email,
                     PostCode = deliveryDetails.PostCode,
                     Phonenumber = deliveryDetails.PhoneNumber,
-                    BuyerId = currentUserId,
-                    EventId = eventBuyer.Events.Id,
+                    EventId = eventBuyer.EventId,
                     EventName = eventBuyer.Events.Name,
-                    QuentityEvent = 1 // Set the default quantity here, or adjust as needed
+                    BuyerId = eventBuyer.BuyerId,
+                    QuentityEvent = eventBuyer.Quantity // Set the default quantity here, or adjust as needed
                 };
 
                 _context.Orders.Add(order);
+
+                
             }
 
             _context.TicketBuyers.RemoveRange(cartEvents);
@@ -125,6 +150,33 @@ namespace WineSite.Services
            .ToListAsync();
 
             return eventsToDisplay;
+        }
+
+        public async Task<EventsViewModel> GetEventAsync(int id)
+        {
+            var eventToEdit = await _context.Events.FindAsync(id);
+
+            if (eventToEdit == null)
+            {
+                throw new ArgumentException("Event not found");
+            }
+
+            return new EventsViewModel()
+            {
+                Name = eventToEdit.Name,
+                DateTime = eventToEdit.DateTime,
+                Preferences = eventToEdit.Preferences,
+                Features = eventToEdit.Features,
+                Description = eventToEdit.Description,
+                PriceTicket = eventToEdit.PriceTicket,
+                WineList = eventToEdit.WineList,
+                Address = eventToEdit.Address,
+                HostName = eventToEdit.HostName,
+                Duration = eventToEdit.Duration,
+                ImageUrl = eventToEdit.ImageUrl,
+                MoreInformation = eventToEdit.MoreInformation,
+            };
+
         }
 
         public async Task<EventsViewModel?> GetEventDetailsByIdAsync(int id)
@@ -172,6 +224,51 @@ namespace WineSite.Services
             return userTickets;
         }
 
-        
+        public async Task<bool> IncreaseQuantityAsync(int eventId, string userId)
+        {
+            var cartItem = await _context.TicketBuyers.FirstOrDefaultAsync(item =>
+                item.EventId == eventId && item.BuyerId == userId);
+
+            if (cartItem == null)
+            {
+                return false;
+            }
+
+            cartItem.Quantity++; // Увеличаване на количеството
+
+            await _context.SaveChangesAsync(); // Запазване на промените в базата данни
+
+            return true;
+        }
+
+        public async Task<bool> DeleteEventAsync(int id)
+        {
+            var eventToDelete = await _context.Events.FindAsync(id);
+            if (eventToDelete == null)
+            {
+                return false; // Връщаме false, ако събитието не е намерено
+            }
+
+            _context.Events.Remove(eventToDelete);
+            await _context.SaveChangesAsync();
+            return true; // Връщаме true, ако изтриването е успешно
+        }
+
+        public async Task<bool> RemoveEventFromCartAsync(int eventId, string userId)
+        {
+            var entryToRemove = await _context.TicketBuyers.FirstOrDefaultAsync(e => e.EventId == eventId && e.BuyerId == userId);
+
+            if (entryToRemove == null)
+            {
+                return false; // Върнете подходящ резултат или хвърлете изключение
+            }
+
+            _context.TicketBuyers.Remove(entryToRemove);
+            await _context.SaveChangesAsync();
+
+            return true;
+        }
+
+         
     }
 }

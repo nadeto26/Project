@@ -1,0 +1,72 @@
+﻿@using EventsWebsite.Models;
+@model EventsViewModel
+
+<div class="row">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" class="form-control" placeholder="Име...">
+                <span asp-validation-for="Name" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateTime"></label>
+                <input asp-for="DateTime" class="form-control" placeholder="Дата и час">
+                <span asp-validation-for="DateTime" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description"></label>
+                <textarea asp-for="Description" rows="4" class="form-control" placeholder="Описание на събитието"></textarea>
+                <span asp-validation-for="Description" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address"></label>
+                <textarea asp-for="Address" rows="4" class="form-control" placeholder="Адрес"></textarea>
+                <span asp-validation-for="Address" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Preferences"></label>
+                <textarea asp-for="Preferences" rows="4" class="form-control" placeholder="Предпочитания"></textarea>
+                <span asp-validation-for="Preferences" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MoreInformation"></label>
+                <textarea asp-for="MoreInformation" rows="4" class="form-control" placeholder="Повече информация"></textarea>
+                <span asp-validation-for="MoreInformation" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HostName"></label>
+                <textarea asp-for="HostName" rows="4" class="form-control" placeholder="Име на водещия"></textarea>
+                <span asp-validation-for="HostName" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WineList"></label>
+                <textarea asp-for="WineList" rows="4" class="form-control" placeholder="Име на водещия"></textarea>
+                <span asp-validation-for="WineList" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Features"></label>
+                <textarea asp-for="Features" rows="4" class="form-control" placeholder="Характеристика"></textarea>
+                <span asp-validation-for="Features" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageUrl"></label>
+                <input asp-for="ImageUrl" class="form-control" placeholder="Your fine URL here...">
+                <span asp-validation-for="ImageUrl" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PriceTicket"></label>
+                <input asp-for="PriceTicket" class="form-control">
+                <span asp-validation-for="PriceTicket" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Duration"></label>
+                <input asp-for="Duration" class="form-control">
+                <span asp-validation-for="Duration" class="small text-danger"></span>
+            </div>
+            <div class="text-center">
+                <input class="btn btn-primary mt-3" type="submit" value="Save" />
+            </div>
+        </form>
+    </div>
+</div>

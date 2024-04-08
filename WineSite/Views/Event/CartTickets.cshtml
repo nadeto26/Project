@@ -13,33 +13,28 @@
 <div class="row justify-content-center">
     @foreach (var item in Model)
     {
-        <div class="card col-md-4 mb-4">
-            <img class="card-img-top" src="@item.ImageUrl" alt="Product Image">
-            <div class="card-body">
-                <h5 class="card-title">@item.TicketName</h5>
-                <p class="card-text"><span class="fw-bold">Price:</span> @item.PricePerTicket BGN</p>
-                <div class="form-group">
-                    <label for="quantity-@item.Quentity">Количество:</label>
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <button class="btn btn-outline-secondary" type="button" onclick="decreaseQuantity(@item.Id)">-</button>
-                        </div>
-                        <input id="quantity-@item.Quentity" type="number" class="form-control" value="1" min="1">
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" type="button" onclick="increaseQuantity(@item.Id)">+</button>
-                        </div>
+        <div class="row justify-content-center">
+            
+                <div class="card col-md-4 mb-4">
+                    <img class="card-img-top" src="@item.ImageUrl" alt="Product Image">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.TicketName</h5>
+                        <p class="card-text"><span class="fw-bold">Price:</span> @item.PricePerTicket BGN</p>
+                    <form asp-controller="Event" asp-action="IncreaseCartItemQuantity" method="post">
+                        <input type="hidden" name="eventId" value="@item.EventId" />
+                        <input type="hidden" name="userId" value="@User.Identity.Name" /> <!-- Използвайте подходяща логика за идентификация на потребителя -->
+                        <button type="submit" class="btn btn-outline-secondary">Увеличи количеството</button>
+                    </form>
+                        <form asp-controller="Event" asp-action="RemoveFromCart" asp-route-id="@item.Id" method="post">
+                            <button type="submit" class="btn btn-danger btn-block fw-bold">Премахни</button>
+                        </form>
                     </div>
                 </div>
-
-               
-
-                <form asp-controller="Furniture" asp-action="RemoveFromCart" asp-route-id="@item.Id" method="post">
-                    <button type="submit" class="btn btn-danger btn-block fw-bold">Премахни</button>
-                </form>
-
-            </div>
+            }
         </div>
-    }
+
+        
+    } 
 
 </div>
 
@@ -51,19 +46,27 @@
     <button type="submit" class="btn btn-success">Завърши поръчката</button>
 </form>
 
+
 @section Scripts {
     <script>
-        // Функция за актуализиране на общата цена
-        function updateTotalPrice() {
-            var totalPrice = 0;
-            $('.card').each(function () {
-                var price = parseFloat($(this).find('.card-text .price').text());
-                var quantity = parseInt($(this).find('.quantity-input').val());
-                totalPrice += price * quantity;
+        function updateQuantity(itemId, newQuantity) {
+            // Изпращане на AJAX заявка за актуализиране на количеството
+            $.ajax({
+                url: '/Event/UpdateCartItemQuantity', // URL към метода в контролера
+                type: 'POST',
+                data: { itemId: itemId, quantity: newQuantity },
+                success: function (result) {
+                    // При успешна заявка може да направите нужните действия
+                    console.log('Quantity updated successfully!');
+                    // Например, можете да обновите съдържанието на страницата или да изпратите други заявки
+                    location.reload(); // Пример за презареждане на страницата след актуализация
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error updating quantity:', error);
+                    // Обработка на грешката при актуализирането на количеството
+                }
             });
-            $('#total-price').text(totalPrice.toFixed(2));
         }
     </script>
+    }
 
-
-}

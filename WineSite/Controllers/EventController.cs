@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Security.Claims;
+using System.Xml.Linq;
 using WineSite.Contracts;
 using WineSite.Data;
 using WineSite.Data.Models;
@@ -30,6 +31,8 @@ namespace WineSite.Controllers
             return View(eventModel);
         }
 
+       
+
         public async Task<IActionResult> Details(int id)
         {
             if (!await eventServices.ExistAsync(id))
@@ -39,7 +42,7 @@ namespace WineSite.Controllers
 
             var eventCountInTicketBuyers = await eventServices.GetEventTicketBuyersCountAsync(id);
 
-            if (eventCountInTicketBuyers > 3)
+            if (eventCountInTicketBuyers > 10)
             {
                 return RedirectToAction("All");
             }
@@ -89,16 +92,30 @@ namespace WineSite.Controllers
                 return BadRequest("User not found");
             }
 
-            try
-            {
-                await eventServices.ConfirmOrderAsync(currentUserId); // Предполагаме, че имате достъп до инстанцията на вашия сервис (_yourService) в контролера
-                return View(); // Извършването на поръчката завърши успешно
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message); // Прихващане на възникналите грешки при изпълнение на ConfirmOrderAsync
-            }
+            
+
+            // Извикваме ConfirmOrderAsync без try-catch блок
+            await eventServices.ConfirmOrderAsync(currentUserId);
+
+            return View();
         }
+
+        public async Task<IActionResult> RemoveFromCart(int id)
+        {
+            string currentUserId = GetUserId();
+
+            bool removedFromCart = await eventServices.RemoveEventFromCartAsync(id, currentUserId);
+
+            if (!removedFromCart)
+            {
+                ModelState.AddModelError(string.Empty, "Неуспешно премахване на събитието от количката.");
+            }
+
+            return RedirectToAction("CartTickets", "Event");
+        }
+
+        
+
 
         public async Task<IActionResult> AddToCart(int id)
         {
@@ -121,6 +138,66 @@ namespace WineSite.Controllers
             var userTickets = await eventServices.GetUserTicketsAsync(currentUserId);
 
             return View(userTickets);
+        }
+
+        [HttpGet]
+        public IActionResult Add()
+        {
+            EventsViewModel model = new EventsViewModel();
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Add(EventsViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                await eventServices.AddEventAsync(model);
+                return RedirectToAction("Add");
+            }
+
+            // Връщане на същата форма с модела, ако има грешки в модела
+            return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            try
+            {
+                var eventModel = await eventServices.GetEventAsync(id);
+                return View(eventModel);
+            }
+            catch (ArgumentException)
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
+            bool result = await eventServices.DeleteEventAsync(id);
+            if (!result)
+            {
+                return NotFound();  
+            }
+
+            return RedirectToAction("All"); 
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> IncreaseCartItemQuantity(int eventId, string userId)
+        {
+            bool success = await eventServices.IncreaseQuantityAsync(eventId, userId);
+            if (!success)
+            {
+                // Обработка на грешка
+                return BadRequest();
+            }
+
+            // Пренасочване към страницата за количката или друга страница
+            return RedirectToAction("CartTickets", "Event");
         }
 
 

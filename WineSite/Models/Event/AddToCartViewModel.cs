@@ -11,5 +11,7 @@
         public string ImageUrl { get; set; } = null!;
 
         public int Quentity { get; set; }
+
+        public int EventId { get; set; }
     }
 }
