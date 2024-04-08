@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Collections;
 using System.Data;
 using System.Security.Claims;
 using WineSite.Contracts;
+using WineSite.Infrastructure;
 using WineSite.Models.Wine;
 using WineSite.Services.Wine.Models;
 
@@ -12,11 +14,11 @@ namespace WineSite.Controllers
     public class WineController : Controller
     {
         private readonly IWineServices _wines;
-        private readonly IVinarServices _vinar;
-        public WineController(IWineServices wines,IVinarServices vinar)
+        
+        public WineController(IWineServices wines)
         {
             _wines = wines;
-            _vinar = vinar;
+             
         }
 
         public async Task<IActionResult> All([FromQuery] AllWinesQuaryModel query)
@@ -36,7 +38,10 @@ namespace WineSite.Controllers
             query.Types = (IEnumerable<string>)winesTypes;
             return View(query);
         }
-        
+
+       
+
+
 
         public async Task<IActionResult> Details(int id)
         {
@@ -74,11 +79,11 @@ namespace WineSite.Controllers
                 model.Types = await _wines.AllTypes();
                 return View(model);
             }
-            var vinarId = await _vinar.GetVinarId(GetUserId());
+            
 
             var newWineId = await _wines.Create(model.Name, model.TypeId,model.Year,
                 model.ImageUrl,model.Description,model.Country,model.Manufucturer,model.Price,
-                model.Sort,model.Harvest,model.AlcoholContent,model.Bottle,vinarId);
+                model.Sort,model.Harvest,model.AlcoholContent,model.Bottle,model.Importer);
 
             return RedirectToAction(nameof(Details), new {id=newWineId});
         }

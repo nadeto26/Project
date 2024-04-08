@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace WineSite.Data.Models
 {
     [Comment("Wine")]
-    public class Wine // ще бъде добавено от винаря 
+    public class Wine  
     {
         [Key]
         [Comment("Wine's identifier")]
@@ -66,15 +66,5 @@ namespace WineSite.Data.Models
 
         [Comment("Wine's bottle in ml")]
         public int Bottle  { get; set; }
-
-        [Required]
-        public int VinarId { get; set; }
-
-        
-        public Vinar Vinar { get; set; } = null!;
-
-        
-
-
     }
 }

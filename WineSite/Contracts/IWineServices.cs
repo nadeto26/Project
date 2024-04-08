@@ -14,11 +14,11 @@ namespace WineSite.Contracts
             string imageUrl, string description, string country,
             string manufucturer, decimal price,
             string sort, int harvest, int alcoholcontent,
-            int bottle, int vinarId);
+            int bottle, string importer);
 
         WineQueryServicesModel All(string type = null,
             string searchItem = null,
-            WineSorting sorting = WineSorting.Newest,
+            WineSorting sorting = WineSorting.HighestPrice,
             int currentPage = 1,
             int wineperPage = 1);
 
@@ -32,7 +32,9 @@ namespace WineSite.Contracts
             string imageUrl, string description, string country,
             string manufucturer, decimal price,
             string sort, int harvest, int alcoholcontent,
-            int bottle);
+            int bottle, string importer);
+
+
 
 
     }

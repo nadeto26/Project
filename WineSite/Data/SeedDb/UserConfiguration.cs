@@ -11,7 +11,7 @@ namespace WineSite.Data.SeedDb
         {
             var data = new SeedData();
 
-            builder.HasData(new ApplicationUser[] { data.VinarUser, data.GuestUser });
+            builder.HasData(new ApplicationUser[] {data.GuestUser });
         }
     }
 }

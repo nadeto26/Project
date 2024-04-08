@@ -13,8 +13,6 @@ namespace WineSite.Data.SeedDb
 
         public ApplicationUser AdminUser { get; set; }
 
-        public Vinar Vinar { get; set; }
-
         public Type WhiteWine { get; set; }
 
         public Type RoseWine { get; set; }
@@ -35,7 +33,6 @@ namespace WineSite.Data.SeedDb
         public SeedData()
         {
             SeedUsers();
-            SeedVinar();
             SeedType();
             SeedWine();
         }
@@ -59,7 +56,7 @@ namespace WineSite.Data.SeedDb
                 Harvest = 2020,
                 AlcoholContent = 12,
                 Bottle = 750,
-                VinarId = Vinar.Id
+               
             };
             SecondWine = new Wine()
             {
@@ -77,7 +74,7 @@ namespace WineSite.Data.SeedDb
                 Harvest = 2020,
                 AlcoholContent = 12,
                 Bottle = 750,
-                VinarId = Vinar.Id
+               
             };
             ThirdWine = new Wine()
             {
@@ -95,7 +92,7 @@ namespace WineSite.Data.SeedDb
                 Harvest = 2020,
                 AlcoholContent = 12,
                 Bottle = 750,
-                VinarId = Vinar.Id
+                
             };
         }
 
@@ -103,19 +100,7 @@ namespace WineSite.Data.SeedDb
         {
             var hasher = new PasswordHasher<ApplicationUser>();
 
-            VinarUser = new ApplicationUser()
-            {
-                Id = "dea12856-c198-4129-b3f3-b893d8395082",
-                UserName = "petarkarapetrov@gmail.com",
-                NormalizedUserName = "petarkarapetrov@gmail.com",
-                Email = "petarkarapetrov@gmail.com",
-                NormalizedEmail = "petarkarapetrov@gmail.com",
-                FirstName = "Petar",
-                LastName = "Karapetrov"
-            };
-
-            VinarUser.PasswordHash =
-                 hasher.HashPassword(VinarUser, "vinar123");
+             
 
             GuestUser = new ApplicationUser()
             {
@@ -165,15 +150,7 @@ namespace WineSite.Data.SeedDb
             };
         }
 
-        private void SeedVinar()
-        {
-            Vinar = new Vinar()
-            {
-                Id = 1,
-                PhoneNumber = "+359888888888",
-                UserId = VinarUser.Id
-            };
-        }
+       
 
         
     }

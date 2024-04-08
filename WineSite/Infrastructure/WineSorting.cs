@@ -2,7 +2,7 @@
 {
     public enum WineSorting
     {
-         Newest=0,
-         Price
+         HighestPrice = 0,
+         LowestPrice = 1,
     }
 }

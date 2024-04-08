@@ -14,14 +14,6 @@ namespace WineSite.Data.SeedDb
                .HasForeignKey(h => h.TypeId)
                .OnDelete(DeleteBehavior.Restrict);
 
-            builder
-                .HasOne(h => h.Vinar)
-                .WithMany(a => a.Wines)
-                .HasForeignKey(h => h.VinarId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-        
-
             var data = new SeedData();
 
             builder.HasData(new Wine[] { data.FirstWine,data.SecondWine,data.ThirdWine});

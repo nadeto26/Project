@@ -15,7 +15,6 @@ namespace WineSite.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplyConfiguration(new UserConfiguration());
-            builder.ApplyConfiguration(new VinarConfiguration());
             builder.ApplyConfiguration(new TypeConfiguration());
             builder.ApplyConfiguration(new WineConfiguration());
             builder.ApplyConfiguration(new WineBuyerConfiguration());
@@ -28,7 +27,6 @@ namespace WineSite.Data
         public DbSet<WineBuyer> EventWineBuyers { get; set; } = null!;
         public DbSet<Recipe> Recipes { get; set; } = null!;
         public DbSet<Type> Types { get; set; } = null!;
-        public DbSet<Vinar> Vinar { get; set; } = null!;
         public DbSet<Wine> Wines { get; set; } = null!;
         public DbSet<TicketBuyer> TicketBuyers { get; set; } = null!;
         public DbSet<TicketDelivery> TicketDeliveries { get; set; } = null!;

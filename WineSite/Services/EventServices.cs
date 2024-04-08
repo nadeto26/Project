@@ -1,5 +1,4 @@
-﻿using AspNetCore;
-using EventsWebsite.Models;
+﻿using EventsWebsite.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;

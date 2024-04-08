@@ -36,7 +36,7 @@ namespace WineSite
             .AddEntityFrameworkStores<WineShopDbContext>();
 
             builder.Services.AddControllersWithViews();
-            builder.Services.AddScoped<IVinarServices, VinarServices>();
+            
             builder.Services.AddScoped<IWineServices, WineServices>();
             builder.Services.AddScoped<IRecipeServices, RecipeServices>();
             builder.Services.AddScoped<IEventServices, EventServices>();

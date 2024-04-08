@@ -18,7 +18,7 @@ namespace WineSite.Services
             _db = db;
         }
 
-        public WineQueryServicesModel All(string type = null, string searchItem = null, WineSorting sorting = WineSorting.Newest, int currentPage = 1, int wineperPage = 1)
+        public WineQueryServicesModel All(string type = null, string searchItem = null, WineSorting sorting = WineSorting.HighestPrice, int currentPage = 1, int wineperPage = 1)
         {
             var winesQuery = _db.Wines.AsQueryable();
 
@@ -37,15 +37,15 @@ namespace WineSite.Services
                     || w.Country.ToLower().Contains(searchItem.ToLower()));
             }
 
-            winesQuery = sorting switch
-            {
-                WineSorting.Price => winesQuery
-                .OrderBy(t => t.Price),
-                WineSorting.Newest => winesQuery
-                .OrderBy(w => w.Name)
-                .ThenByDescending(w => w.Id),
-                _=> winesQuery.OrderByDescending(w => w.Id)
-            };
+            //winesQuery = sorting switch
+            //{
+            //    WineSorting.Price => winesQuery
+            //    .OrderBy(t => t.Price),
+            //    WineSorting.Newest => winesQuery
+            //    .OrderBy(w => w.Name)
+            //    .ThenByDescending(w => w.Id),
+            //    _=> winesQuery.OrderByDescending(w => w.Id)
+            //};
 
             var wines = winesQuery
                 .Skip((currentPage - 1) * wineperPage)
@@ -69,18 +69,15 @@ namespace WineSite.Services
             };
                
         }
-
-        
-
         public async Task<IEnumerable<WineTypeServicesModel>> AllTypes()
         {
             return await _db
-                .Wines.Select(w => new WineTypeServicesModel
+                .Types.Select(w => new WineTypeServicesModel
                 {
                     Name = w.Name,
                     Id = w.Id,
-                }).ToListAsync();
-
+                })
+                .ToListAsync();
         }
 
         public async Task<IEnumerable<string>> AllTypesName()
@@ -92,7 +89,7 @@ namespace WineSite.Services
         }
 
         public async Task<int> Create(string name, int typeId, int year, string imageUrl, string description, string country, 
-            string manufucturer, decimal price, string sort, int harvest, int alcoholcontent, int bottle,int vinarId)
+            string manufucturer, decimal price, string sort, int harvest, int alcoholcontent, int bottle,string importer)
         {
             var wine = new WineSite.Data.Models.Wine()
             {
@@ -107,8 +104,9 @@ namespace WineSite.Services
                 Sort = sort,
                 Harvest = harvest,
                 Bottle = bottle,
-                VinarId = vinarId,
-                AlcoholContent = alcoholcontent
+                //VinarId = vinarId,
+                AlcoholContent = alcoholcontent,
+                Importer = importer 
             };
 
             await _db.Wines.AddRangeAsync(wine);
@@ -118,10 +116,11 @@ namespace WineSite.Services
         }
 
         public async Task Edit(int wineId, string name, int typeId, int year, string imageUrl, string description, 
-            string country, string manufucturer, decimal price, string sort, int harvest, int alcoholcontent, int bottle)
+            string country, string manufucturer, decimal price, string sort, int harvest, int alcoholcontent, int bottle, string importer)
         {
              var wine = _db.Wines.Find(wineId);
 
+             
              wine.Name = name;
              wine.TypeId = typeId;
              wine.Year = year;
@@ -133,9 +132,8 @@ namespace WineSite.Services
              wine.Sort = sort;
              wine.Harvest = harvest;
              wine.Bottle = bottle;
-             wine.Harvest = harvest;
              wine.AlcoholContent = alcoholcontent;
-             wine.Bottle = bottle;
+             wine.Importer = importer;
 
             await _db.SaveChangesAsync();
 
