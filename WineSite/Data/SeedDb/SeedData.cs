@@ -25,7 +25,7 @@ namespace WineSite.Data.SeedDb
 
         public Wine ThirdWine { get; set; }
 
-        public WineBuyer EventWineBuyer { get; set; }
+        public WineBuyers WineBuyer { get; set; }
 
          
 

@@ -33,6 +33,7 @@ namespace WineSite
                 options.Password.RequireNonAlphanumeric = false;
 
             })
+             .AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<WineShopDbContext>();
 
             builder.Services.AddControllersWithViews();
@@ -40,6 +41,7 @@ namespace WineSite
             builder.Services.AddScoped<IWineServices, WineServices>();
             builder.Services.AddScoped<IRecipeServices, RecipeServices>();
             builder.Services.AddScoped<IEventServices, EventServices>();
+            builder.Services.AddScoped<IAdminServices, AdminServices>();
 
             var app = builder.Build();
 

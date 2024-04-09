@@ -18,7 +18,7 @@ namespace WineSite.Contracts
 
         Task AddTicketDeliveryAsync(DeliveryDetailsViewModel deliveryDetails);
 
-        Task ConfirmOrderAsync(string userId);
+        Task ConfirmOrderAsync(string currentUserId);
 
         Task AddEventAsync(EventsViewModel model);
 

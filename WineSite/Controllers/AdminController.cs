@@ -5,148 +5,143 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Data;
 using System.Security.Claims;
+using WineSite.Contracts;
 using WineSite.Data;
 using WineSite.Data.Models;
 using WineSite.Models.Admin;
 using WineSite.Models.Event;
 using WineSite.Models.Receipt;
+using WineSite.Models.Wine;
 
 namespace WineSite.Controllers
 {
     [Authorize(Roles = "Administrator")]
     public class AdminController : Controller
     {
-        private readonly WineShopDbContext context;
-        public AdminController(WineShopDbContext _context)
+        private readonly IAdminServices _adminService;
+
+        public AdminController(IAdminServices adminService)
         {
-            context = _context;
+            _adminService = adminService;
         }
-
+        
+        //Добавяне на събитие
         [HttpGet]
-        public async Task<IActionResult> Add()
+        public IActionResult AddЕvent()
         {
-            EventsViewModel model = new EventsViewModel()
-            {
-
-            };
+            EventsViewModel model = new EventsViewModel();
 
             return View(model);
         }
 
-        public async Task<IActionResult> Orders()
-        {
-            var toDisplay = await context.Orders
-                .Select(d => new OrderViewModel
-                {
-                    Id = d.Id,
-                    FullName = d.FullName,
-                    PostCode = d.PostCode,
-                    Address = d.Address,
-                    City = d.City,
-                    QuentityEvent = d.QuentityEvent,
-                    EventName = d.EventName,
-                    Phonenumber = d.Phonenumber,
-                })
-                .ToListAsync();
-
-            return View(toDisplay);
-        }
-
         [HttpPost]
-        public async Task<IActionResult> Add(EventsViewModel mode)
+        public async Task<IActionResult> AddEvent(EventsViewModel model)
         {
-            var adEvent = new Events()
+            if (!ModelState.IsValid)
             {
-                Name = mode.Name,
-                HostName = mode.HostName,
-                Address = mode.Address,
-                DateTime = mode.DateTime,
-                Description = mode.Description,
-                ImageUrl = mode.ImageUrl,
-                PriceTicket = mode.PriceTicket,
-                WineList = mode.WineList,
-                Features = mode.Features,
-                Preferences = mode.Preferences,
-                MoreInformation = mode.MoreInformation,
-                Duration = mode.Duration,
-            };
-
-            context.Events.Add(adEvent);
-            await context.SaveChangesAsync();
-
-            return RedirectToAction("Add", "Event");
-        }
-
-
-        [HttpGet]
-        public async Task<IActionResult> Delete(int id)
-        {
-            var searchedevent = await context.Events
-                .Where(s => s.Id == id)
-                .FirstOrDefaultAsync();
-
-            //Checking if there is not a Seminar with that Id
-            if (searchedevent == null)
-            {
-                return BadRequest();
-            }
-            var events = new EventDeleteViewModel()
-            {
-                Id = id,
-                ImageUrl = searchedevent.ImageUrl,
-                Name = searchedevent.Name,
-            };
-
-
-            return View(events);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-
-            var currentEvent = await context.Events
-                .Where(s => s.Id == id)
-                .FirstOrDefaultAsync();
-
-
-            if (currentEvent == null)
-            {
-                return BadRequest();
+                return View(model);
             }
 
-            context.Events.Remove(currentEvent);
-            await context.SaveChangesAsync();
+            await _adminService.AddEventAsync(model);
 
-            return RedirectToAction("Recipe", "Admin");
+            return RedirectToAction("Add");
         }
 
-        //recipes
+        //Добавяне на рецепта
         [HttpGet]
-        public async Task<IActionResult> AddRecipe()
+        public IActionResult AddRecipe()
         {
             ReceiptViewModel receiptViewModel = new ReceiptViewModel();
             return View(receiptViewModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(ReceiptViewModel model)
+        public async Task<IActionResult> AddRecipe(ReceiptViewModel model)
         {
-            var adModel = new Recipe()
+            if (!ModelState.IsValid)
             {
-                Name = model.Name,
-                Notes = model.Notes,
-                Description = model.Description,
-                ImageUrl = model.ImageUrl,
-            };
+                return View(model);
+            }
+            await _adminService.AddRecipeAsync(model);
 
-            await context.Recipes.AddAsync(adModel);
-            await context.SaveChangesAsync();
-
-            return RedirectToAction("Add", "Recipe");
+            return RedirectToAction("AddRecipe");
         }
 
-        //изтринате на рецепта 
+        //Добавяне на вино
+        [HttpGet]
+        public async Task<IActionResult> AddWine() //само винаря може да добавя 
+        {
+            return View(new WineFormModel
+            {
+                Types = await _adminService.AllTypes()
+            });
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddWine(WineFormModel model)
+        {
+            if (await _adminService.TypeExist(model.TypeId) == false)
+            {
+                this.ModelState.AddModelError(nameof(model.TypeId),
+                    "Type does not exist");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                model.Types = await _adminService.AllTypes();
+                return View(model);
+            }
+
+
+            var newWineId = await _adminService.Create(model.Name, model.TypeId, model.Year,
+                model.ImageUrl, model.Description, model.Country, model.Manufucturer, model.Price,
+                model.Sort, model.Harvest, model.AlcoholContent, model.Bottle, model.Importer);
+
+            return RedirectToAction("Admin" ,"Add");
+        }
+
+        //Поръчки за билети
+        public async Task<IActionResult> TicketOrders()
+        {
+            var orders = await _adminService.GetOrdersForTicketsAsync();
+            return View(orders);
+        }
+
+        //Поръчки за вино
+        public async Task<IActionResult> WineOrders()
+        {
+            var orders = await _adminService.GetWinesOrdersAsync();
+            return View(orders);
+        }
+
+        //Изтриване на поръчка
+        [HttpPost]
+        public async Task<IActionResult> DeleteTicketOrder(int id)
+        {
+            var isDeleted = await _adminService.DeleteTicketOrderAsync(id);
+            if (!isDeleted)
+            {
+                return NotFound();
+            }
+
+            return RedirectToAction("TicketOrders");
+        }
+
+        //Изтриване на вино
+        public async Task<IActionResult> DeleteWineOrder(int id)
+        {
+            var isDeleted = await _adminService.DeleteWineOrderAsync(id);
+            if (!isDeleted)
+            {
+                return NotFound();
+            }
+
+            return RedirectToAction("WineOrders");
+        }
+
+
+        ////изтринате на рецепта 
 
         private string GetUserId()
         => User.FindFirstValue(ClaimTypes.NameIdentifier);

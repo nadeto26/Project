@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using EventsWebsite.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections;
@@ -12,6 +13,7 @@ using WineSite.Services.Wine.Models;
 
 namespace WineSite.Controllers
 {
+   
     public class WineController : Controller
     {
         private readonly IWineServices _wines;
@@ -62,38 +64,7 @@ namespace WineSite.Controllers
             return View(wineModel);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Add() //само винаря може да добавя 
-        {
-            return View(new WineFormModel
-            {
-                Types = await _wines.AllTypes()
-            }); 
-             
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Add(WineFormModel model)
-        {
-            if(await _wines.TypeExist(model.TypeId) == false)
-            {
-                this.ModelState.AddModelError(nameof(model.TypeId),
-                    "Type does not exist");
-            }
-
-            if(!ModelState.IsValid)
-            {
-                model.Types = await _wines.AllTypes();
-                return View(model);
-            }
-            
-
-            var newWineId = await _wines.Create(model.Name, model.TypeId,model.Year,
-                model.ImageUrl,model.Description,model.Country,model.Manufucturer,model.Price,
-                model.Sort,model.Harvest,model.AlcoholContent,model.Bottle,model.Importer);
-
-            return RedirectToAction(nameof(Details), new {id=newWineId});
-        }
+        
 
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
@@ -160,20 +131,75 @@ namespace WineSite.Controllers
 
         public async Task<IActionResult> Cart()
         {
-            return View(new AllWinesQuaryModel());
+            string currentUserId = GetUserId();
+            var userCartItems = await _wines.GetUserWineAsync(currentUserId);
+
+            return View(userCartItems);
         }
 
         public async Task<IActionResult> AddToCart(int id)
         {
+            string currentUserId = GetUserId();
+
+            bool addedToCart = await _wines.AddWineToCartAsync(id, currentUserId);
+
+            if (!addedToCart)
+            {
+                ModelState.AddModelError(string.Empty, "Неуспешно добавяне на вино в кошницата.");
+            }
             return RedirectToAction(nameof(Cart));
         }
 
+        [HttpPost]
         public async Task<IActionResult> DeleteFromCart(int id)
         {
+            string currentUserId = GetUserId();
+
+            bool removedFromCart = await _wines.RemoveWineFromCartAsync(id, currentUserId);
+
+            if (!removedFromCart)
+            {
+                ModelState.AddModelError(string.Empty, "Неуспешно премахване на виното от количката.");
+            }
             return RedirectToAction(nameof(Cart));
         }
 
-        
+        public async Task<IActionResult> Confirmation()
+        {
+            string currentUserId = GetUserId();
+
+            if (string.IsNullOrEmpty(currentUserId))
+            {
+                return BadRequest("User not found");
+            }
+
+            await _wines.ConfirmOrderAsync(currentUserId);
+
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult DetailsDelivery()
+        {
+            var admodel = new WineDeliveryDetailsViewModel();
+            return View(admodel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DetailsDelivery(WineDeliveryDetailsViewModel admode)
+        {
+            if (ModelState.IsValid)
+            {
+                await _wines.WineDeliveryAsync(admode);
+                return RedirectToAction("Confirmation");
+            }
+
+            // Ако моделът не е валиден, връщаме грешка
+            return View(admode);
+        }
+
+       
+
 
         private string GetUserId()
        => User.FindFirstValue(ClaimTypes.NameIdentifier);

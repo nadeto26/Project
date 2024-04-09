@@ -1,4 +1,6 @@
-﻿using WineSite.Infrastructure;
+﻿using EventsWebsite.Models;
+using WineSite.Infrastructure;
+using WineSite.Models.Event;
 using WineSite.Models.Wine;
 using WineSite.Services.Wine.Models;
 
@@ -9,12 +11,6 @@ namespace WineSite.Contracts
         Task<IEnumerable<WineTypeServicesModel>> AllTypes();
 
         Task <bool> TypeExist(int typeId);
-
-        Task<int> Create(string name, int typeId, int year,
-            string imageUrl, string description, string country,
-            string manufucturer, decimal price,
-            string sort, int harvest, int alcoholcontent,
-            int bottle, string importer);
 
         WineQueryServicesModel All(string type = null,
             string searchItem = null,
@@ -38,7 +34,15 @@ namespace WineSite.Contracts
 
         Task<bool> DeleteWineAsync(int id);
 
+        Task<bool> AddWineToCartAsync(int wineId, string userId);
 
+        Task<List<WineCart>> GetUserWineAsync(string userId);
+
+        Task<bool> RemoveWineFromCartAsync(int wineId, string userId);
+
+        Task ConfirmOrderAsync(string currentUserId);
+
+        Task WineDeliveryAsync(WineDeliveryDetailsViewModel deliveryDetails);
 
 
     }

@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System.Security.Claims;
 using WineSite.Contracts;
 using WineSite.Data;
+using WineSite.Data.Models;
 using WineSite.Infrastructure;
+using WineSite.Models.Event;
 using WineSite.Models.Wine;
 using WineSite.Services.Wine.Models;
 
@@ -84,31 +87,7 @@ namespace WineSite.Services
                 .ToListAsync();
         }
 
-        public async Task<int> Create(string name, int typeId, int year, string imageUrl, string description, string country, 
-            string manufucturer, decimal price, string sort, int harvest, int alcoholcontent, int bottle,string importer)
-        {
-            var wine = new WineSite.Data.Models.Wine()
-            {
-                Name = name,
-                TypeId = typeId,
-                Year = year,
-                ImageUrl = imageUrl,
-                Description = description,
-                Country = country,
-                Manufucturer = manufucturer,
-                Price = price,
-                Sort = sort,
-                Harvest = harvest,
-                Bottle = bottle,
-                AlcoholContent = alcoholcontent,
-                Importer = importer 
-            };
-
-            await _db.Wines.AddRangeAsync(wine);
-            await _db.SaveChangesAsync();
-
-            return wine.Id;
-        }
+         
 
         public async Task Edit(int wineId, string name, int typeId, int year, string imageUrl, string description, 
             string country, string manufucturer, decimal price, string sort, int harvest, int alcoholcontent, int bottle, string importer)
@@ -189,6 +168,123 @@ namespace WineSite.Services
             _db.Wines.Remove(wineToDelete);
             await _db.SaveChangesAsync();
             return true;
+        }
+
+        public async Task<bool> AddWineToCartAsync(int wineId, string userId)
+        {
+            var adToAdd = await _db.Wines.FindAsync(wineId);
+
+            if (adToAdd == null)
+            {
+                return false;  
+            }
+
+            var entry = new WineBuyers()
+            {
+                BuyerId = userId,
+                WineId = adToAdd.Id
+            };
+
+            _db.WineBuyers.Add(entry);
+            await _db.SaveChangesAsync();
+
+            return true;
+        }
+
+        public async Task<List<WineCart>> GetUserWineAsync(string userId)
+        {
+            var userBuyer = await _db.WineBuyers
+               .Where(ab => ab.BuyerId == userId /*&& ab.IsPurchased*/) // Само закупените билети
+               .Select(ab => new WineCart()
+               {
+                   Id = ab.Wine.Id,
+                   Name = ab.Wine.Name,
+                   Price = ab.Wine.Price,
+                   ImageUrl = ab.Wine.ImageUrl,
+
+               })
+               .ToListAsync();
+
+            return userBuyer;
+
+           
+        }
+
+        public async Task<bool> RemoveWineFromCartAsync(int wineId, string userId)
+        {
+            var entryToRemove = await _db.WineBuyers.FirstOrDefaultAsync(e => e.WineId == wineId && e.BuyerId == userId);
+
+            if (entryToRemove == null)
+            {
+                return false; // Върнете подходящ резултат или хвърлете изключение
+            }
+
+            _db.WineBuyers.Remove(entryToRemove);
+            await _db.SaveChangesAsync();
+
+            return true;
+        }
+
+        public async Task ConfirmOrderAsync(string currentUserId)
+        {
+            var user = await _db.Users.FirstOrDefaultAsync(u => u.Id == currentUserId);
+
+            if (user == null)
+            {
+                throw new Exception("User not found");
+            }
+
+            var deliveryDetails = await _db.WineDeliveries.FirstOrDefaultAsync(dd => dd.Email == user.Email);
+            if (deliveryDetails == null)
+            {
+                throw new Exception("Delivery details not found");
+            }
+
+            var cartEvents = await _db.WineBuyers
+                .Include(eb => eb.Wine)
+                .Where(eb => eb.BuyerId == currentUserId)
+                .ToListAsync();
+
+            foreach (var wineBuyer in cartEvents)
+            {
+                var order = new OrderWines
+                {
+                    FullName = deliveryDetails.FullName,
+                    Address = deliveryDetails.Address,
+                    City = deliveryDetails.City,
+                    Email = deliveryDetails.Email,
+                    PostCode = deliveryDetails.PostCode,
+                    Phonenumber = deliveryDetails.PhoneNumber,
+                    WineId = wineBuyer.WineId,
+                    WineName = wineBuyer.Wine.Name,
+                    BuyerId = wineBuyer.BuyerId,
+                    QuentityWine = wineBuyer.Quantity 
+                };
+
+                _db.OrderWines.Add(order);
+
+
+            }
+
+            _db.WineBuyers.RemoveRange(cartEvents);
+
+            await _db.SaveChangesAsync();
+        }
+
+        public async Task WineDeliveryAsync(WineDeliveryDetailsViewModel deliveryDetails)
+        {
+            var adDelivery = new WineDelivery()
+            {
+                FullName = deliveryDetails.FullName,
+                Address = deliveryDetails.Address,
+                City = deliveryDetails.City,
+                PostCode = deliveryDetails.PostalCode,
+                PhoneNumber = deliveryDetails.PhoneNumber,
+                Email = deliveryDetails.Email
+            };
+
+            await _db.WineDeliveries.AddAsync(adDelivery);
+            await _db.SaveChangesAsync();
         }
     }
 }

@@ -24,21 +24,15 @@
             <p>Category: <b>@Model.Type</b></p>
            
             <div class="form-inline">
-                @if (this.User.Identity.IsAuthenticated)
+                @if (User.IsInRole("Administrator"))
                 {
                     <a class="btn btn-warning" asp-controller="Wine" asp-action="Edit"
                    asp-route-id="@Model.Id">Edit</a>
-                    <a class="ml-2 btn btn-danger" asp-controller="Wine" asp-action="Delete"
-                   asp-route-id="@Model.Id">Delete</a>
                 }
             </div>
             <p></p>
             <div class="card" style="width: 18rem;">
-                @*<div class="card-body">
-                    <h5 class="card-title">Agent Info</h5>
-                    <p class="card-text">Email:  @Model.Agent.Email</p>
-                    <p class="card-text">Phone Number: @Model.Agent.PhoneNumber</p>
-                </div>*@
+             
             </div>
         </div>
     </div>

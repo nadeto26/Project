@@ -36,12 +36,28 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Admin/Desktop/WineSite - Original/WineSite/Views/Admin/Orders.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cT3JkZXJzLmNzaHRtbA==
+[C:/Users/Admin/Desktop/WineSite - Original/WineSite/Views/Admin/AddEvent.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQWRkRXZlbnQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Admin/Desktop/WineSite - Original/WineSite/Views/Event/Add.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXZlbnRcQWRkLmNzaHRtbA==
+[C:/Users/Admin/Desktop/WineSite - Original/WineSite/Views/Admin/AddRecipe.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQWRkUmVjaXBlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Desktop/WineSite - Original/WineSite/Views/Admin/AddWine.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQWRkV2luZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Desktop/WineSite - Original/WineSite/Views/Admin/TicketOrders.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cVGlja2V0T3JkZXJzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Desktop/WineSite - Original/WineSite/Views/Admin/WineOrders.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cV2luZU9yZGVycy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Desktop/WineSite - Original/WineSite/Views/Admin/_WineFormPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cX1dpbmVGb3JtUGFydGlhbC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Admin/Desktop/WineSite - Original/WineSite/Views/Event/AdminOrders.cshtml]
@@ -88,10 +104,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Admin/Desktop/WineSite - Original/WineSite/Views/Recipe/Add.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVjaXBlXEFkZC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/Admin/Desktop/WineSite - Original/WineSite/Views/Recipe/All.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVjaXBlXEFsbC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -116,16 +128,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Admin/Desktop/WineSite - Original/WineSite/Views/Wine/Add.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2luZVxBZGQuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/Admin/Desktop/WineSite - Original/WineSite/Views/Wine/All.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2luZVxBbGwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Admin/Desktop/WineSite - Original/WineSite/Views/Wine/Cart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2luZVxDYXJ0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Desktop/WineSite - Original/WineSite/Views/Wine/Confirmation.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2luZVxDb25maXJtYXRpb24uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Admin/Desktop/WineSite - Original/WineSite/Views/Wine/Delete.cshtml]
@@ -136,12 +148,12 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2luZVxEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Admin/Desktop/WineSite - Original/WineSite/Views/Wine/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2luZVxFZGl0LmNzaHRtbA==
+[C:/Users/Admin/Desktop/WineSite - Original/WineSite/Views/Wine/DetailsDelivery.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2luZVxEZXRhaWxzRGVsaXZlcnkuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Admin/Desktop/WineSite - Original/WineSite/Views/Wine/_WineFormPartial.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2luZVxfV2luZUZvcm1QYXJ0aWFsLmNzaHRtbA==
+[C:/Users/Admin/Desktop/WineSite - Original/WineSite/Views/Wine/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2luZVxFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Admin/Desktop/WineSite - Original/WineSite/Views/Wine/_WinePartial.cshtml]
