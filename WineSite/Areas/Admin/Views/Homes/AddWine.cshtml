@@ -1,0 +1,13 @@
+﻿@model WineFormModel
+
+@{
+    ViewBag.Tittle = "Добавяне на виното";
+}
+<h2 class="text-center">@ViewBag.Titlle</h2>
+<hr />
+
+<partial name ="_WineFormPartial" model = "@Model"/>
+
+@section Scripts{
+    <partial name ="_ValidationScriptsPartial" />
+}

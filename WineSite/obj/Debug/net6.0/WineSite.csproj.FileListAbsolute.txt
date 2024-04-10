@@ -1288,3 +1288,4 @@ C:\Users\Admin\Desktop\WineSite - Original\WineSite\obj\Debug\net6.0\refint\Wine
 C:\Users\Admin\Desktop\WineSite - Original\WineSite\obj\Debug\net6.0\WineSite.pdb
 C:\Users\Admin\Desktop\WineSite - Original\WineSite\obj\Debug\net6.0\WineSite.genruntimeconfig.cache
 C:\Users\Admin\Desktop\WineSite - Original\WineSite\obj\Debug\net6.0\ref\WineSite.dll
+C:\Users\Admin\Desktop\WineSite - Original\WineSite\obj\Debug\net6.0\scopedcss\Areas\Admin\Views\Shared\_Layout.cshtml.rz.scp.css

@@ -127,7 +127,7 @@ namespace WineSite.Data.SeedDb
                 LastName = "Karapetrova"
             };
 
-            AdminUser.PasswordHash = hasher.HashPassword(VinarUser, "admin123");
+            AdminUser.PasswordHash = hasher.HashPassword(AdminUser, "admin123");
 
         }
 

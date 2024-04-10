@@ -66,8 +66,25 @@ namespace WineSite
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.MapDefaultControllerRoute();
-            app.MapRazorPages();
+            
+          
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                 name: "Wine Details",
+                 pattern: "/Wine/Details/{id}/{information}",
+                 defaults: new {Controller = "Wine", Actions = "Details"}
+               );
+
+                endpoints.MapControllerRoute(
+                  name: "areas",
+                  pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
+
+                app.MapDefaultControllerRoute();
+                endpoints.MapRazorPages();
+            });
 
             app.Run();
         }

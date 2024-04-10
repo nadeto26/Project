@@ -21,11 +21,13 @@ namespace WineSite.Areas.Identity.Pages.Account
     public class LoginModel : PageModel
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
-        
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public LoginModel(SignInManager<ApplicationUser> signInManager)
+        public LoginModel(SignInManager<ApplicationUser> signInManager,
+            UserManager<ApplicationUser> userManager)
         {
             _signInManager = signInManager;
+            _userManager = userManager;
             
         }
         [BindProperty]
@@ -73,7 +75,12 @@ namespace WineSite.Areas.Identity.Pages.Account
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, true, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
-                    
+                    var user = await _userManager.FindByEmailAsync(Input.Email);
+                  
+                    if(await _userManager.IsInRoleAsync(user,"Administrator"))
+                    {
+                        return RedirectToAction("AddRecipes", "Homes", new { area = "Admin" });
+                    }
                     return LocalRedirect(returnUrl);
                 }
                 else
