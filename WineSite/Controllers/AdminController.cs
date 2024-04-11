@@ -1,17 +1,4 @@
-﻿using EventsWebsite.Models;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
-using System.Data;
-using System.Security.Claims;
-using WineSite.Contracts;
-using WineSite.Data;
-using WineSite.Data.Models;
-using WineSite.Models.Admin;
-using WineSite.Models.Event;
-using WineSite.Models.Receipt;
-using WineSite.Models.Wine;
+﻿ 
 
 namespace WineSite.Controllers
 {

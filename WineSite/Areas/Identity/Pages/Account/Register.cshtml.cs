@@ -3,13 +3,13 @@ using System.Text;
 using System.Text.Encodings.Web;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
+ 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
-using Microsoft.Build.Framework;
-using WineSite.Data.Models;
-using static WineSite.Data.Constants.ApplicationUser;
+ 
+using WineSite.Data.Data.Models;
+using static WineSite.Data.Data.Common.Constants.ApplicationUser;
 namespace WineSite.Areas.Identity.Pages.Account
 {
 

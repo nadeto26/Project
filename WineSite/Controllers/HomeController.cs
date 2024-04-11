@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
-using WineSite.Models;
-using WineSite.Models.Home;
+using WineSite.Core.Models.Home;
 
 namespace WineSite.Controllers
 {

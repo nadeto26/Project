@@ -1,10 +1,10 @@
- 
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using WineSite.Contracts;
-using WineSite.Data;
-using WineSite.Data.Models;
-using WineSite.Services;
+using WineSite.Core.Contracts;
+using WineSite.Core.Services;
+using WineSite.Data.Data;
+using WineSite.Data.Data.Models;
+ 
 
 namespace WineSite
 {

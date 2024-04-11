@@ -1,15 +1,7 @@
-﻿using EventsWebsite.Models;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Collections;
-using System.Data;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-using WineSite.Contracts;
-using WineSite.Infrastructure;
-using WineSite.Models.Wine;
-using WineSite.Services;
-using WineSite.Services.Wine.Models;
+using WineSite.Core.Contracts;
+using WineSite.Core.Models.Wine;
 
 namespace WineSite.Controllers
 {
@@ -45,7 +37,7 @@ namespace WineSite.Controllers
                 );
 
             query.TotalWinesCount = queryResult.TotalWinesCount;
-            query.Wines = queryResult.Wines;
+            query.Wines = (IEnumerable<WineServicesModel>)queryResult.Wines;
 
             var winesTypes = await _wines.AllTypesName();
             query.Types = (IEnumerable<string>)winesTypes;
@@ -93,7 +85,7 @@ namespace WineSite.Controllers
                 Manufucturer = wine.Manufucturer,
                 Sort = wine.Sort,
                 Price  = wine.Price,
-                Types = await _wines.AllTypes()
+                Types = (IEnumerable<WineTypeServicesModel>)await _wines.AllTypes()
             };
 
             return View(wineModel);
