@@ -5,10 +5,6 @@
       "PackagePath": "staticwebassets\\WineSite.Web.bundle.scp.css"
     },
     {
-      "Id": "C:\\Users\\Admin\\Desktop\\WineSite - Original\\WineSite\\wwwroot\\040b4f191d6432ac408fef6549c4b048.jpg",
-      "PackagePath": "staticwebassets\\040b4f191d6432ac408fef6549c4b048.jpg"
-    },
-    {
       "Id": "C:\\Users\\Admin\\Desktop\\WineSite - Original\\WineSite\\wwwroot\\0b4c6a9e012a722b69c91a6097623c06.jpg",
       "PackagePath": "staticwebassets\\0b4c6a9e012a722b69c91a6097623c06.jpg"
     },
@@ -29,6 +25,66 @@
       "PackagePath": "staticwebassets\\Spirits-FTX-BLOG0423-4e938422b8b346218db6c0e2431a790c.jpg"
     },
     {
+      "Id": "C:\\Users\\Admin\\Desktop\\WineSite - Original\\WineSite\\wwwroot\\assets\\favicon.ico",
+      "PackagePath": "staticwebassets\\assets\\favicon.ico"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\Desktop\\WineSite - Original\\WineSite\\wwwroot\\assets\\img\\040b4f191d6432ac408fef6549c4b048.jpg",
+      "PackagePath": "staticwebassets\\assets\\img\\040b4f191d6432ac408fef6549c4b048.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\Desktop\\WineSite - Original\\WineSite\\wwwroot\\assets\\img\\bg-masthead.jpg",
+      "PackagePath": "staticwebassets\\assets\\img\\bg-masthead.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\Desktop\\WineSite - Original\\WineSite\\wwwroot\\assets\\img\\portfolio\\fullsize\\1.jpg",
+      "PackagePath": "staticwebassets\\assets\\img\\portfolio\\fullsize\\1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\Desktop\\WineSite - Original\\WineSite\\wwwroot\\assets\\img\\portfolio\\fullsize\\2.jpg",
+      "PackagePath": "staticwebassets\\assets\\img\\portfolio\\fullsize\\2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\Desktop\\WineSite - Original\\WineSite\\wwwroot\\assets\\img\\portfolio\\fullsize\\3.jpg",
+      "PackagePath": "staticwebassets\\assets\\img\\portfolio\\fullsize\\3.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\Desktop\\WineSite - Original\\WineSite\\wwwroot\\assets\\img\\portfolio\\fullsize\\4.jpg",
+      "PackagePath": "staticwebassets\\assets\\img\\portfolio\\fullsize\\4.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\Desktop\\WineSite - Original\\WineSite\\wwwroot\\assets\\img\\portfolio\\fullsize\\5.jpg",
+      "PackagePath": "staticwebassets\\assets\\img\\portfolio\\fullsize\\5.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\Desktop\\WineSite - Original\\WineSite\\wwwroot\\assets\\img\\portfolio\\fullsize\\6.jpg",
+      "PackagePath": "staticwebassets\\assets\\img\\portfolio\\fullsize\\6.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\Desktop\\WineSite - Original\\WineSite\\wwwroot\\assets\\img\\portfolio\\thumbnails\\1.jpg",
+      "PackagePath": "staticwebassets\\assets\\img\\portfolio\\thumbnails\\1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\Desktop\\WineSite - Original\\WineSite\\wwwroot\\assets\\img\\portfolio\\thumbnails\\2.jpg",
+      "PackagePath": "staticwebassets\\assets\\img\\portfolio\\thumbnails\\2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\Desktop\\WineSite - Original\\WineSite\\wwwroot\\assets\\img\\portfolio\\thumbnails\\3.jpg",
+      "PackagePath": "staticwebassets\\assets\\img\\portfolio\\thumbnails\\3.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\Desktop\\WineSite - Original\\WineSite\\wwwroot\\assets\\img\\portfolio\\thumbnails\\4.jpg",
+      "PackagePath": "staticwebassets\\assets\\img\\portfolio\\thumbnails\\4.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\Desktop\\WineSite - Original\\WineSite\\wwwroot\\assets\\img\\portfolio\\thumbnails\\5.jpg",
+      "PackagePath": "staticwebassets\\assets\\img\\portfolio\\thumbnails\\5.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\Desktop\\WineSite - Original\\WineSite\\wwwroot\\assets\\img\\portfolio\\thumbnails\\6.jpg",
+      "PackagePath": "staticwebassets\\assets\\img\\portfolio\\thumbnails\\6.jpg"
+    },
+    {
       "Id": "C:\\Users\\Admin\\Desktop\\WineSite - Original\\WineSite\\wwwroot\\b21f7fede25f82ebb939e1c988fd96e2.jpg",
       "PackagePath": "staticwebassets\\b21f7fede25f82ebb939e1c988fd96e2.jpg"
     },
@@ -41,12 +97,12 @@
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
-      "Id": "C:\\Users\\Admin\\Desktop\\WineSite - Original\\WineSite\\wwwroot\\favicon.ico",
-      "PackagePath": "staticwebassets\\favicon.ico"
+      "Id": "C:\\Users\\Admin\\Desktop\\WineSite - Original\\WineSite\\wwwroot\\css\\styles.css",
+      "PackagePath": "staticwebassets\\css\\styles.css"
     },
     {
-      "Id": "C:\\Users\\Admin\\Desktop\\WineSite - Original\\WineSite\\wwwroot\\js\\site.js",
-      "PackagePath": "staticwebassets\\js\\site.js"
+      "Id": "C:\\Users\\Admin\\Desktop\\WineSite - Original\\WineSite\\wwwroot\\favicon.ico",
+      "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
       "Id": "C:\\Users\\Admin\\Desktop\\WineSite - Original\\WineSite\\wwwroot\\lib\\bootstrap\\LICENSE",
