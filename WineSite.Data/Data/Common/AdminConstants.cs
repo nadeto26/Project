@@ -13,5 +13,6 @@ namespace WineSite.Data.Data.Common
         public const string AdminRoleName = "Administrator";
         public const string AdminEmail = "nadezhda.karapetrova@pmggd.bg";
         public const string AdminAreaName = "Admin";
+        public const string UserCacheKey = "UserCasheKey";
     }
 }

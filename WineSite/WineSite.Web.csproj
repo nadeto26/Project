@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <Content Remove="wwwroot\js\scripts.js" />
+    <Content Remove="wwwroot\js\site.js" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,6 +25,25 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Views\Event\AdminOrders.cshtml" />
+    <None Include="Views\Event\All.cshtml" />
+    <None Include="Views\Event\CartTickets.cshtml" />
+    <None Include="Views\Event\Confirmation.cshtml" />
+    <None Include="Views\Event\Details.cshtml" />
+    <None Include="Views\Event\DetailsDelivery.cshtml" />
+    <None Include="Views\Event\Edit.cshtml" />
+    <None Include="Views\Recipe\All.cshtml" />
+    <None Include="Views\Recipe\Details.cshtml" />
+    <None Include="Views\Recipe\Edit.cshtml" />
+    <None Include="Views\Wine\All.cshtml" />
+    <None Include="Views\Wine\Cart.cshtml" />
+    <None Include="Views\Wine\Confirmation.cshtml" />
+    <None Include="Views\Wine\Delete.cshtml" />
+    <None Include="Views\Wine\Details.cshtml" />
+    <None Include="Views\Wine\DetailsDelivery.cshtml" />
+    <None Include="Views\Wine\Edit.cshtml" />
+    <None Include="Views\Wine\_WinePartial.cshtml" />
+    <None Include="wwwroot\js\site.js" />
     <None Include="wwwroot\js\scripts.js" />
   </ItemGroup>
 

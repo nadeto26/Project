@@ -349,6 +349,22 @@
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
     },
     {
+      "Id": "C:\\Users\\Admin\\Desktop\\WineSite - Original\\WineSite\\wwwroot\\lib\\toastr\\toastr.css",
+      "PackagePath": "staticwebassets\\lib\\toastr\\toastr.css"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\Desktop\\WineSite - Original\\WineSite\\wwwroot\\lib\\toastr\\toastr.js.map",
+      "PackagePath": "staticwebassets\\lib\\toastr\\toastr.js.map"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\Desktop\\WineSite - Original\\WineSite\\wwwroot\\lib\\toastr\\toastr.min.css",
+      "PackagePath": "staticwebassets\\lib\\toastr\\toastr.min.css"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\Desktop\\WineSite - Original\\WineSite\\wwwroot\\lib\\toastr\\toastr.min.js",
+      "PackagePath": "staticwebassets\\lib\\toastr\\toastr.min.js"
+    },
+    {
       "Id": "C:\\Users\\Admin\\Desktop\\WineSite - Original\\WineSite\\wwwroot\\recipe.jpg",
       "PackagePath": "staticwebassets\\recipe.jpg"
     },

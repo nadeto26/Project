@@ -303,3 +303,4 @@ C:\Users\Admin\Desktop\WineSite - Original\WineSite\obj\Debug\net6.0\refint\Wine
 C:\Users\Admin\Desktop\WineSite - Original\WineSite\obj\Debug\net6.0\WineSite.Web.pdb
 C:\Users\Admin\Desktop\WineSite - Original\WineSite\obj\Debug\net6.0\WineSite.Web.genruntimeconfig.cache
 C:\Users\Admin\Desktop\WineSite - Original\WineSite\obj\Debug\net6.0\ref\WineSite.Web.dll
+C:\Users\Admin\Desktop\WineSite - Original\WineSite\bin\Debug\net6.0\libman.json

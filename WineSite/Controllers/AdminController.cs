@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Net.NetworkInformation;
 using System.Security.Claims;
 using WineSite.Core.Contracts;
 using WineSite.Core.Models.Event;
 using WineSite.Core.Models.Receipt;
 using WineSite.Core.Models.Wine;
+using static WineSite.Core.Constants.MessageConstants;
 
 namespace WineSite.Controllers
 {
@@ -37,6 +39,7 @@ namespace WineSite.Controllers
 
             await _adminService.AddEventAsync(model);
 
+            TempData[UserMessageSuccess] = "Добавихте успешно събитието!";
             return RedirectToAction("Add");
         }
 
@@ -91,6 +94,7 @@ namespace WineSite.Controllers
                 model.ImageUrl, model.Description, model.Country, model.Manufucturer, model.Price,
                 model.Sort, model.Harvest, model.AlcoholContent, model.Bottle, model.Importer);
 
+            TempData[UserMessageSuccess] = "Добавихте успешно виното!";
             return RedirectToAction("Admin", "Add");
         }
 

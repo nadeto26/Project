@@ -1,0 +1,27 @@
+﻿@using WineSite.Core.Models.Wine;
+@model WineServicesModel
+
+<div class="col-md-4">
+    <div class="card mb-3">
+        <img class="card-img-top" src="@Model.ImageUrl" alt="House Image">
+        <div class="card-body text-center">
+            <h4>@Model.Name</h4>
+            <h6>Address: <b>@Model.Name</b></h6>
+            <h6>
+                Price Per Month:
+                <b>@String.Format("{0:f2}", Model.Price) BGN</b>
+            </h6>
+            
+            <br />
+            <a asp-controller="Wine" asp-action="Details" asp-route-id="@Model.Id"
+               class="btn btn-success">Детайли</a>
+            <a class="ml-2 btn btn-danger btn-sm" asp-controller="Wine" 
+            asp-action="AddToCart" asp-route-id="@Model.Id">Купи</a>
+                <form asp-controller="Wine" asp-action="Delete" asp-route-id="@Model.Id" method="post">
+                    <button type="submit" class="ml-2 btn btn-danger btn-sm">Изтрий</button>
+                </form>
+           
+           
+        </div>
+    </div>
+</div>

@@ -1,8 +1,8 @@
-﻿ 
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using WineSite.Core.Contracts;
 using WineSite.Core.Models.Event;
+using static WineSite.Core.Constants.MessageConstants;
 
 namespace WineSite.Controllers
 {
@@ -121,7 +121,8 @@ namespace WineSite.Controllers
                 ModelState.AddModelError(string.Empty, "Неуспешно добавяне на билет в кошницата.");
             }
 
-            return RedirectToAction("CartTickets", "Event");
+            TempData[UserMessageSuccess] = "Добавихте билет към своята количка!";
+            return RedirectToAction("AddToCart", "Event");
         }
 
         public async Task<IActionResult> CartTickets()

@@ -47,6 +47,7 @@ namespace WineSite
             builder.Services.AddScoped<IContactServices, ContactServices>();
             builder.Services.AddScoped<IUserServices, UserService>();
 
+            builder.Services.AddMemoryCache();
             var app = builder.Build();
 
             
