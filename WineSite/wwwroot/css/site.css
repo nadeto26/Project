@@ -1,4 +1,4 @@
-html {
+/*html {
   font-size: 14px;
 }
 
@@ -150,10 +150,10 @@ h1 {
 }
 
 .custom-div {
-    background-color: #000; /* Черен фон */
-    color: #fff; /* Бял текст */
-    padding: 10px; /* Вътрешен отстъп */
-}
+    background-color: #000;*/ /* Черен фон */
+    /*color: #fff;*/ /* Бял текст */
+    /*padding: 10px;*/ /* Вътрешен отстъп */
+/*}*/
 
 
 

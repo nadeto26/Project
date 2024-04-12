@@ -33,7 +33,7 @@ namespace WineSite.Data.Data
         public DbSet<Orders> Orders { get; set; } = null!;
         public DbSet<OrderWines> OrderWines { get; set; } = null!;
         public DbSet<WineDelivery> WineDeliveries { get; set; } = null!;
-
+        public DbSet<Messages> Messages { get; set; } = null!;
 
     }
 }

@@ -17,12 +17,14 @@ namespace WineSite
 
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
             builder.Services.AddDbContext<WineShopDbContext>(options =>
-                options.UseSqlServer(connectionString));
+                options.UseSqlServer(connectionString, b => b.MigrationsAssembly("WineSite.Web")));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
             builder.Services.AddScoped<UserManager<ApplicationUser>>();
             builder.Services.AddScoped<SignInManager<ApplicationUser>>();
             builder.Services.AddTransient<IApplicationUserService,ApplicationUserService>();
+
+          
 
             builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
             {
@@ -42,6 +44,8 @@ namespace WineSite
             builder.Services.AddScoped<IRecipeServices, RecipeServices>();
             builder.Services.AddScoped<IEventServices, EventServices>();
             builder.Services.AddScoped<IAdminServices, AdminServices>();
+            builder.Services.AddScoped<IContactServices, ContactServices>();
+            builder.Services.AddScoped<IUserServices, UserService>();
 
             var app = builder.Build();
 
@@ -79,7 +83,7 @@ namespace WineSite
 
                 endpoints.MapControllerRoute(
                   name: "areas",
-                  pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                  pattern: "{area:exists}/{controller=Homes}/{action=Index}/{id?}"
                 );
 
                 app.MapDefaultControllerRoute();

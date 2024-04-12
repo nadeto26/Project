@@ -3,7 +3,7 @@
 @using WineSite.Data.Data.Models;
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
-@inject IApplicationUserService user 
+@inject IUserServices user 
 
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))

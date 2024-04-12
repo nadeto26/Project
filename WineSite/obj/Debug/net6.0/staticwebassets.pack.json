@@ -61,6 +61,22 @@
       "PackagePath": "staticwebassets\\assets\\img\\portfolio\\fullsize\\6.jpg"
     },
     {
+      "Id": "C:\\Users\\Admin\\Desktop\\WineSite - Original\\WineSite\\wwwroot\\assets\\img\\portfolio\\fullsize\\events.jpg",
+      "PackagePath": "staticwebassets\\assets\\img\\portfolio\\fullsize\\events.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\Desktop\\WineSite - Original\\WineSite\\wwwroot\\assets\\img\\portfolio\\fullsize\\recipes.jpg",
+      "PackagePath": "staticwebassets\\assets\\img\\portfolio\\fullsize\\recipes.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\Desktop\\WineSite - Original\\WineSite\\wwwroot\\assets\\img\\portfolio\\fullsize\\wine.jpg",
+      "PackagePath": "staticwebassets\\assets\\img\\portfolio\\fullsize\\wine.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\Desktop\\WineSite - Original\\WineSite\\wwwroot\\assets\\img\\portfolio\\fullsize\\wines.jpg",
+      "PackagePath": "staticwebassets\\assets\\img\\portfolio\\fullsize\\wines.jpg"
+    },
+    {
       "Id": "C:\\Users\\Admin\\Desktop\\WineSite - Original\\WineSite\\wwwroot\\assets\\img\\portfolio\\thumbnails\\1.jpg",
       "PackagePath": "staticwebassets\\assets\\img\\portfolio\\thumbnails\\1.jpg"
     },

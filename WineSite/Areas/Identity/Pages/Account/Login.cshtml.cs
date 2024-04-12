@@ -80,7 +80,7 @@ namespace WineSite.Areas.Identity.Pages.Account
                   
                     if(await _userManager.IsInRoleAsync(user,"Administrator"))
                     {
-                        return RedirectToAction("AddRecipes", "Homes", new { area = "Admin" });
+                        return RedirectToAction("Index", "Homes", new { area = "Admin" });
                     }
                     return LocalRedirect(returnUrl);
                 }
