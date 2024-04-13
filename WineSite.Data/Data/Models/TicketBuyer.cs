@@ -7,13 +7,12 @@ namespace WineSite.Data.Data.Models
     [Comment("Ticket buyer - cart")]
     public class TicketBuyer
     {
-        [Key]
+        
         public string BuyerId { get; set; } = null!;
 
         [ForeignKey(nameof(BuyerId))]
         public ApplicationUser Buyer { get; set; } = null!;
 
-        [Key]
         public int EventId { get; set; } 
 
         [ForeignKey(nameof(EventId))]

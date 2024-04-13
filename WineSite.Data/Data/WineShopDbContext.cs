@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Emit;
 using WineSite.Data.Data.Models;
 using WineSite.Data.Data.SeedDb;
 using Type = WineSite.Data.Data.Models.Type;
@@ -8,18 +9,32 @@ namespace WineSite.Data.Data
 {
     public class WineShopDbContext : IdentityDbContext<ApplicationUser>
     {
-        public WineShopDbContext(DbContextOptions<WineShopDbContext> options)
+        private bool _seedDb;
+        public WineShopDbContext(DbContextOptions<WineShopDbContext> options, bool seedDb = true)
             : base(options)
         {
+            _seedDb = seedDb;
+            //if (Database.IsRelational())
+            //{
+            //    Database.Migrate();
+            //}
+            //else
+            //{
+            //    Database.EnsureCreated();
+            //}
         }
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.ApplyConfiguration(new UserConfiguration());
-            builder.ApplyConfiguration(new TypeConfiguration());
-            builder.ApplyConfiguration(new WineConfiguration());
-            builder.ApplyConfiguration(new WineBuyerConfiguration());
-            builder.ApplyConfiguration(new TicketBuyerConfiguration());
-
+             
+               builder.Entity<TicketBuyer>()
+               .HasKey(t => new { t.BuyerId, t.EventId });
+                builder.ApplyConfiguration(new TicketBuyerConfiguration());
+                builder.ApplyConfiguration(new UserConfiguration());
+                builder.ApplyConfiguration(new TypeConfiguration());
+                builder.ApplyConfiguration(new WineConfiguration());
+                builder.ApplyConfiguration(new WineBuyerConfiguration());
+                
+            
             base.OnModelCreating(builder);
         }
 

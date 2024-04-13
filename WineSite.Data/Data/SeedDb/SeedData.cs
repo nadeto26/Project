@@ -7,7 +7,7 @@ namespace WineSite.Data.Data.SeedDb
 {
     public class SeedData
     {
-        public ApplicationUser VinarUser { get; set; }
+        
 
         public ApplicationUser GuestUser { get; set; }
 

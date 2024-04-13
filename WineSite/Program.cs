@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using WineSite.Controllers;
 using WineSite.Core.Contracts;
 using WineSite.Core.Services;
 using WineSite.Data.Data;
@@ -23,7 +24,7 @@ namespace WineSite
             builder.Services.AddScoped<UserManager<ApplicationUser>>();
             builder.Services.AddScoped<SignInManager<ApplicationUser>>();
             builder.Services.AddTransient<IApplicationUserService,ApplicationUserService>();
-
+            
           
 
             builder.Services.AddDefaultIdentity<ApplicationUser>(options =>

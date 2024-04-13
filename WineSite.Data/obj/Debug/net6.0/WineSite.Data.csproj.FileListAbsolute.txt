@@ -1,11 +1,11 @@
+C:\Users\Admin\Desktop\WineSite - Original\WineSite.Data\bin\Debug\net6.0\WineSite.Data.deps.json
+C:\Users\Admin\Desktop\WineSite - Original\WineSite.Data\bin\Debug\net6.0\WineSite.Data.dll
+C:\Users\Admin\Desktop\WineSite - Original\WineSite.Data\bin\Debug\net6.0\WineSite.Data.pdb
 C:\Users\Admin\Desktop\WineSite - Original\WineSite.Data\obj\Debug\net6.0\WineSite.Data.csproj.AssemblyReference.cache
 C:\Users\Admin\Desktop\WineSite - Original\WineSite.Data\obj\Debug\net6.0\WineSite.Data.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\Admin\Desktop\WineSite - Original\WineSite.Data\obj\Debug\net6.0\WineSite.Data.AssemblyInfoInputs.cache
 C:\Users\Admin\Desktop\WineSite - Original\WineSite.Data\obj\Debug\net6.0\WineSite.Data.AssemblyInfo.cs
 C:\Users\Admin\Desktop\WineSite - Original\WineSite.Data\obj\Debug\net6.0\WineSite.Data.csproj.CoreCompileInputs.cache
-C:\Users\Admin\Desktop\WineSite - Original\WineSite.Data\bin\Debug\net6.0\WineSite.Data.deps.json
-C:\Users\Admin\Desktop\WineSite - Original\WineSite.Data\bin\Debug\net6.0\WineSite.Data.dll
-C:\Users\Admin\Desktop\WineSite - Original\WineSite.Data\bin\Debug\net6.0\WineSite.Data.pdb
 C:\Users\Admin\Desktop\WineSite - Original\WineSite.Data\obj\Debug\net6.0\WineSite.Data.dll
 C:\Users\Admin\Desktop\WineSite - Original\WineSite.Data\obj\Debug\net6.0\refint\WineSite.Data.dll
 C:\Users\Admin\Desktop\WineSite - Original\WineSite.Data\obj\Debug\net6.0\WineSite.Data.pdb

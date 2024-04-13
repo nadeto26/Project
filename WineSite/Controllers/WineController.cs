@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using WineSite.Core.Contracts;
 using WineSite.Core.Models.Wine;
@@ -9,10 +10,12 @@ namespace WineSite.Controllers
     public class WineController : Controller
     {
         private readonly IWineServices _wines;
+    
         
         public WineController(IWineServices wines)
         {
             _wines = wines;
+          
              
         }
         [HttpPost]
@@ -84,10 +87,9 @@ namespace WineSite.Controllers
                 Harvest = wine.Harvest,
                 Manufucturer = wine.Manufucturer,
                 Sort = wine.Sort,
-                Price  = wine.Price,
-                Types = (IEnumerable<WineTypeServicesModel>)await _wines.AllTypes()
+                Price = wine.Price,
+                Types = await _wines.AllTypes()
             };
-
             return View(wineModel);
         }
 

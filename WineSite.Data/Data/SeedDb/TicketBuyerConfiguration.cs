@@ -8,9 +8,7 @@ namespace WineSite.Data.Data.SeedDb
     {
         public void Configure(EntityTypeBuilder<TicketBuyer> builder)
         {
-            builder
-             .HasKey(e => new { e.EventId, e.BuyerId });
-
+            builder.HasKey(e => new { e.EventId, e.BuyerId });
         }
     }
 }
