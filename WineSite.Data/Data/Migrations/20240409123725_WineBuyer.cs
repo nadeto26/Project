@@ -4,7 +4,7 @@
 
 namespace WineSite.Data.Data.Migrations
 {
-    public partial class WineBuyer : Migration
+    public partial class WineBuyers : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

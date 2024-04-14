@@ -281,5 +281,7 @@ namespace WineSite.Core.Services
             await _db.WineDeliveries.AddAsync(adDelivery);
             await _db.SaveChangesAsync();
         }
+
+
     }
 }

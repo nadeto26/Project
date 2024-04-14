@@ -10,8 +10,6 @@ namespace WineSite.Core.Contracts
 
         Task<AllRecipeViewModel?> GetRecipeDetailsByIdAsync(int id);
 
-        Task AddRecipeAsync(ReceiptViewModel model);
-
         Task<ReceiptViewModel> GetRecipeAsync(int id);
 
         Task UpdateRecipeAsync(int id, ReceiptViewModel events);

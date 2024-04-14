@@ -18,8 +18,6 @@ namespace WineSite.Core.Contracts
 
         Task ConfirmOrderAsync(string currentUserId);
 
-        Task AddEventAsync(EventsViewModel model);
-
         Task<bool> IncreaseQuantityAsync(int eventId, string userId);
 
         Task<EventsViewModel> GetEventAsync(int id);

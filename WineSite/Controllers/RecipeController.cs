@@ -35,26 +35,8 @@ namespace WineSite.Controllers
 
             return View(recipeModel);
         }
-
-        [HttpGet]
-        public IActionResult Add()
-        {
-            ReceiptViewModel model = new ReceiptViewModel();
-            return View(model);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Add(ReceiptViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                await recipeServices.AddRecipeAsync(model);
-                return RedirectToAction("Add");
-            }
-
+ 
            
-            return View(model);
-        }
 
         [HttpPost]
         public async Task<IActionResult> Edit(int id, ReceiptViewModel events)

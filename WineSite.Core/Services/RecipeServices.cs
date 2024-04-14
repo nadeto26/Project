@@ -16,20 +16,7 @@ namespace WineSite.Core.Services
             _dbcontext = dbContext;
         }
 
-        public async Task AddRecipeAsync(ReceiptViewModel model)
-        {
-            var adRecipe = new Recipe()
-            {
-                Name = model.Name,
-                Description = model.Description,
-                ImageUrl = model.ImageUrl,
-                Notes = model.Notes,
-            };
-
-            _dbcontext.Recipes.Add(adRecipe);
-            await _dbcontext.SaveChangesAsync();
-        }
-
+       
         public async Task<bool> DeleteRecipeAsync(int id)
         {
             var recipeToDelete = await _dbcontext.Recipes.FindAsync(id);

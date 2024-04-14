@@ -134,25 +134,7 @@ namespace WineSite.Controllers
             return View(userTickets);
         }
 
-        [HttpGet]
-        public IActionResult Add()
-        {
-            EventsViewModel model = new EventsViewModel();
-            return View(model);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Add(EventsViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                await eventServices.AddEventAsync(model);
-                return RedirectToAction("Add");
-            }
-
-            // Връщане на същата форма с модела, ако има грешки в модела
-            return View(model);
-        }
+       
 
         [HttpGet]
         public async Task<IActionResult> Edit(int id)

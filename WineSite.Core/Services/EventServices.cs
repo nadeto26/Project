@@ -18,35 +18,13 @@ namespace WineSite.Core.Services
             _context = context;
         }
 
-        public async Task AddEventAsync(EventsViewModel model)
-        {
-            var adEvent = new Events()
-            {
-                Name = model.Name,
-                HostName = model.HostName,
-                Address = model.Address,
-                DateTime = model.DateTime,
-                Description = model.Description,
-                ImageUrl = model.ImageUrl,
-                PriceTicket = model.PriceTicket,
-                WineList = model.WineList,
-                Features = model.Features,
-                Preferences = model.Preferences,
-                MoreInformation = model.MoreInformation,
-                Duration = model.Duration,
-            };
-
-            _context.Events.Add(adEvent);
-            await _context.SaveChangesAsync();
-        }
-
         public async Task<bool> AddEventToCartAsync(int eventId, string userId)
         {
             var adToAdd = await _context.Events.FindAsync(eventId);
 
             if (adToAdd == null)
             {
-                return false; // Можете да хвърлите изключение или върнете подходящ резултат
+                return false;  
             }
 
             var entry = new TicketBuyer()
@@ -246,12 +224,12 @@ namespace WineSite.Core.Services
             var eventToDelete = await _context.Events.FindAsync(id);
             if (eventToDelete == null)
             {
-                return false; // Връщаме false, ако събитието не е намерено
+                return false;  
             }
 
             _context.Events.Remove(eventToDelete);
             await _context.SaveChangesAsync();
-            return true; // Връщаме true, ако изтриването е успешно
+            return true;  
         }
 
         public async Task<bool> RemoveEventFromCartAsync(int eventId, string userId)
@@ -260,7 +238,7 @@ namespace WineSite.Core.Services
 
             if (entryToRemove == null)
             {
-                return false; // Върнете подходящ резултат или хвърлете изключение
+                return false;  
             }
 
             _context.TicketBuyers.Remove(entryToRemove);
