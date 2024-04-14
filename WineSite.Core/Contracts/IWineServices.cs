@@ -1,7 +1,7 @@
 ﻿using WineSite.Core.Infrastructure;
 using WineSite.Core.Models.Event;
 using WineSite.Core.Models.Wine;
- 
+using WineSite.Data.Data.Models;
 
 namespace WineSite.Core.Contracts
 {
@@ -42,6 +42,11 @@ namespace WineSite.Core.Contracts
         Task ConfirmOrderAsync(string currentUserId);
 
         Task WineDeliveryAsync(WineDeliveryDetailsViewModel deliveryDetails);
+
+        public  Task<WineBuyers> GetCartItemByIdAsync(string buyerId, int wineId);
+       
+
+        Task UpdateCartItemAsync(WineCart cartItem);
 
 
     }

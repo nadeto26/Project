@@ -4,6 +4,8 @@ using WineSite.Data.Data;
 using WineSite.Data.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using WineSite.Core.Contracts;
+using WineSite.Data.Data.Migrations;
+using WineBuyers = WineSite.Data.Data.Models.WineBuyers;
 
 namespace WineSite.Core.Services
 {
@@ -165,26 +167,43 @@ namespace WineSite.Core.Services
             return true;
         }
 
+
         public async Task<bool> AddWineToCartAsync(int wineId, string userId)
         {
-            var adToAdd = await _db.Wines.FindAsync(wineId);
-
-            if (adToAdd == null)
+            try
             {
-                return false;  
+                // Проверка дали артикулът вече е в кошницата
+                var existingCartItem = await _db.WineBuyers
+                    .FirstOrDefaultAsync(ci => ci.BuyerId == userId && ci.WineId == wineId);
+
+                if (existingCartItem != null)
+                {
+                    // Увеличаваме количеството на съществуващия артикул в кошницата
+                    existingCartItem.Quantity++;
+                }
+                else
+                {
+                    // Ако артикулът не е в кошницата, създаваме нов запис
+                    var newCartItem = new WineBuyers()
+                    {
+                        BuyerId = userId,
+                        WineId = wineId,
+                        Quantity = 1 // Започваме с количеството 1
+                    };
+                    _db.WineBuyers.Add(newCartItem);
+                }
+
+                await _db.SaveChangesAsync();
+                return true;
             }
-
-            var entry = new WineBuyers()
+            catch (Exception ex)
             {
-                BuyerId = userId,
-                WineId = adToAdd.Id
-            };
-
-            _db.WineBuyers.Add(entry);
-            await _db.SaveChangesAsync();
-
-            return true;
+                // Можете да добавите логика за обработка на грешки тук
+                Console.WriteLine($"Грешка при добавяне на артикул в кошницата: {ex.Message}");
+                return false;
+            }
         }
+
 
         public async Task<List<WineCart>> GetUserWineAsync(string userId)
         {
@@ -196,6 +215,7 @@ namespace WineSite.Core.Services
                    Name = ab.Wine.Name,
                    Price = ab.Wine.Price,
                    ImageUrl = ab.Wine.ImageUrl,
+                   Quantity = ab.Quantity
 
                })
                .ToListAsync();
@@ -204,6 +224,20 @@ namespace WineSite.Core.Services
 
            
         }
+
+
+        public async Task<WineBuyers> GetCartItemByIdAsync(int id)
+        {
+            return await _db.WineBuyers.FindAsync(id);
+        }
+
+        public async Task UpdateCartItemAsync(WineCart cartItem)
+        {
+            _db.Entry(cartItem).State = EntityState.Modified;
+            await _db.SaveChangesAsync();
+        }
+
+        
 
         public async Task<bool> RemoveWineFromCartAsync(int wineId, string userId)
         {
@@ -282,6 +316,11 @@ namespace WineSite.Core.Services
             await _db.SaveChangesAsync();
         }
 
-
+        
+            public async Task<WineBuyers> GetCartItemByIdAsync(string buyerId, int wineId)
+            {
+                return await _db.WineBuyers.FindAsync(buyerId, wineId);
+            }
+        
     }
 }

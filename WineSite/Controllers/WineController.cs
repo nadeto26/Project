@@ -1,8 +1,13 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Data;
 using System.Security.Claims;
 using WineSite.Core.Contracts;
 using WineSite.Core.Models.Wine;
+using WineSite.Data.Data.Models;
+using static WineSite.Core.Constants.MessageConstants;
 
 namespace WineSite.Controllers
 {
@@ -19,6 +24,7 @@ namespace WineSite.Controllers
              
         }
         [HttpPost]
+        
         public async Task<IActionResult> Delete(int id)
         {
             bool result = await _wines.DeleteWineAsync(id);
@@ -28,6 +34,7 @@ namespace WineSite.Controllers
             }
 
             return RedirectToAction("All");
+            
         }
         public async Task<IActionResult> All([FromQuery] AllWinesQuaryModel query)
         {
@@ -121,7 +128,7 @@ namespace WineSite.Controllers
             return RedirectToAction(nameof(Details), new { id = "1" });
         }
 
-         
+
 
         public async Task<IActionResult> Cart()
         {
@@ -131,6 +138,47 @@ namespace WineSite.Controllers
             return View(userCartItems);
         }
 
+        public async Task<IActionResult> DecreaseQuantity(int id)
+        {
+            string buyerId = GetUserId();
+            
+            var wineCartItem = await _wines.GetCartItemByIdAsync(buyerId, id);
+
+            if (wineCartItem != null)
+            {
+                if (wineCartItem.Quantity > 1)
+                {
+                    wineCartItem.Quantity--; // Намаляваме количеството само ако е по-голямо от 1
+                    await _wines.UpdateCartItemAsync(wineCartItem);
+                }
+                else
+                {
+                    await _wines.RemoveWineFromCartAsync(buyerId, id);
+                }
+            }
+
+            return RedirectToAction(nameof(Cart));
+        }
+
+
+        public async Task<IActionResult> IncreaseQuantity(int id)
+        {
+            var wineCartItem = await _wines.GetCartItemByIdAsync(id);
+
+            if (wineCartItem != null)
+            {
+                wineCartItem.Quantity++; // Увеличаваме количеството
+                //await _wines.UpdateCartItemAsync(wineCartItem);
+            }
+
+            return RedirectToAction(nameof(Cart));
+        }
+
+        
+
+
+
+        [Authorize]
         public async Task<IActionResult> AddToCart(int id)
         {
             string currentUserId = GetUserId();
@@ -141,7 +189,8 @@ namespace WineSite.Controllers
             {
                 ModelState.AddModelError(string.Empty, "Неуспешно добавяне на вино в кошницата.");
             }
-            return RedirectToAction(nameof(Cart));
+            TempData[UserMessageSuccess] = "Добавихте успешно виното!";
+            return RedirectToAction(nameof(Cart)) ;
         }
 
         [HttpPost]
@@ -155,7 +204,8 @@ namespace WineSite.Controllers
             {
                 ModelState.AddModelError(string.Empty, "Неуспешно премахване на виното от количката.");
             }
-            return RedirectToAction(nameof(Cart));
+
+            return RedirectToAction("Cart", "Wine");
         }
 
         public async Task<IActionResult> Confirmation()

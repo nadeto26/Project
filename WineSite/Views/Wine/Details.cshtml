@@ -2,7 +2,7 @@
 @model WineDetailsSevicesModel
 
 @{
-    ViewBag.Title = "House Details";
+    ViewBag.Title = "Повече за виното";
 }
 
 <h2 class="text-center">@ViewBag.Title</h2>
@@ -16,20 +16,23 @@
         </div>
         <div class="card col-8 border-0">
             <p style="font-size:25px;"><u>@Model.Name</u></p>
-            <p>Located in: <b>@Model.Name</b></p>
+            <p><b>Име:</b> @Model.Name</p>
             <p>
-                Price Per Month:
-                <b>@String.Format("{0:f2}", Model.Price) BGN</b>
+                <b>Цена на бутилка:</b>
+                <b>@String.Format("{0:f2}", Model.Price) лв.</b>
             </p>
-            <p>@Model.Description</p>
-            <p>Category: <b>@Model.Type</b></p>
-           
+            <p><b>Описание:</b> @Model.Description</p>
+            <p><b>Тип:</b>@Model.Type</p>
+            <p><b>Страна на произход:</b> @Model.Country</p>
+            <p><b>Производител:</b> @Model.Manufucturer</p>
+            <p><b>Вносител:</b> @Model.Importer</p>
+            <p><b>Сорт:</b> @Model.Sort</p>
+            <p><b>Реколта:</b> @Model.Harvest</p>
+            <p><b>Съдържание на алкохол:</b> @Model.AlcoholContent</p>
+            <p><b>Бутилка:</b> @Model.Bottle ml</p>
+
             <div class="form-inline">
-                @if (User.IsInRole("Administrator"))
-                {
-                    <a class="btn btn-warning" asp-controller="Wine" asp-action="Edit"
-                   asp-route-id="@Model.Id">Edit</a>
-                }
+               
             </div>
             <p></p>
             <div class="card" style="width: 18rem;">
