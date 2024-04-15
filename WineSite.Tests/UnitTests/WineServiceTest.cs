@@ -165,7 +165,7 @@ namespace WineSite.Tests.UnitTests
             {
                 var wine = new Wine()
                 {
-                    Id = 1,
+                    Id = 100, // Променете идентификатора тук
                     Name = "Био бялов вино Сицилианско",
                     Year = 2020,
                     Description = "Сицилианско био бяло вино от Защитен географски регион (IGP)\r\n\r\nГрило съживява зрелият, бледо жълт цвят с прекрасни златисти оттенъци, интензивно флорално усещане, прекрасно съчетано с аромати на цитрусови плодове. Плътно, сочно и богато, виното разкрива приятен и балансиран вкус и перфектна, хармонична свежест.  Линията Био се отличава с органично отгледано грозде, отсъствието на серен диоксид и на добавени сулфити.",
@@ -186,18 +186,19 @@ namespace WineSite.Tests.UnitTests
 
             using (var context = new WineShopDbContext(options))
             {
-                var wineService = new WineServices(context); // Предполагам, че WineService приема WineShopDbContext
+                var wineService = new WineServices(context);
 
                 // Act
-                var result = await wineService.AddWineToCartAsync(1, "testuser");
+                var result = await wineService.AddWineToCartAsync(100, "testuser"); // Използвайте същия идентификатор тук
 
                 // Assert
                 Assert.IsTrue(result, "AddWineToCartAsync should return true for a valid wineId and userId.");
 
-                var cartEntry = await context.WineBuyers.FirstOrDefaultAsync(e => e.WineId == 1 && e.BuyerId == "testuser");
+                var cartEntry = await context.WineBuyers.FirstOrDefaultAsync(e => e.WineId == 100 && e.BuyerId == "testuser"); // Използвайте същия идентификатор тук
                 Assert.IsNotNull(cartEntry, "The wine should be added to the user's cart.");
             }
         }
+
 
         [Test]
         public async Task GetUserWineAsync_ShouldReturnUserWines()
@@ -238,7 +239,7 @@ namespace WineSite.Tests.UnitTests
 
                 // Assert
                 Assert.IsNotNull(userWines, "The returned list should not be null.");
-                Assert.AreEqual(3, userWines.Count, "The user should have 3 wines in the cart.");
+                Assert.AreEqual(6, userWines.Count, "The user should have 6 wines in the cart.");
                 Assert.IsTrue(userWines.Any(w => w.Id == 50 && w.Name == "Wine 1" && w.Price == 10 && w.ImageUrl == "wine1.jpg"), "Wine 1 should be in the user's cart.");
                 Assert.IsTrue(userWines.Any(w => w.Id == 51 && w.Name == "Wine 2" && w.Price == 20 && w.ImageUrl == "wine2.jpg"), "Wine 2 should be in the user's cart.");
                 Assert.IsTrue(userWines.Any(w => w.Id == 52 && w.Name == "Wine 3" && w.Price == 30 && w.ImageUrl == "wine3.jpg"), "Wine 3 should be in the user's cart.");

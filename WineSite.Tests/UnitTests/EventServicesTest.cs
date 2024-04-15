@@ -103,7 +103,6 @@ namespace WineSite.Tests.UnitTests
             }
         }
 
-
         [Test]
         public async Task GetUserWineAsync_ValidUserId_ShouldReturnUserWines()
         {
@@ -116,17 +115,16 @@ namespace WineSite.Tests.UnitTests
             {
                 var userId = "testuser";
 
-                // Добавете няколко вина, като към тях са добавени покупатели
                 context.Wines.AddRange(
-                    new Wine() { Id = 1, Name = "Wine 1", Price = 10, ImageUrl = "wine1.jpg" },
-                    new Wine() { Id = 2, Name = "Wine 2", Price = 20, ImageUrl = "wine2.jpg" },
-                    new Wine() { Id = 3, Name = "Wine 3", Price = 30, ImageUrl = "wine3.jpg" }
-                );
+           new Wine { Id = 1, Name = "Wine 1", Price = 10, ImageUrl = "wine1.jpg", Country = "Country 1", Description = "Description 1", Importer = "Importer 1", Manufucturer = "Manufacturer 1", Sort = "Sort 1",AlcoholContent = 12, Bottle=750,Harvest=12,Year = 2020 },
+           new Wine { Id = 2, Name = "Wine 2", Price = 20, ImageUrl = "wine2.jpg", Country = "Country 2", Description = "Description 2", Importer = "Importer 2", Manufucturer = "Manufacturer 2", Sort = "Sort 2",AlcoholContent = 12, Bottle = 750, Harvest = 12, Year = 2020 },
+           new Wine { Id = 3, Name = "Wine 3", Price = 30, ImageUrl = "wine3.jpg", Country = "Country 3", Description = "Description 3", Importer = "Importer 3", Manufucturer = "Manufacturer 3", Sort = "Sort 3", AlcoholContent = 12, Bottle = 750, Harvest = 12, Year = 2020 }
+       );
 
                 context.WineBuyers.AddRange(
-                    new WineBuyers() { WineId = 1, BuyerId = userId },
-                    new WineBuyers() { WineId = 2, BuyerId = userId },
-                    new WineBuyers() { WineId = 3, BuyerId = userId }
+                    new WineBuyers { WineId = 1, BuyerId = userId },
+                    new WineBuyers { WineId = 2, BuyerId = userId },
+                    new WineBuyers { WineId = 3, BuyerId = userId }
                 );
 
                 await context.SaveChangesAsync();

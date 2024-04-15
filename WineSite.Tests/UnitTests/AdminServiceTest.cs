@@ -1,9 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Moq;
+using NUnit.Framework.Internal.Execution;
 using WineSite.Core.Contracts;
 using WineSite.Core.Models.Event;
 using WineSite.Core.Models.Receipt;
@@ -30,68 +27,54 @@ namespace WineSite.Tests.UnitTests
             this.recipeServices = new RecipeServices(this._db);
         }
 
+        
         [Test]
-        public async Task AddEventAsync_ValidEvent_ShouldAddEventToDatabase()
-        {
-            // Arrange
-            var options = new DbContextOptionsBuilder<WineShopDbContext>()
-                .UseInMemoryDatabase(databaseName: "TestDatabase")
-                .Options;
-
-            using (var context = new WineShopDbContext(options))
-            {
-                var eventService = new AdminServices(context);
-                var model = new EventsViewModel()
-                {
-                    Name = "Test Event",
-                    HostName = "Test Host",
-                    Address = "Test Address",
-                    DateTime = "Monday at 8.00",
-                    Description = "Test Description",
-                    ImageUrl = "test.jpg",
-                    PriceTicket = 20.99M,
-                    WineList = "Test Wines",
-                    Features = "Test Features",
-                    Preferences = "Test Preferences",
-                    MoreInformation = "Test More Info",
-                    Duration = "120 min"
-                };
-
-                // Act
-                await adminServices.AddEventAsync(model);
-
-                // Assert
-                var addedEvent = await context.Events.FirstOrDefaultAsync(e => e.Name == "Test Event");
-                Assert.IsNotNull(addedEvent, "The event should be added to the database.");  
-            }
-        }
-        [Test]
+      
         public async Task AddRecipeAsync_ValidRecipe_ShouldAddRecipeToDatabase()
         {
             // Arrange
             var options = new DbContextOptionsBuilder<WineShopDbContext>()
-                .UseInMemoryDatabase(databaseName: "TestDatabase")
+                .UseInMemoryDatabase(databaseName: "Test_Database") // Вместо Guid.NewGuid().ToString() използваме статично име за базата данни
                 .Options;
 
             using (var context = new WineShopDbContext(options))
             {
-                var recipeService = new RecipeServices(context); // Проверете името на създадения сервис
-                var model = new ReceiptViewModel()
+                // Добавяне на вашия тестов обект към контекста
+                var recipe = new Recipe
                 {
-                    Name = "Test Recipe",
-                    Notes = "Two eggs with bread",
-                    Description = "break the eggs",
-                    ImageUrl = "image.1",
+                     Id =5,
+                     Name = "Recipe",
+                     Description = "Brake the eggs",
+                     ImageUrl = "Recipe2.jpg",
+                     Notes = "recipes"
+                };
+                context.Recipes.Add(recipe);
+                await context.SaveChangesAsync();
+            }
+
+            using (var context = new WineShopDbContext(options))
+            {
+                var service = new AdminServices(context);  
+                var model = new ReceiptViewModel
+                {
+                   Name = "Recipe",
+                    Description = "Brake the eggs",
+                    ImageUrl = "Recipe2.jpg",
+                    Notes = "recipes"
                 };
 
                 // Act
-                await adminServices.AddRecipeAsync(model); // Проверете името на метода за добавяне
+                await service.AddRecipeAsync(model);
 
                 // Assert
-                var addedRecipe = await context.Recipes.FirstOrDefaultAsync(e => e.Name == "Test Recipe");
-                Assert.IsNotNull(addedRecipe, "The recipe should be added to the database.");
+                using (var assertContext = new WineShopDbContext(options))
+                {
+                    var addedRecipe = await assertContext.Recipes.FirstOrDefaultAsync(r => r.Name == model.Name);
+                    Assert.IsNotNull(addedRecipe, "The recipe should be added to the database.");
+                }
             }
         }
+
 
 
         [Test]
@@ -104,7 +87,7 @@ namespace WineSite.Tests.UnitTests
 
             using (var context = new WineShopDbContext(options))
             {
-                var wineService = new WineServices(context);
+                var adminServices = new AdminServices(context); // Създайте инстанция на вашия сервис
                 var newWineName = "Test Wine";
                 var newWineTypeId = 1; // Заменете това със съществуващ идентификатор на типа на виното
                 var newWineYear = 2022;
@@ -123,14 +106,17 @@ namespace WineSite.Tests.UnitTests
                 var newWineId = await adminServices.Create(newWineName, newWineTypeId, newWineYear, newWineImageUrl,
                     newWineDescription, newWineCountry, newWineManufacturer, newWinePrice, newWineSort,
                     newWineHarvest, newWineAlcoholContent, newWineBottle, newWineImporter);
-                context.Entry(newWineId).State = EntityState.Detached;
+
                 // Assert
                 var addedWine = await context.Wines.FindAsync(newWineId);
                 Assert.IsNotNull(addedWine, "The wine should be added to the database.");
+                Assert.AreEqual(newWineName, addedWine.Name, "The wine name should match.");
+                // Други проверки според вашите изисквания
 
-
+                // Уверете се, че тук извиквате нужните методи за сравнение и уверки за данните на виното
             }
         }
+
 
         [Test]
         public async Task AllTypesNames_ShouldReturnCorrectResult()

@@ -1,4 +1,5 @@
 ﻿using WineSite.Core.Models.Admin;
+using WineSite.Core.Models.Contact;
 using WineSite.Core.Models.Event;
 using WineSite.Core.Models.Receipt;
 using WineSite.Core.Models.Wine;
@@ -28,5 +29,9 @@ namespace WineSite.Core.Contracts
         Task<bool> DeleteTicketOrderAsync(int id);
 
         Task<bool> DeleteWineOrderAsync(int id);
+
+        Task<List<AddMessage>> GetAllMessagesAsync();
+
+        Task DeleteMessageAsync(int id);
     }
 }

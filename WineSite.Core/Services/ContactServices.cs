@@ -18,9 +18,10 @@ namespace WineSite.Core.Services
         {
             _dbContext = dbContext;
         }
-        public async Task AddMessageAsync(ContactViewModel model)
+
+        public async Task AddMessageAsync(AddMessage model)
         {
-            var message = new Messages()
+            var adMessage = new Messages()
             {
                 Name = model.Name,
                 Email = model.Email,
@@ -28,7 +29,7 @@ namespace WineSite.Core.Services
                 About = model.About,
                 Message = model.Message,
             };
-            await _dbContext.Messages.AddAsync(message);
+            await _dbContext.Messages.AddAsync(adMessage);
             await _dbContext.SaveChangesAsync();
         }
     }

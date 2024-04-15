@@ -6,22 +6,22 @@ namespace WineSite.Web.Controllers
 {
     public class ContactsController : Controller
     {
-        private readonly IContactServices  _contacts;
+        private readonly IContactServices _contacts;
 
         public ContactsController(IContactServices contacts)
         {
             _contacts = contacts;
         }
-
         [HttpGet]
-        public IActionResult AddMessage()
+        public async Task<IActionResult> AddMessage()
         {
-            var admodel = new ContactViewModel();
+            var admodel = new AddMessage();
+
             return View(admodel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddMessage(ContactViewModel model)
+        public async Task<IActionResult> AddMessage(AddMessage model)
         {
             if (!ModelState.IsValid)
             {

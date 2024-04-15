@@ -30,7 +30,7 @@ namespace WineSite.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddEvent(EventsViewModel model)
+        public async Task<IActionResult> AddЕvent(EventsViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -39,8 +39,8 @@ namespace WineSite.Controllers
 
             await _adminService.AddEventAsync(model);
 
-            TempData[UserMessageSuccess] = "Добавихте успешно събитието!";
-            return RedirectToAction("Add");
+            return RedirectToAction("AddЕvent");
+
         }
 
         //Добавяне на рецепта
@@ -93,9 +93,8 @@ namespace WineSite.Controllers
             var newWineId = await _adminService.Create(model.Name, model.TypeId, model.Year,
                 model.ImageUrl, model.Description, model.Country, model.Manufucturer, model.Price,
                 model.Sort, model.Harvest, model.AlcoholContent, model.Bottle, model.Importer);
-
-            TempData[UserMessageSuccess] = "Добавихте успешно виното!";
-            return RedirectToAction("Admin", "Add");
+ 
+            return RedirectToAction("AddWine");
         }
 
         //Поръчки за билети
@@ -110,6 +109,20 @@ namespace WineSite.Controllers
         {
             var orders = await _adminService.GetWinesOrdersAsync();
             return View(orders);
+        }
+
+        //Събощения - от контаки 
+        public async Task<IActionResult> AllMessages()
+        {
+            var messages = await _adminService.GetAllMessagesAsync();
+            return View(messages);
+        }
+
+        //Изтриване - от контакти 
+        public async Task<IActionResult> DeleteMessage(int id)
+        {
+            await _adminService.DeleteMessageAsync(id);
+            return RedirectToAction(nameof(AllMessages));
         }
 
         //Изтриване на поръчка

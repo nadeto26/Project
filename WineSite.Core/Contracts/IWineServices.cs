@@ -37,16 +37,17 @@ namespace WineSite.Core.Contracts
 
         Task<List<WineCart>> GetUserWineAsync(string userId);
 
-        Task<bool> RemoveWineFromCartAsync(int wineId, string userId);
+        
 
         Task ConfirmOrderAsync(string currentUserId);
 
         Task WineDeliveryAsync(WineDeliveryDetailsViewModel deliveryDetails);
 
-        public  Task<WineBuyers> GetCartItemByIdAsync(string buyerId, int wineId);
-       
+        Task<WineBuyers> GetCartItemByIdAsync(string buyerId, int wineId);
 
-        Task UpdateCartItemAsync(WineCart cartItem);
+        Task<bool> UpdateCartItemAsync(WineBuyers cartItem);
+
+        Task<bool> RemoveWineFromCartAsync(string buyerId, int wineId);
 
 
     }

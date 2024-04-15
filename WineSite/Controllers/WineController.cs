@@ -138,43 +138,44 @@ namespace WineSite.Controllers
             return View(userCartItems);
         }
 
+
+
         public async Task<IActionResult> DecreaseQuantity(int id)
         {
-            string buyerId = GetUserId();
-            
-            var wineCartItem = await _wines.GetCartItemByIdAsync(buyerId, id);
+            string currentUserId = GetUserId();
+            var wineCartItem = await _wines.GetCartItemByIdAsync(currentUserId, id);
 
             if (wineCartItem != null)
             {
                 if (wineCartItem.Quantity > 1)
                 {
-                    wineCartItem.Quantity--; // Намаляваме количеството само ако е по-голямо от 1
+                    wineCartItem.Quantity--;
                     await _wines.UpdateCartItemAsync(wineCartItem);
                 }
                 else
                 {
-                    await _wines.RemoveWineFromCartAsync(buyerId, id);
+                    await _wines.RemoveWineFromCartAsync(currentUserId, id);
                 }
             }
 
             return RedirectToAction(nameof(Cart));
         }
 
-
         public async Task<IActionResult> IncreaseQuantity(int id)
         {
-            var wineCartItem = await _wines.GetCartItemByIdAsync(id);
+            string currentUserId = GetUserId();
+            var wineCartItem = await _wines.GetCartItemByIdAsync(currentUserId, id);
 
             if (wineCartItem != null)
             {
-                wineCartItem.Quantity++; // Увеличаваме количеството
-                //await _wines.UpdateCartItemAsync(wineCartItem);
+                wineCartItem.Quantity++;
+                await _wines.UpdateCartItemAsync(wineCartItem);
             }
 
             return RedirectToAction(nameof(Cart));
         }
 
-        
+
 
 
 
@@ -198,7 +199,7 @@ namespace WineSite.Controllers
         {
             string currentUserId = GetUserId();
 
-            bool removedFromCart = await _wines.RemoveWineFromCartAsync(id, currentUserId);
+            bool removedFromCart = await _wines.RemoveWineFromCartAsync(currentUserId, id);
 
             if (!removedFromCart)
             {

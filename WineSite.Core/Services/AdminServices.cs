@@ -12,6 +12,7 @@ using WineSite.Data.Data.Models;
 using WineSite.Core.Models.Wine;
 using WineSite.Core.Models.Admin;
 using Microsoft.EntityFrameworkCore;
+using WineSite.Core.Models.Contact;
 
 namespace WineSite.Core.Services
 {
@@ -166,6 +167,33 @@ namespace WineSite.Core.Services
             await _context.SaveChangesAsync();
 
             return true;
+        }
+
+        public async Task<List<AddMessage>> GetAllMessagesAsync()
+        {
+            var messages = await _context.Messages
+           .Select(d => new AddMessage
+           {
+               Id = d.Id,
+               Name = d.Name,
+               Message = d.Message,
+               About = d.About,
+               Email = d.Email,
+               PhoneNumber = d.PhoneNumber
+           })
+           .ToListAsync();
+
+            return messages;
+        }
+
+        public async Task DeleteMessageAsync(int id)
+        {
+            var message = await _context.Messages.FirstOrDefaultAsync(o => o.Id == id);
+            if (message != null)
+            {
+                _context.Messages.Remove(message);
+                await _context.SaveChangesAsync();
+            }
         }
     }
 }

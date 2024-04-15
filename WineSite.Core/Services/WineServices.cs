@@ -231,29 +231,22 @@ namespace WineSite.Core.Services
             return await _db.WineBuyers.FindAsync(id);
         }
 
-        public async Task UpdateCartItemAsync(WineCart cartItem)
+        public async Task<bool> UpdateCartItemAsync(WineBuyers cartItem)
         {
-            _db.Entry(cartItem).State = EntityState.Modified;
-            await _db.SaveChangesAsync();
-        }
-
-        
-
-        public async Task<bool> RemoveWineFromCartAsync(int wineId, string userId)
-        {
-            var entryToRemove = await _db.WineBuyers.FirstOrDefaultAsync(e => e.WineId == wineId && e.BuyerId == userId);
-
-            if (entryToRemove == null)
+            try
             {
-                return false; // Върнете подходящ резултат или хвърлете изключение
+                _db.Update(cartItem);
+                await _db.SaveChangesAsync();
+                return true;
             }
-
-            _db.WineBuyers.Remove(entryToRemove);
-            await _db.SaveChangesAsync();
-
-            return true;
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Грешка при актуализиране на артикул в кошницата: {ex.Message}");
+                return false;
+            }
         }
 
+      
         public async Task ConfirmOrderAsync(string currentUserId)
         {
             var user = await _db.Users.FirstOrDefaultAsync(u => u.Id == currentUserId);
@@ -316,11 +309,31 @@ namespace WineSite.Core.Services
             await _db.SaveChangesAsync();
         }
 
-        
-            public async Task<WineBuyers> GetCartItemByIdAsync(string buyerId, int wineId)
+
+        public async Task<WineBuyers> GetCartItemByIdAsync(string buyerId, int wineId)
+        {
+            return await _db.WineBuyers.FirstOrDefaultAsync(w => w.BuyerId == buyerId && w.WineId == wineId);
+        }
+
+
+        public async Task<bool> RemoveWineFromCartAsync(string buyerId, int wineId)
+        {
+            try
             {
-                return await _db.WineBuyers.FindAsync(buyerId, wineId);
+                var cartItem = await _db.WineBuyers.FirstOrDefaultAsync(ci => ci.BuyerId == buyerId && ci.WineId == wineId);
+                if (cartItem != null)
+                {
+                    _db.WineBuyers.Remove(cartItem);
+                    await _db.SaveChangesAsync();
+                    return true;
+                }
+                return false; // Артикулът не беше намерен в кошницата
             }
-        
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Грешка при премахване на артикул от кошницата: {ex.Message}");
+                return false;
+            }
+        }
     }
 }
