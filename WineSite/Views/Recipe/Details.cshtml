@@ -1,25 +1,28 @@
 ﻿@using WineSite.Core.Models.Receipt;
 @model AllRecipeViewModel
-
-@{
+ 
+    @{
     ViewBag.Title = Model.Name;
 }
-
-<div class="text-center custom-div">
+ 
+    <div class="text-center custom-div">
     <h2>@ViewBag.Title</h2>
      
 </div>
 
+ 
 
 
 
 <div class="container" style="display:inline">
     <div class="row">
         <div class="col-12">
+           
             <img class="img-fluid" src="@Model.ImageUrl" alt="Recipe Image" style="width: 100%;">
         </div>
-
+      
         <div class="card col-8 border-0">
+         
             <br />
             <br />
             <h2>Необходими продукти:</h2>

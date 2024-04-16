@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using WineSite.Controllers;
+using WineSite.Areas.Admin.Contracts;
+using WineSite.Areas.Admin.Sevices;
 using WineSite.Core.Contracts;
 using WineSite.Core.Services;
 using WineSite.Data.Data;

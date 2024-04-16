@@ -3,7 +3,7 @@
     height: 40px; 
 }
 
-/*html {
+html {
   font-size: 14px;
 }
 
@@ -141,6 +141,10 @@ body.black-bg {
     background-color: #000;  
     color: #fff;  
 }
+div.black-bg {
+    background-color: #000;
+    color: #fff;
+}
 
  
 .container {
@@ -155,10 +159,10 @@ h1 {
 }
 
 .custom-div {
-    background-color: #000;*/ /* Черен фон */
-    /*color: #fff;*/ /* Бял текст */
-    /*padding: 10px;*/ /* Вътрешен отстъп */
-/*}*/
+    background-color: white;   
+    color: black;  
+    padding: 10px;  
+}
 
 
 
