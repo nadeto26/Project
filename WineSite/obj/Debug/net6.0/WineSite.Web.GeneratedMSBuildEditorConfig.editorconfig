@@ -16,16 +16,20 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\Admin\Desktop\WineSite - Original\WineSite
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/Admin/Desktop/WineSite - Original/WineSite/Areas/Admin/Views/Homes/AddEvent.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSG9tZXNcQWRkRXZlbnQuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/Admin/Desktop/WineSite - Original/WineSite/Areas/Admin/Views/Homes/AddRecipe.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSG9tZXNcQWRkUmVjaXBlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Admin/Desktop/WineSite - Original/WineSite/Areas/Admin/Views/Homes/AddWine.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSG9tZXNcQWRkV2luZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Desktop/WineSite - Original/WineSite/Areas/Admin/Views/Homes/AddЕvent.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSG9tZXNcQWRk0JV2ZW50LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Desktop/WineSite - Original/WineSite/Areas/Admin/Views/Homes/AllMessages.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSG9tZXNcQWxsTWVzc2FnZXMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Admin/Desktop/WineSite - Original/WineSite/Areas/Admin/Views/Homes/Index.cshtml]
@@ -90,10 +94,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Admin/Desktop/WineSite - Original/WineSite/Views/Admin/AddЕvent.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQWRk0JV2ZW50LmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Admin/Desktop/WineSite - Original/WineSite/Views/Admin/AllMessages.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQWxsTWVzc2FnZXMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Admin/Desktop/WineSite - Original/WineSite/Views/Admin/_WineFormPartial.cshtml]

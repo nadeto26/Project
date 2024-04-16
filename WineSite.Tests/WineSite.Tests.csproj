@@ -23,6 +23,7 @@
   <ItemGroup>
     <ProjectReference Include="..\WineSite.Core\WineSite.Core.csproj" />
     <ProjectReference Include="..\WineSite.Data\WineSite.Data.csproj" />
+    <ProjectReference Include="..\WineSite\WineSite.Web.csproj" />
   </ItemGroup>
 
 </Project>

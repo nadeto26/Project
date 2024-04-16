@@ -188,7 +188,7 @@ namespace WineSite.Core.Services
         public async Task<List<AddToCartViewModel>> GetUserTicketsAsync(string userId)
         {
             var userTickets = await _context.TicketBuyers
-                .Where(ab => ab.BuyerId == userId /*&& ab.IsPurchased*/) // Само закупените билети
+                .Where(ab => ab.BuyerId == userId ) 
                 .Select(ab => new AddToCartViewModel()
                 {
                     Id = ab.Events.Id,
@@ -271,5 +271,7 @@ namespace WineSite.Core.Services
 
             await _context.SaveChangesAsync();
         }
+
+
     }
 }

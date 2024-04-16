@@ -28,7 +28,7 @@ namespace WineSite.Areas.Admin.Contracts
 
         Task<bool> DeleteTicketOrderAsync(int id);
 
-        Task<bool> DeleteWineOrderAsync(int id);
+        Task DeleteWineOrderAsync(int id);
 
         Task<List<AddMessage>> GetAllMessagesAsync();
 

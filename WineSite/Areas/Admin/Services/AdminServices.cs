@@ -121,13 +121,13 @@ namespace  WineSite.Areas.Admin.Sevices
         
         public async Task<bool> DeleteTicketOrderAsync(int id)
         {
-            var order = await _context.TicketDeliveries.FirstOrDefaultAsync(o => o.Id == id);
+            var order = await _context.Orders.FirstOrDefaultAsync(o => o.Id == id);
             if (order == null)
             {
-                return false; // Или може да хвърлите изключение, в зависимост от изискванията на вашето приложение.
+                return false; 
             }
 
-            _context.TicketDeliveries.Remove(order);
+            _context.Orders.Remove(order);
             await _context.SaveChangesAsync();
 
             return true;
@@ -150,18 +150,14 @@ namespace  WineSite.Areas.Admin.Sevices
            .ToListAsync();
         }
 
-        public async Task<bool> DeleteWineOrderAsync(int id)
+        public async Task DeleteWineOrderAsync(int id)
         {
-            var order = await _context.WineDeliveries.FirstOrDefaultAsync(o => o.Id == id);
-            if (order == null)
+            var order = await _context.OrderWines.FirstOrDefaultAsync(o => o.Id == id);
+            if (order != null)
             {
-                return false; // Или може да хвърлите изключение, в зависимост от изискванията на вашето приложение.
+                _context.OrderWines.Remove(order);
+                await _context.SaveChangesAsync();
             }
-
-            _context.WineDeliveries.Remove(order);
-            await _context.SaveChangesAsync();
-
-            return true;
         }
 
         public async Task<List<AddMessage>> GetAllMessagesAsync()

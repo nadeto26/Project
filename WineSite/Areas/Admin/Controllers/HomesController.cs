@@ -130,24 +130,16 @@ namespace WineSite.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteTicketOrder(int id)
         {
-            var isDeleted = await _adminService.DeleteTicketOrderAsync(id);
-            if (!isDeleted)
-            {
-                return NotFound();
-            }
-
+              await _adminService.DeleteTicketOrderAsync(id);
+           
             return RedirectToAction("TicketOrders");
         }
 
         //Изтриване на вино
+    
         public async Task<IActionResult> DeleteWineOrder(int id)
         {
-            var isDeleted = await _adminService.DeleteWineOrderAsync(id);
-            if (!isDeleted)
-            {
-                return NotFound();
-            }
-
+            await _adminService.DeleteWineOrderAsync(id);
             return RedirectToAction("WineOrders");
         }
  

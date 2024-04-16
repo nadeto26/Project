@@ -35,8 +35,10 @@
                                 <hr />
                                     <p class="mb-0"><span class="fw-bold">Име на събитие: </span>@order.EventName</p>
                                     <p class="mb-0"><span class="fw-bold">Количество билети: </span>@order.QuentityEvent</p>
-                                <form asp-action="DeleteTicketOrder" asp-route-id="@order.Id" method="post" onsubmit="return confirm('Сигурни ли сте, че искате да изтриете тази поръчка?')">
-                                    <input type="submit" value="Изтрий поръчката" />
+                                <form method="post" action="DeleteTicketOrder" onsubmit="return confirm('Сигурни ли сте, че искате да изтриете това съобщение?')">
+                                    <input type="hidden" name="Id" value="@order.Id" />
+                                    <br>
+                                    <button type="submit">Изпълнена</button>
                                 </form>
                             </div>
                         </div>

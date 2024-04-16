@@ -10,16 +10,22 @@
 
 <div class="container" style="display:inline">
     <div class="row">
-        <div class="col-4">
-            <img class="card-img-top" style="width: 20rem;" src="@Model.ImageUrl" alt="House Image">
+        <center><h1>@Model.Name</h1></center>
+        <div class="col-12">
+            <img class="img-fluid" src="@Model.ImageUrl" alt="Event Image" style="width: 100%;">
         </div>
         <div class="card col-8 border-0">
-            <p style="font-size:25px;"><u>@Model.Name</u></p>
+
             <p>Located in: <b>@Model.Address</b></p>
             <p>@Model.HostName</p>
             <p>@Model.Features</p>
             <p>@Model.Preferences</p>
             <p>@Model.Description</p>
+            <p>@Model.PriceTicket</p>
+            <p>@Model.Duration</p>
+            <p>@Model.Address</p>
+            <p>@Model.Description</p>
+            <p>@Model.MoreInformation</p>
         </div>
         <p></p>
         @if (User.IsInRole("Administrator"))

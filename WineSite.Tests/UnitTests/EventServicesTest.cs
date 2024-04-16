@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Moq;
 using NUnit.Framework.Internal.Execution;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,10 @@ using WineSite.Core.Contracts;
 using WineSite.Core.Models.Event;
 using WineSite.Core.Services;
 using WineSite.Data.Data;
+using WineSite.Data.Data.Migrations;
 using WineSite.Data.Data.Models;
+using ApplicationUser = WineSite.Data.Data.Models.ApplicationUser;
+using Events = WineSite.Data.Data.Models.Events;
 
 namespace WineSite.Tests.UnitTests
 {
@@ -122,9 +126,9 @@ namespace WineSite.Tests.UnitTests
        );
 
                 context.WineBuyers.AddRange(
-                    new WineBuyers { WineId = 1, BuyerId = userId },
-                    new WineBuyers { WineId = 2, BuyerId = userId },
-                    new WineBuyers { WineId = 3, BuyerId = userId }
+                    new Data.Data.Models.WineBuyers { WineId = 1, BuyerId = userId },
+                    new Data.Data.Models.WineBuyers { WineId = 2, BuyerId = userId },
+                    new Data.Data.Models.WineBuyers { WineId = 3, BuyerId = userId }
                 );
 
                 await context.SaveChangesAsync();
@@ -243,8 +247,8 @@ namespace WineSite.Tests.UnitTests
 
                 // Add events to the database
                 context.Events.AddRange(
-                    new Events { Id = 1, Name = "Event 1", PriceTicket = 10.0m, ImageUrl = "event1.jpg", Address = "Event 1 Address", DateTime = "Monday", Description = "Event 1 Description", Duration = "120 min", Features = "Event 1 Features", HostName = "Host 1", MoreInformation = "More Info 1", Preferences = "Preferences 1", WineList = "Wine List 1" },
-                    new Events { Id = 2, Name = "Event 2", PriceTicket = 15.0m, ImageUrl = "event2.jpg", Address = "Event 2 Address", DateTime = "Tuesday", Description = "Event 2 Description", Duration = "120 min", Features = "Event 2 Features", HostName = "Host 2", MoreInformation = "More Info 2", Preferences = "Preferences 2", WineList = "Wine List 2" }
+                    new Data.Data.Models.Events { Id = 1, Name = "Event 1", PriceTicket = 10.0m, ImageUrl = "event1.jpg", Address = "Event 1 Address", DateTime = "Monday", Description = "Event 1 Description", Duration = "120 min", Features = "Event 1 Features", HostName = "Host 1", MoreInformation = "More Info 1", Preferences = "Preferences 1", WineList = "Wine List 1" },
+                    new Data.Data.Models.Events { Id = 2, Name = "Event 2", PriceTicket = 15.0m, ImageUrl = "event2.jpg", Address = "Event 2 Address", DateTime = "Tuesday", Description = "Event 2 Description", Duration = "120 min", Features = "Event 2 Features", HostName = "Host 2", MoreInformation = "More Info 2", Preferences = "Preferences 2", WineList = "Wine List 2" }
                 );
 
                 // Add user tickets to the database
@@ -337,9 +341,244 @@ namespace WineSite.Tests.UnitTests
             }
         }
 
+        [Test]
+        public async Task GetAllEventsAsync_ReturnsEventsList()
+        {
+            // Arrange
+            var options = new DbContextOptionsBuilder<WineShopDbContext>()
+                .UseInMemoryDatabase(databaseName: "TestDatabase")
+                .Options;
+
+            using (var context = new WineShopDbContext(options))
+            {
+                // Add test data to the in-memory database
+                context.Events.AddRange(
+                    new WineSite.Data.Data.Models.Events
+                    {
+                        Id = 1,
+                        Name = "Event 1",
+                        Address = "Address 1",
+                        DateTime = "Monday at 1.40",
+                        HostName = "Petar F",
+                        Description = "The best wines",
+                        WineList = "The niw",
+                        Duration = "120",
+                        Features = "wines",
+                        ImageUrl = "img.pmg",
+                        MoreInformation = "wines",
+                        Preferences = "ddd",
+                        PriceTicket = 129
+                    },
+                    new WineSite.Data.Data.Models.Events
+                    {
+                        Id = 2,
+                        Name = "Event 2",
+                        Address = "Address 2",
+                        DateTime = "Monday at 1.40",
+                        HostName = "Petar F",
+                        Description = "The best wines",
+                        WineList = "The niw",
+                        Duration = "120",
+                        Features = "wines",
+                        ImageUrl = "img.pmg",
+                        MoreInformation = "wines",
+                        Preferences = "ddd",
+                        PriceTicket = 129
+                    },
+                    new WineSite.Data.Data.Models.Events
+                    {
+                        Id = 3,
+                        Name = "Event 3",
+                        Address = "Address 3",
+                        DateTime = "Monday at 1.40",
+                        HostName = "Petar F",
+                        Description = "The best wines",
+                        WineList = "The niw",
+                        Duration = "120",
+                        Features = "wines",
+                        ImageUrl = "img.pmg",
+                        MoreInformation = "wines",
+                        Preferences = "ddd",
+                        PriceTicket = 129
+                    }
+                );
+                await context.SaveChangesAsync();
+
+                var service = new EventServices(context);
+
+                // Act
+                var result = await service.GetAllEventsAsync();
+
+                // Assert
+                Assert.NotNull(result);
+                Assert.IsInstanceOf<List<EventsViewModel>>(result);
+                Assert.AreEqual(3, result.Count); // Assuming we added 3 events in Arrange
+
+                // You can add more specific assertions based on your test data
+                Assert.AreEqual("Event 1", result[0].Name);
+                Assert.AreEqual("Address 1", result[0].Address);
+                // Add more assertions as needed
+            }
+        }
+
+
+        [Test]
+        public async Task GetUserTicketsAsync_ReturnsUserTicketsList()
+        {
+            // Arrange
+            var options = new DbContextOptionsBuilder<WineShopDbContext>()
+                .UseInMemoryDatabase(databaseName: "TestDatabase")
+                .Options;
+
+            // Using блокът гарантира, че DbContext се освобождава след края на блока
+            using (var context = new WineShopDbContext(options))
+            {
+                // Добавяне на тестови данни
+                var userId = "validUserId";
+                var eventBuyer1 = new TicketBuyer { BuyerId = userId, EventId = 1, Quantity = 2 };
+                var eventBuyer2 = new TicketBuyer { BuyerId = userId, EventId = 2, Quantity = 1 };
+                context.TicketBuyers.AddRange(eventBuyer1, eventBuyer2);
+                await context.SaveChangesAsync();
+
+                var service = new EventServices(context);
+
+                // Act
+                var result = await service.GetUserTicketsAsync(userId);
+
+                // Assert
+                Assert.NotNull(result);
+                Assert.AreEqual(2, result.Count);
+
+                // Проверка на конкретни данни във върнатия списък
+                var eventIds = result.Select(e => e.Id).ToList();
+                Assert.Contains(1, eventIds);
+                Assert.Contains(2, eventIds);
+            }
+        }
+
+        [Test]
+        public async Task IncreaseQuantityAsync_ItemExists_ReturnsTrueIfIncreased_FalseIfNotExists()
+        {
+            // Arrange
+            var options = new DbContextOptionsBuilder<WineShopDbContext>()
+                .UseInMemoryDatabase(databaseName: "TestDatabase")
+                .Options;
+
+            // Using блокът гарантира, че DbContext се освобождава след края на блока
+            using (var context = new WineShopDbContext(options))
+            {
+                // Добавяне на тестови данни
+                var eventId = 3;
+                var userId = "validUserId";
+                var eventBuyer = new TicketBuyer { BuyerId = userId, EventId = eventId, Quantity = 1 };
+                context.TicketBuyers.Add(eventBuyer);
+                await context.SaveChangesAsync();
+
+                var service = new EventServices(context);
+
+                // Act
+                var result1 = await service.IncreaseQuantityAsync(eventId, userId);
+                var result2 = await service.IncreaseQuantityAsync(2, userId);
+
+                // Assert
+                Assert.True(result1);
+                
+
+                // Проверка дали количеството е увеличено за съществуващ артикул
+                var updatedCartItem = await context.TicketBuyers.FirstOrDefaultAsync(item =>
+                    item.EventId == eventId && item.BuyerId == userId);
+                Assert.NotNull(updatedCartItem);
+                
+                // Уверете се, че колекцията се изчиства след теста
+                context.TicketBuyers.RemoveRange(context.TicketBuyers);
+                await context.SaveChangesAsync();
+            }
+        }
+
+        [Test]
+        public async Task UpdateEventAsync_ExistingEvent_UpdatesEventDetails()
+        {
+            // Arrange
+            var options = new DbContextOptionsBuilder<WineShopDbContext>()
+                .UseInMemoryDatabase(databaseName: "TestDatabase")
+                .Options;
+
+            // Using блокът гарантира, че DbContext се освобождава след края на блока
+            using (var context = new WineShopDbContext(options))
+            {
+                // Добавяне на тестови данни
+                var eventId = 5;
+                var existingEvent = new WineSite.Data.Data.Models.Events
+                {
+                    Id = eventId,
+                    Name = "Old Event Name",
+                    Features = "Old Features",
+                    Description = "Old Description",
+                    PriceTicket = 50,
+                    WineList = "Old Wine List",
+                    Address = "Old Address",
+                    DateTime =  "Monday at 19 ",
+                    HostName = "Old Host Name",
+                    Duration = "120min",
+                    ImageUrl = "old_image_url",
+                    Preferences = "Old Preferences",
+                    MoreInformation = "Old More Information"
+                };
+                context.Events.Add(existingEvent);
+                await context.SaveChangesAsync();
+
+                var service = new EventServices(context);
+                var updatedEvent = new EventsViewModel
+                {
+                    Id = eventId,
+                    Name = "New Event Name",
+                    Features = "New Features",
+                    Description = "New Description",
+                    PriceTicket = 75,
+                    WineList = "New Wine List",
+                    Address = "New Address",
+                    DateTime = "Monday at 19",
+                    HostName = "New Host Name",
+                    Duration = "120",
+                    ImageUrl = "new_image_url",
+                    Preferences = "New Preferences",
+                    MoreInformation = "New More Information"
+                };
+
+                // Act
+                await service.UpdateEventAsync(eventId, updatedEvent);
+
+                // Assert
+                var updatedEventFromDb = await context.Events.FindAsync(eventId);
+                Assert.NotNull(updatedEventFromDb);
+                Assert.AreEqual(updatedEvent.Name, updatedEventFromDb.Name);
+                Assert.AreEqual(updatedEvent.Features, updatedEventFromDb.Features);
+                Assert.AreEqual(updatedEvent.Description, updatedEventFromDb.Description);
+                Assert.AreEqual(updatedEvent.PriceTicket, updatedEventFromDb.PriceTicket);
+                Assert.AreEqual(updatedEvent.WineList, updatedEventFromDb.WineList);
+                Assert.AreEqual(updatedEvent.Address, updatedEventFromDb.Address);
+                Assert.AreEqual(updatedEvent.DateTime, updatedEventFromDb.DateTime);
+                Assert.AreEqual(updatedEvent.HostName, updatedEventFromDb.HostName);
+                Assert.AreEqual(updatedEvent.Duration, updatedEventFromDb.Duration);
+                Assert.AreEqual(updatedEvent.ImageUrl, updatedEventFromDb.ImageUrl);
+                Assert.AreEqual(updatedEvent.Preferences, updatedEventFromDb.Preferences);
+                Assert.AreEqual(updatedEvent.MoreInformation, updatedEventFromDb.MoreInformation);
+            }
+        }
+
+
+
+
+
+
+
+
 
     }
+
+
 }
+
 
 
 
