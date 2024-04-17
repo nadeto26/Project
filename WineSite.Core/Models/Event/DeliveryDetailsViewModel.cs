@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Xml.Linq;
+using static WineSite.Data.Data.Common.Constants.Orders;
 
 namespace WineSite.Core.Models.Event
 {
@@ -8,6 +8,8 @@ namespace WineSite.Core.Models.Event
         
         [Required(ErrorMessage = "Моля, въведете пълното си име.")]
         [Display(Name = "Пълно име")]
+        [MaxLength(UserNameMaxLength)]
+        [MinLength(UserNameMinLength)]
         public string FullName { get; set; } = null!;
 
         [Required(ErrorMessage = "Моля, въведете адрес за доставка.")]
@@ -16,6 +18,8 @@ namespace WineSite.Core.Models.Event
 
         [Required(ErrorMessage = "Моля, въведете имейла, с който се регистрирахте.")]
         [Display(Name = "Имейл")]
+        [MaxLength (UserEmailMaxLength)]
+        [MinLength(UserEmailMinLength)]
         public string Email { get; set; } = null!;
 
         [Required(ErrorMessage = "Моля, въведете град за доставка.")]

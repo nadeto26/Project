@@ -1,13 +1,12 @@
-﻿using AutoMapper;
+﻿ 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Data;
+ 
 using System.Security.Claims;
 using WineSite.Core.Contracts;
+ 
 using WineSite.Core.Models.Wine;
-using WineSite.Data.Data.Models;
-using static WineSite.Core.Constants.MessageConstants;
+ 
 
 namespace WineSite.Controllers
 {
@@ -60,13 +59,12 @@ namespace WineSite.Controllers
             {
                 return BadRequest();
             }
-
+            
             var wineModel = await _wines.WineDetailsById(id);
 
             return View(wineModel);
         }
 
-        
 
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
@@ -93,7 +91,6 @@ namespace WineSite.Controllers
                 Bottle = wine.Bottle,
                 Harvest = wine.Harvest,
                 Manufucturer = wine.Manufucturer,
-                Sort = wine.Sort,
                 Price = wine.Price,
                 Types = await _wines.AllTypes()
             };
@@ -122,14 +119,14 @@ namespace WineSite.Controllers
             }
 
             _wines.Edit(id, wine.Name, wine.TypeId, wine.Year, wine.ImageUrl, wine.Description,
-                wine.Country, wine.Manufucturer, wine.Price, wine.Sort, wine.Harvest, wine.AlcoholContent,
+                wine.Country, wine.Manufucturer, wine.Price, wine.Harvest, wine.AlcoholContent,
                 wine.Bottle, wine.Importer);
 
-            return RedirectToAction(nameof(Details), new { id = "1" });
+            return RedirectToAction(nameof(All));
         }
 
 
-
+        [Authorize]
         public async Task<IActionResult> Cart()
         {
             string currentUserId = GetUserId();
@@ -235,14 +232,11 @@ namespace WineSite.Controllers
                 await _wines.WineDeliveryAsync(admode);
                 return RedirectToAction("Confirmation");
             }
-
-            // Ако моделът не е валиден, връщаме грешка
+ 
             return View(admode);
         }
 
        
-
-
         private string GetUserId()
        => User.FindFirstValue(ClaimTypes.NameIdentifier);
 

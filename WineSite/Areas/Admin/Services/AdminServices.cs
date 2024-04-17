@@ -60,7 +60,7 @@ namespace  WineSite.Areas.Admin.Sevices
         //Добавяне на вино
 
         public async Task<int> Create(string name, int typeId, int year, string imageUrl, string description, string country,
-            string manufucturer, decimal price, string sort, int harvest, int alcoholcontent, int bottle, string importer)
+            string manufucturer, decimal price, int harvest, int alcoholcontent, int bottle, string importer)
         {
             var wine = new WineSite.Data.Data.Models.Wine()
             {
@@ -72,7 +72,6 @@ namespace  WineSite.Areas.Admin.Sevices
                 Country = country,
                 Manufucturer = manufucturer,
                 Price = price,
-                Sort = sort,
                 Harvest = harvest,
                 Bottle = bottle,
                 AlcoholContent = alcoholcontent,

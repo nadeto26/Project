@@ -93,7 +93,7 @@ namespace WineSite.Areas.Admin.Controllers
 
             var newWineId = await _adminService.Create(model.Name, model.TypeId, model.Year,
                 model.ImageUrl, model.Description, model.Country, model.Manufucturer, model.Price,
-                model.Sort, model.Harvest, model.AlcoholContent, model.Bottle, model.Importer);
+                 model.Harvest, model.AlcoholContent, model.Bottle, model.Importer);
 
             return RedirectToAction("AddWine");
         }

@@ -31,7 +31,7 @@ namespace WineSite.Tests.UnitTests
         [Test]
         public async Task AddMessageAsync_WithValidModel_AddsMessageToDbContext()
         {
-            // Подготовка на тестови данни
+           
             var testData = new AddMessage
             {
                 Name = "Test User",
@@ -41,23 +41,18 @@ namespace WineSite.Tests.UnitTests
                 Message = "Test Message"
             };
 
-            // Настройка на DbContext за тестови цели с паметна база данни
+            
             var options = new DbContextOptionsBuilder<WineShopDbContext>()
                 .UseInMemoryDatabase(databaseName: "Test_Db")
                 .Options;
             using var dbContext = new WineShopDbContext(options);
 
-            // Инициализация на MessageService с тестовия DbContext
             var messageService = new ContactServices(dbContext);
 
-            // Извикване на метода, който ще тестваме
             await messageService.AddMessageAsync(testData);
 
-            // Проверка дали данните са добавени към DbContext
             var addedMessage = await dbContext.Messages.FirstOrDefaultAsync(m => m.Name == testData.Name);
 
-            // Проверка за очакван резултат
-            // Проверка за очакван резултат
             Assert.NotNull(addedMessage);
             Assert.AreEqual(testData.Email, addedMessage.Email);
             Assert.AreEqual(testData.PhoneNumber, addedMessage.PhoneNumber);

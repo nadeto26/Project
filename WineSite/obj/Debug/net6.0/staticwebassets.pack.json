@@ -121,6 +121,10 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "C:\\Users\\Admin\\Desktop\\WineSite - Original\\WineSite\\wwwroot\\js\\jquery.override-validator.js",
+      "PackagePath": "staticwebassets\\js\\jquery.override-validator.js"
+    },
+    {
       "Id": "C:\\Users\\Admin\\Desktop\\WineSite - Original\\WineSite\\wwwroot\\lib\\bootstrap\\LICENSE",
       "PackagePath": "staticwebassets\\lib\\bootstrap"
     },

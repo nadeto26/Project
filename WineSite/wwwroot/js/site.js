@@ -1,31 +1,9 @@
-var message = function () {
-    toastr.options = {
-        "closeButton": true,
-        "debug": false,
-        "newestOnTop": false,
-        "progressBar": false,
-        "positionClass": "toast-top-right",
-        "preventDuplicates": false,
-        "onclick": null,
-        "showDuration": "300",
-        "hideDuration": "1000",
-        "timeOut": "5000",
-        "extendedTimeOut": "1000",
-        "showEasing": "swing",
-        "hideEasing": "linear",
-        "showMethod": "fadeIn",
-        "hideMethod": "fadeOut"
-    }
-    var showSuccess = function (message) {
-        toastr["success"](message);
-    }
+jQuery(function ($) {
+    $.validator.addMethod('number', function (value, element) {
+        return this.optional(element) || /^-?(?:\d+)(?:(\.|,)\d+)?$/.test(value);
+    });
 
-    var showError = function (message) {
-        toastr["error"](message);
+    $.validator.methods.range = function (value, element, param) {
+        return this.optional(element) || (Number(value.replace(',', '.')) >= Number(param[0]) && Number(value.replace(',', '.')) <= Number(param[1]));
     }
-
-    return {
-        showSuccess,
-        showError
-    }
-}();
+}); 

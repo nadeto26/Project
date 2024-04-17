@@ -48,11 +48,6 @@ namespace WineSite.Core.Models.Wine
         [Range(0.00, MaxPricePerBottle, ErrorMessage = "Въведете валидна цена")]
         public decimal Price { get; set; }
 
-        [Required]
-        [Display(Name = "Сорт")]
-        [StringLength(SortMaxLength, MinimumLength = SortMinLength)]
-        public string Sort { get; set; } = null!;
-
         [Display(Name = "Реколта")]
         public int Harvest { get; set; }
 

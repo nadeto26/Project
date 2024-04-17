@@ -35,7 +35,7 @@ namespace WineSite.Tests.UnitTests
             {
                 var service = new RecipeServices(context);
 
-                // Add a recipe to the database
+                
                 var recipeIdToDelete = 1;
                 context.Recipes.Add(new WineSite.Data.Data.Models.Recipe { Id = recipeIdToDelete, Name = "RecipeToDelete", Description = "Break the eggs", ImageUrl = "pic.img", Notes = "Break the eggs" });
                 await context.SaveChangesAsync();
@@ -46,7 +46,7 @@ namespace WineSite.Tests.UnitTests
                 // Assert
                 Assert.IsTrue(result, "The method should return true for a successful delete.");
 
-                // Check if the recipe is deleted from the database
+              
                 var deletedRecipe = await context.Recipes.FindAsync(recipeIdToDelete);
                 Assert.IsNull(deletedRecipe, "The recipe should be deleted from the database.");
             }
@@ -64,7 +64,7 @@ namespace WineSite.Tests.UnitTests
             {
                 var service = new RecipeServices(context);
 
-                // Add a recipe to the database
+               
                 var recipeId = 1;
                 context.Recipes.Add(new WineSite.Data.Data.Models.Recipe { Id = recipeId, Name = "RecipeToDelete", Description = "Break the eggs", ImageUrl = "pic.img", Notes = "Break the eggs" });
                 await context.SaveChangesAsync();
@@ -89,7 +89,7 @@ namespace WineSite.Tests.UnitTests
             {
                 var service = new RecipeServices(context);
 
-                // Add some recipes to the database
+                
                 context.Recipes.AddRange(
                     new WineSite.Data.Data.Models.Recipe { Id = 1, Name = "Recipe1", Description = "Description1", ImageUrl = "image1.jpg", Notes = "Notes1" },
                     new WineSite.Data.Data.Models.Recipe { Id = 2, Name = "Recipe2", Description = "Description2", ImageUrl = "image2.jpg", Notes = "Notes2" }
@@ -116,7 +116,7 @@ namespace WineSite.Tests.UnitTests
             {
                 var service = new RecipeServices(context);
 
-                // Add a recipe to the database
+               
                 var recipeId = 1;
                 context.Recipes.Add(new WineSite.Data.Data.Models.Recipe { Id = recipeId, Name = "Test Recipe", Description = "Test Description", Notes = "Test Notes", ImageUrl = "test.jpg" });
                 await context.SaveChangesAsync();
@@ -141,7 +141,7 @@ namespace WineSite.Tests.UnitTests
             {
                 var service = new RecipeServices(context);
 
-                // Add a recipe to the database
+                
                 var recipeId = 1;
                 context.Recipes.Add(new WineSite.Data.Data.Models.Recipe { Id = recipeId, Name = "Test Recipe", Description = "Test Description", Notes = "Test Notes", ImageUrl = "test.jpg" });
                 await context.SaveChangesAsync();
@@ -158,7 +158,7 @@ namespace WineSite.Tests.UnitTests
 
         public async Task UpdateRecipeAsync_ValidData_SuccessfullyUpdatesRecipe()
         {
-            // Подготовка на тестови данни
+           
             int recipeId = 1;
             var testRecipe = new ReceiptViewModel
             {
@@ -168,13 +168,13 @@ namespace WineSite.Tests.UnitTests
                 ImageUrl = "test.jpg"
             };
 
-            // Настройка на DbContext за тестови цели с паметна база данни
+          
             var options = new DbContextOptionsBuilder<WineShopDbContext>()
                 .UseInMemoryDatabase(databaseName: "Test_Db")
                 .Options;
             using var dbContext = new WineShopDbContext(options);
 
-            // Добавяне на тестов рецепт в базата данни
+          
             var recipeToAdd = new WineSite.Data.Data.Models.Recipe
             {
                 Id = recipeId,
@@ -186,13 +186,12 @@ namespace WineSite.Tests.UnitTests
             dbContext.Recipes.Add(recipeToAdd);
             await dbContext.SaveChangesAsync();
 
-            // Инициализация на RecipeService с тестовия DbContext
+            
             var recipeService = new RecipeServices(dbContext);
 
-            // Извикване на метода, който ще тестваме
+           
             await recipeService.UpdateRecipeAsync(recipeId, testRecipe);
-
-            // Проверка дали рецептът е актуализиран в базата данни
+ 
             var updatedRecipe = await dbContext.Recipes.FindAsync(recipeId);
 
             // Проверка за очакван резултат

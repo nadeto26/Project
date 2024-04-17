@@ -2,9 +2,7 @@
 @model IEnumerable<AddToCartViewModel>
 @{
     ViewBag.Title = "Количка";
-
-    // Изчисляване на общата цена, като се вземат предвид цените на всички продукти
-    decimal totalPrice = Model.Sum(item => item.PricePerTicket * item.Quentity)/*.GetValueOrDefault()*/;
+    decimal totalPrice = Model.Sum(item => item.PricePerTicket * item.Quentity);
 }
 
 <h2 class="text-center">@ViewBag.Title</h2>

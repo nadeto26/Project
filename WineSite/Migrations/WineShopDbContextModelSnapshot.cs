@@ -238,7 +238,7 @@ namespace WineSite.Web.Migrations
                         {
                             Id = "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f1c3c01a-c012-4b27-8ca8-2464b97a4e59",
+                            ConcurrencyStamp = "8a039b68-8fa9-4ed5-8226-d7b18e0e29fc",
                             Email = "ivana.burgilova@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "Ivana",
@@ -246,9 +246,9 @@ namespace WineSite.Web.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ivana.burgilova@gmail.com",
                             NormalizedUserName = "ivana.burgilova@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAENcx2Xut5EjoCIWyzZwRzBI7ly0aX2DfjoXJDGMhrpBEvLflEdw8UoYd7OiuSrL/mg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAELd1vBRQIKBj4orROvRgRdOMQTiNib7oqG0f2Jdl6XMDKTAw4riFoYOmWjaYaRzOuA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "4ddc2376-a3c4-413c-9376-a6698c94ad0d",
+                            SecurityStamp = "208918ff-29dc-448a-96be-9cffc9e6cf39",
                             TwoFactorEnabled = false,
                             UserName = "ivana.burgilova@gmail.com"
                         });
@@ -687,12 +687,6 @@ namespace WineSite.Web.Migrations
                         .HasColumnType("decimal(18,2)")
                         .HasComment("Wine's price");
 
-                    b.Property<string>("Sort")
-                        .IsRequired()
-                        .HasMaxLength(70)
-                        .HasColumnType("nvarchar(70)")
-                        .HasComment("Wine's sort");
-
                     b.Property<int>("TypeId")
                         .HasColumnType("int");
 
@@ -722,7 +716,6 @@ namespace WineSite.Web.Migrations
                             Manufucturer = "Cantine Sociale Paolini Societa Cooperativa Agricola – Marsala, Italy",
                             Name = "Био бялов вино Сицилианско",
                             Price = 9.99m,
-                            Sort = "Grillo",
                             TypeId = 1,
                             Year = 2020
                         },
@@ -739,7 +732,6 @@ namespace WineSite.Web.Migrations
                             Manufucturer = "Cantine Sociale Paolini Societa Cooperativa Agricola – Marsala, Italy",
                             Name = "Био вино червено Nеro D'Avola",
                             Price = 9.99m,
-                            Sort = "Grillo",
                             TypeId = 2,
                             Year = 2020
                         },
@@ -756,7 +748,6 @@ namespace WineSite.Web.Migrations
                             Manufucturer = "Cantine Sociale Paolini Societa Cooperativa Agricola – Marsala, Italy",
                             Name = "Био вино розе JP.Chenet Cinsault-Grenache",
                             Price = 9.99m,
-                            Sort = "Grillo",
                             TypeId = 3,
                             Year = 2020
                         });

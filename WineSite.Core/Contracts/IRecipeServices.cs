@@ -12,8 +12,8 @@ namespace WineSite.Core.Contracts
 
         Task<ReceiptViewModel> GetRecipeAsync(int id);
 
-        Task UpdateRecipeAsync(int id, ReceiptViewModel events);
-
         Task<bool> DeleteRecipeAsync(int id);
+
+        Task UpdateRecipeAsync(int id, ReceiptViewModel events);
     }
 }

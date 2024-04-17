@@ -54,12 +54,11 @@ namespace WineSite.Areas.Identity.Pages.Account
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
 
-            [DataType(DataType.Password)]
+            
             [Display(Name = "First Name")]
             [StringLength(UserFirstNameMaxLength, MinimumLength = UserFirstNameMinLength)]
             public string FirstName { get; set; }
 
-            [DataType(DataType.Password)]
             [Display(Name = "Last Name")]
             [StringLength(UserLastNameMaxLength, MinimumLength = UserLastNameMinLength)]
             public string LastName { get; set; }

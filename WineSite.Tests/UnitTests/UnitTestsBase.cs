@@ -51,7 +51,6 @@ namespace WineSite.Tests.UnitTests
                 Country = "Италия",
                 Manufucturer = "Cantine Sociale Paolini Societa Cooperativa Agricola – Marsala, Italy",
                 Importer = "„Кооп-търговия и туризъм“  АД",
-                Sort = "Grillo",
                 Harvest = 2020,
                 AlcoholContent = 12,
                 Bottle = 750,

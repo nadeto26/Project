@@ -39,12 +39,12 @@ namespace WineSite.Tests.UnitTests
         {
             // Arrange
             var options = new DbContextOptionsBuilder<WineShopDbContext>()
-                .UseInMemoryDatabase(databaseName: "Test_Database") // Вместо Guid.NewGuid().ToString() използваме статично име за базата данни
+                .UseInMemoryDatabase(databaseName: "Test_Database")  
                 .Options;
 
             using (var context = new WineShopDbContext(options))
             {
-                // Добавяне на вашия тестов обект към контекста
+              
                 var recipe = new WineSite.Data.Data.Models.Recipe
                 {
                     Id = 5,
@@ -90,16 +90,16 @@ namespace WineSite.Tests.UnitTests
 
             using (var context = new WineShopDbContext(options))
             {
-                var adminServices = new AdminServices(context); // Създайте инстанция на вашия сервис
+                var adminServices = new AdminServices(context);  
                 var newWineName = "Test Wine";
-                var newWineTypeId = 1; // Заменете това със съществуващ идентификатор на типа на виното
+                var newWineTypeId = 1;  
                 var newWineYear = 2022;
                 var newWineImageUrl = "wine_image.jpg";
                 var newWineDescription = "This is a test wine description.";
                 var newWineCountry = "Test Country";
                 var newWineManufacturer = "Test Winery";
                 var newWinePrice = 25.99m;
-                var newWineSort = "Test Sort";
+             
                 var newWineHarvest = 2020;
                 var newWineAlcoholContent = 13;
                 var newWineBottle = 750;
@@ -107,16 +107,13 @@ namespace WineSite.Tests.UnitTests
 
                 // Act
                 var newWineId = await adminServices.Create(newWineName, newWineTypeId, newWineYear, newWineImageUrl,
-                    newWineDescription, newWineCountry, newWineManufacturer, newWinePrice, newWineSort,
+                    newWineDescription, newWineCountry, newWineManufacturer, newWinePrice,
                     newWineHarvest, newWineAlcoholContent, newWineBottle, newWineImporter);
 
                 // Assert
                 var addedWine = await context.Wines.FindAsync(newWineId);
                 Assert.IsNotNull(addedWine, "The wine should be added to the database.");
                 Assert.AreEqual(newWineName, addedWine.Name, "The wine name should match.");
-                // Други проверки според вашите изисквания
-
-                // Уверете се, че тук извиквате нужните методи за сравнение и уверки за данните на виното
             }
         }
 
@@ -127,7 +124,7 @@ namespace WineSite.Tests.UnitTests
             var result = await adminServices.AllTypes();
 
             // Act
-            var dbTypes = _db.Types.ToList(); // Зареждаме типовете в паметта, за да можем да сравним броя на елементите
+            var dbTypes = _db.Types.ToList();
             Assert.AreEqual(result.Count(), dbTypes.Count());
 
             // Assert
@@ -148,7 +145,6 @@ namespace WineSite.Tests.UnitTests
 
             using (var context = new WineShopDbContext(options))
             {
-                // Add a type to the context
                 var typeId = 1;
                 context.Types.Add(new WineSite.Data.Data.Models.Type { Id = typeId, Name = "Red Wine" });
                 await context.SaveChangesAsync();
@@ -176,7 +172,7 @@ namespace WineSite.Tests.UnitTests
 
             using (var context = new WineShopDbContext(options))
             {
-                // Add a ticket order to the context
+                
                 var orderId = 1;
                 context.Orders.Add(new Orders
                 {
@@ -206,7 +202,7 @@ namespace WineSite.Tests.UnitTests
                 // Assert
                 Assert.IsTrue(result, "The method should return true for an existing order Id.");
 
-                // Check if the order is deleted
+               
                 var deletedOrder = await context.TicketDeliveries.FindAsync(1);
                 Assert.IsNull(deletedOrder, "The order should be deleted from the database.");
             }
@@ -245,7 +241,7 @@ namespace WineSite.Tests.UnitTests
                 // Act
                 Task resultTask = service.DeleteWineOrderAsync(orderId);
 
-                // Await the task if necessary
+               
                 await resultTask;
 
                 // Assert
@@ -265,10 +261,10 @@ namespace WineSite.Tests.UnitTests
 
             using (var context = new WineShopDbContext(options))
             {
-                // Initialize your service
-                var service = new AdminServices(context); // Adjust as needed
+                 
+                var service = new AdminServices(context);  
 
-                // Create a test event
+                
                 var model = new EventsViewModel
                 {
                     Name = "Test Event",
@@ -292,7 +288,7 @@ namespace WineSite.Tests.UnitTests
                 // Assert
                 var addedEvent = await context.Events.FirstOrDefaultAsync(e => e.Name == model.Name);
                 Assert.NotNull(addedEvent);
-                // Add more assertions to check other properties of the added event
+              
             }
         }
 
@@ -306,7 +302,7 @@ namespace WineSite.Tests.UnitTests
 
             using (var context = new WineShopDbContext(options))
             {
-                // Add test data to the in-memory database
+                
                 context.Orders.AddRange(
                     new WineSite.Data.Data.Models.Orders { Id = 1, FullName = "John Doe", PostCode = "12345", Address = "123 Main St", City = "SomeCity", QuentityEvent = 2, EventName = "Event 1", Phonenumber = "123-456-7890", BuyerId = "124", Email = "na@" },
                     new WineSite.Data.Data.Models.Orders { Id = 2, FullName = "Jane Smith", PostCode = "54321", Address = "456 Elm St", City = "AnotherCity", QuentityEvent = 1, EventName = "Event 2", Phonenumber = "987-654-3210", BuyerId = "214", Email = "dd" }
@@ -320,12 +316,12 @@ namespace WineSite.Tests.UnitTests
 
                 // Assert
                 Assert.NotNull(result);
-                Assert.AreEqual(2, result.Count); // Assuming we added 2 orders in Arrange
+                Assert.AreEqual(2, result.Count);  
 
-                // Add more specific assertions if needed to check the properties of OrderViewModel
+             
                 Assert.AreEqual("John Doe", result[0].FullName);
                 Assert.AreEqual("Jane Smith", result[1].FullName);
-                // Check other properties as needed
+                
             }
         }
 
@@ -339,7 +335,7 @@ namespace WineSite.Tests.UnitTests
 
             using (var context = new WineShopDbContext(options))
             {
-                // Add test data to the in-memory database
+                
                 context.OrderWines.AddRange(
                     new OrderWines { Id = 1, FullName = "John Doe", PostCode = "12345", Address = "123 Main St", City = "SomeCity", QuentityWine = 2, WineName = "Wine 1", Phonenumber = "123-456-7890", BuyerId = "124", Email = "nad" },
                     new OrderWines { Id = 2, FullName = "Jane Smith", PostCode = "54321", Address = "456 Elm St", City = "AnotherCity", QuentityWine = 1, WineName = "Wine 2", Phonenumber = "987-654-3210", BuyerId = "212", Email = "iva" }
@@ -353,12 +349,12 @@ namespace WineSite.Tests.UnitTests
 
                 // Assert
                 Assert.NotNull(result);
-                Assert.AreEqual(2, result.Count); // Assuming we added 2 wine orders in Arrange
+                Assert.AreEqual(2, result.Count);  
 
-                // Add more specific assertions if needed to check the properties of WineOrderViewModel
+                
                 Assert.AreEqual("John Doe", result[0].FullName);
                 Assert.AreEqual("Jane Smith", result[1].FullName);
-                // Check other properties as needed
+              
             }
         }
 
@@ -372,7 +368,7 @@ namespace WineSite.Tests.UnitTests
 
             using (var context = new WineShopDbContext(options))
             {
-                // Add test data to the in-memory database
+                 
                 context.Messages.AddRange(
                     new Messages { Id = 1, Name = "John Doe", Message = "Hello World", About = "Question", Email = "john@example.com", PhoneNumber = "123-456-7890" },
                     new Messages { Id = 2, Name = "Jane Smith", Message = "Testing", About = "Feedback", Email = "jane@example.com", PhoneNumber = "987-654-3210" }
@@ -386,16 +382,16 @@ namespace WineSite.Tests.UnitTests
 
                 // Assert
                 Assert.NotNull(result);
-                Assert.AreEqual(2, result.Count); // Assuming we added 2 messages in Arrange
+                Assert.AreEqual(2, result.Count);  
 
-                // Add more specific assertions if needed to check the properties of AddMessage
+              
                 Assert.AreEqual("John Doe", result[0].Name);
                 Assert.AreEqual("Jane Smith", result[1].Name);
-                // Check other properties as needed
+                 
             }
         }
 
     }
 
-    }
+}
 

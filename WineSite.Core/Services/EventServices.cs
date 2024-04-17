@@ -22,31 +22,27 @@ namespace WineSite.Core.Services
         {
             try
             {
-                // Проверка дали събитието съществува
                 var eventToAdd = await _context.Events.FindAsync(eventId);
 
                 if (eventToAdd == null)
                 {
-                    return false; // Ако събитието не съществува, връщаме false
+                    return false;  
                 }
-
-                // Проверка дали събитието вече е в кошницата
                 var existingCartItem = await _context.TicketBuyers
                     .FirstOrDefaultAsync(ci => ci.BuyerId == userId && ci.EventId == eventId);
 
                 if (existingCartItem != null)
                 {
-                    // Увеличаваме количеството на съществуващия артикул в кошницата
+                   
                     existingCartItem.Quantity++;
                 }
                 else
                 {
-                    // Ако събитието не е в кошницата, създаваме нов запис
                     var newCartItem = new TicketBuyer()
                     {
                         BuyerId = userId,
                         EventId = eventId,
-                        Quantity = 1 // Започваме с количеството 1
+                        Quantity = 1  
                     };
                     _context.TicketBuyers.Add(newCartItem);
                 }
@@ -56,8 +52,7 @@ namespace WineSite.Core.Services
             }
             catch (Exception ex)
             {
-                // Можете да добавите логика за обработка на грешки тук
-                Console.WriteLine($"Грешка при добавяне на събитие в кошницата: {ex.Message}");
+                Console.WriteLine($"Грешка при записване, моля опитайте по-късно: {ex.Message}");
                 return false;
             }
         }
@@ -111,12 +106,10 @@ namespace WineSite.Core.Services
                     EventId = eventBuyer.EventId,
                     EventName = eventBuyer.Events.Name,
                     BuyerId = eventBuyer.BuyerId,
-                    QuentityEvent = eventBuyer.Quantity // Set the default quantity here, or adjust as needed
+                    QuentityEvent = eventBuyer.Quantity 
                 };
 
                 _context.Orders.Add(order);
-
-                
             }
 
             _context.TicketBuyers.RemoveRange(cartEvents);
@@ -235,9 +228,9 @@ namespace WineSite.Core.Services
                 return false;
             }
 
-            cartItem.Quantity++; // Увеличаване на количеството
+            cartItem.Quantity++;  
 
-            await _context.SaveChangesAsync(); // Запазване на промените в базата данни
+            await _context.SaveChangesAsync(); 
 
             return true;
         }
@@ -270,7 +263,27 @@ namespace WineSite.Core.Services
             return true;
         }
 
-        public async Task UpdateEventAsync(int id, EventsViewModel events)
+        public async Task<TicketBuyer> GetCartItemByIdAsync(string buyerId, int eventid)
+        {
+            return await _context.TicketBuyers.FirstOrDefaultAsync(e => e.EventId == eventid && e.BuyerId == buyerId);
+        }
+
+        public async Task<bool> UpdateCartItemAsync(TicketBuyer cartItem)
+        {
+            try
+            {
+                _context.Update(cartItem);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Грешка при актуализиране на артикул в кошницата: {ex.Message}");
+                return false;
+            }
+        }
+
+        public async  Task UpdateEventAsync(int id, EventsViewModel events)
         {
             var eventToEdit = await _context.Events.FindAsync(id);
 
@@ -294,28 +307,6 @@ namespace WineSite.Core.Services
 
             await _context.SaveChangesAsync();
         }
-
-        public async Task<TicketBuyer> GetCartItemByIdAsync(string buyerId, int eventid)
-        {
-            return await _context.TicketBuyers.FirstOrDefaultAsync(e => e.EventId == eventid && e.BuyerId == buyerId);
-        }
-
-        public async Task<bool> UpdateCartItemAsync(TicketBuyer cartItem)
-        {
-            try
-            {
-                _context.Update(cartItem);
-                await _context.SaveChangesAsync();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Грешка при актуализиране на артикул в кошницата: {ex.Message}");
-                return false;
-            }
-        }
-
-        
     }
 }
 

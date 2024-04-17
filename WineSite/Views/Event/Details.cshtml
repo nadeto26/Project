@@ -18,7 +18,7 @@
            
             <p><b>Адрес:</b>@Model.Address</p>
             <p><b>Цена:</b>@Model.PriceTicket</p>
-            <p><b>Продължителност:</b>@Model.Duration</p>
+            <p><b>Продължителност:</b>@Model.Duration минути</p>
             <p>@Model.Description</p>
             <p><b>Винен лист:</b></p>
             <ul>
@@ -36,7 +36,7 @@
             </ul>
             <p><b> Преференции</b></p>
             <ul>
-                @foreach (var note in Model.Features.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries))
+                @foreach (var note in Model.Preferences.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries))
                 {
                     <li>@note</li>
                 }
@@ -44,21 +44,19 @@
             <p><b>Кога и къде</b></p>
             <p>@Model.MoreInformation</p>
             <p><b>Водещ на събитието:</b>@Model.HostName</p>
-
-          
-
         </div>
         <p></p>
         @if (User.IsInRole("Administrator"))
         {
             <a class="btn btn-warning btn-sm" style="font-size: 12px;" asp-controller="Event" asp-action="Edit" asp-route-id="@Model.Id">Редактирай</a>
-
             <form asp-controller="Event" asp-action="Delete" asp-route-id="@Model.Id" method="post">
                 <button type="submit" class="ml-2 btn btn-danger btn-sm" style="font-size: 12px;">Изтрий</button>
             </form>
         }
-
-        <a class="ml-2 btn btn-danger btn-sm" style="font-size: 12px;" asp-controller="Event" asp-action="AddToCart" asp-route-id="@Model.Id">Запиши се</a>
-   
+        else
+        {
+            <a class="ml-2 btn btn-danger btn-sm" style="font-size: 12px;" asp-controller="Event" asp-action="AddToCart" asp-route-id="@Model.Id">
+                Запиши се</a>
+        }
     </div>
 </div>

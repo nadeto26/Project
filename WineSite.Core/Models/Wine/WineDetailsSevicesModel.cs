@@ -5,6 +5,7 @@ namespace WineSite.Core.Models.Wine
 {
     public class WineDetailsSevicesModel:WineServicesModel
     {
+
         [Required]
         [Display(Name = "Описание")]
         public string Description { get; set; } = null!;
@@ -20,10 +21,6 @@ namespace WineSite.Core.Models.Wine
         [Required]
         [Display(Name = "Вносител")]
         public string Importer { get; set; } = null!;
-
-        [Required]
-        [Display(Name = "Сорт")]
-        public string Sort { get; set; } = null!;
 
         [Display(Name = "Реколта")]
         public int Harvest { get; set; }

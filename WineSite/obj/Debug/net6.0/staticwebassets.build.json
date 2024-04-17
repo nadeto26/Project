@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "deLDydcleVIOiT8pAo8HD7tnK8iPE+D2IDkr80Z+Qgo=",
+  "Hash": "Sm+Ii0jbn//zlAc30d0QZP53XSPuvdGdD1gGBT3IIS8=",
   "Source": "WineSite.Web",
   "BasePath": "_content/WineSite.Web",
   "Mode": "Default",
@@ -1545,6 +1545,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\Admin\\Desktop\\WineSite - Original\\WineSite\\wwwroot\\js\\jquery.override-validator.js",
+      "SourceId": "WineSite.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Admin\\Desktop\\WineSite - Original\\WineSite\\wwwroot\\",
+      "BasePath": "_content/WineSite.Web",
+      "RelativePath": "js/jquery.override-validator.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\jquery.override-validator.js"
     },
     {
       "Identity": "C:\\Users\\Admin\\Desktop\\WineSite - Original\\WineSite\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",

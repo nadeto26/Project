@@ -53,11 +53,6 @@ namespace WineSite.Data.Data.Models
         [Column(TypeName = "decimal(18,2)")]
         public decimal Price { get; set; }
 
-        [Required]
-        [Comment("Wine's sort")]
-        [MaxLength(SortMaxLength)]
-        public string Sort { get; set; } = null!;
-
         [Comment("Wine's harvest")]
         public int Harvest { get; set; }
 

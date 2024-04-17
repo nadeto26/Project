@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using WineSite.Core.Contracts;
 using WineSite.Core.Models.Event;
-using static WineSite.Core.Constants.MessageConstants;
+ 
 
 namespace WineSite.Controllers
 {
@@ -72,8 +72,6 @@ namespace WineSite.Controllers
                 await eventServices.AddTicketDeliveryAsync(admode);
                 return RedirectToAction("Confirmation");
             }
-
-            // Ако моделът не е валиден, връщаме грешка
             return View(admode);
         }
 
@@ -85,10 +83,6 @@ namespace WineSite.Controllers
             {
                 return BadRequest("User not found");
             }
-
-            
-
-            // Извикваме ConfirmOrderAsync без try-catch блок
             await eventServices.ConfirmOrderAsync(currentUserId);
 
             return View();
@@ -107,9 +101,6 @@ namespace WineSite.Controllers
 
             return RedirectToAction("CartTickets", "Event");
         }
-
-
-
 
         [Authorize]
         public async Task<IActionResult> AddToCart(int id)
@@ -136,8 +127,6 @@ namespace WineSite.Controllers
 
             return View(userTickets);
         }
-
-       
 
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
@@ -185,11 +174,11 @@ namespace WineSite.Controllers
             bool success = await eventServices.IncreaseQuantityAsync(eventId, userId);
             if (!success)
             {
-                // Обработка на грешка
+                
                 return BadRequest();
             }
 
-            // Пренасочване към страницата за количката или друга страница
+           
             return RedirectToAction("CartTickets");
         }
 

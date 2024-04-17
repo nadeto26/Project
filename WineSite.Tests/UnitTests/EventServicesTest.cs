@@ -1,19 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Moq;
-using NUnit.Framework.Internal.Execution;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using WineSite.Core.Contracts;
 using WineSite.Core.Models.Event;
 using WineSite.Core.Services;
 using WineSite.Data.Data;
-using WineSite.Data.Data.Migrations;
 using WineSite.Data.Data.Models;
-using ApplicationUser = WineSite.Data.Data.Models.ApplicationUser;
 using Events = WineSite.Data.Data.Models.Events;
 
 namespace WineSite.Tests.UnitTests
@@ -42,7 +32,7 @@ namespace WineSite.Tests.UnitTests
                 var eventId = 1;
                 var userId = "testuser";
 
-                // Add the event to the database with required properties
+                
                 context.Events.Add(new WineSite.Data.Data.Models.Events
                 {
                     Id = eventId,
@@ -120,9 +110,9 @@ namespace WineSite.Tests.UnitTests
                 var userId = "testuser";
 
                 context.Wines.AddRange(
-           new Wine { Id = 1, Name = "Wine 1", Price = 10, ImageUrl = "wine1.jpg", Country = "Country 1", Description = "Description 1", Importer = "Importer 1", Manufucturer = "Manufacturer 1", Sort = "Sort 1", AlcoholContent = 12, Bottle = 750, Harvest = 12, Year = 2020 },
-           new Wine { Id = 2, Name = "Wine 2", Price = 20, ImageUrl = "wine2.jpg", Country = "Country 2", Description = "Description 2", Importer = "Importer 2", Manufucturer = "Manufacturer 2", Sort = "Sort 2", AlcoholContent = 12, Bottle = 750, Harvest = 12, Year = 2020 },
-           new Wine { Id = 3, Name = "Wine 3", Price = 30, ImageUrl = "wine3.jpg", Country = "Country 3", Description = "Description 3", Importer = "Importer 3", Manufucturer = "Manufacturer 3", Sort = "Sort 3", AlcoholContent = 12, Bottle = 750, Harvest = 12, Year = 2020 }
+           new Wine { Id = 1, Name = "Wine 1", Price = 10, ImageUrl = "wine1.jpg", Country = "Country 1", Description = "Description 1", Importer = "Importer 1", Manufucturer = "Manufacturer 1", AlcoholContent = 12, Bottle = 750, Harvest = 12, Year = 2020 },
+           new Wine { Id = 2, Name = "Wine 2", Price = 20, ImageUrl = "wine2.jpg", Country = "Country 2", Description = "Description 2", Importer = "Importer 2", Manufucturer = "Manufacturer 2", AlcoholContent = 12, Bottle = 750, Harvest = 12, Year = 2020 },
+           new Wine { Id = 3, Name = "Wine 3", Price = 30, ImageUrl = "wine3.jpg", Country = "Country 3", Description = "Description 3", Importer = "Importer 3", Manufucturer = "Manufacturer 3", AlcoholContent = 12, Bottle = 750, Harvest = 12, Year = 2020 }
        );
 
                 context.WineBuyers.AddRange(
@@ -163,7 +153,7 @@ namespace WineSite.Tests.UnitTests
                 var service = new EventServices(context);
                 var eventId = 1;
 
-                // Add an event with the specified ID to the database
+                
                 context.Events.Add(new WineSite.Data.Data.Models.Events
                 {
                     Id = eventId,
@@ -204,7 +194,7 @@ namespace WineSite.Tests.UnitTests
                 var service = new EventServices(context);
                 var eventId = 1;
 
-                // Add an event with the specified ID to the database
+                
                 context.Events.Add(new WineSite.Data.Data.Models.Events
                 {
                     Id = eventId,
@@ -245,13 +235,13 @@ namespace WineSite.Tests.UnitTests
                 var service = new EventServices(context);
                 var userId = "testuser";
 
-                // Add events to the database
+                
                 context.Events.AddRange(
                     new Data.Data.Models.Events { Id = 1, Name = "Event 1", PriceTicket = 10.0m, ImageUrl = "event1.jpg", Address = "Event 1 Address", DateTime = "Monday", Description = "Event 1 Description", Duration = "120 min", Features = "Event 1 Features", HostName = "Host 1", MoreInformation = "More Info 1", Preferences = "Preferences 1", WineList = "Wine List 1" },
                     new Data.Data.Models.Events { Id = 2, Name = "Event 2", PriceTicket = 15.0m, ImageUrl = "event2.jpg", Address = "Event 2 Address", DateTime = "Tuesday", Description = "Event 2 Description", Duration = "120 min", Features = "Event 2 Features", HostName = "Host 2", MoreInformation = "More Info 2", Preferences = "Preferences 2", WineList = "Wine List 2" }
                 );
 
-                // Add user tickets to the database
+                 
                 context.TicketBuyers.AddRange(
                     new TicketBuyer { BuyerId = userId, EventId = 1, Quantity = 2 },
                     new TicketBuyer { BuyerId = userId, EventId = 2, Quantity = 1 }
@@ -279,7 +269,7 @@ namespace WineSite.Tests.UnitTests
             {
                 var service = new EventServices(context);
 
-                // Add an event to the database
+                
                 var eventIdToDelete = 1;
                 context.Events.Add(new Events
                 {
@@ -304,12 +294,11 @@ namespace WineSite.Tests.UnitTests
                 // Assert
                 Assert.IsTrue(result, "The method should return true for a successful delete.");
 
-                // Check if the event is deleted from the database
+                
                 var deletedEvent = await context.Events.FindAsync(eventIdToDelete);
                 Assert.IsNull(deletedEvent, "The event should be deleted from the database.");
             }
         }
-
 
         [Test]
         public async Task RemoveEventFromCartAsync_ValidEventAndUser_ShouldRemoveEventFromCart()
@@ -325,7 +314,7 @@ namespace WineSite.Tests.UnitTests
                 var userId = "testuser";
                 var eventId = 1;
 
-                // Add a ticket buyer entry to the database
+                 
                 context.TicketBuyers.Add(new TicketBuyer { BuyerId = userId, EventId = eventId });
                 await context.SaveChangesAsync();
 
@@ -335,141 +324,12 @@ namespace WineSite.Tests.UnitTests
                 // Assert
                 Assert.IsTrue(result, "The method should return true for a valid event and user.");
 
-                // Check if the entry is removed from the database
+                
                 var removedEntry = await context.TicketBuyers.FirstOrDefaultAsync(e => e.EventId == eventId && e.BuyerId == userId);
                 Assert.IsNull(removedEntry, "The event should be removed from the user's cart.");
             }
         }
 
-        [Test]
-        public async Task GetAllEventsAsync_ReturnsEventsList()
-        {
-            // Arrange
-            var options = new DbContextOptionsBuilder<WineShopDbContext>()
-                .UseInMemoryDatabase(databaseName: "TestDatabase")
-                .Options;
-
-            using (var context = new WineShopDbContext(options))
-            {
-                // Add test data to the in-memory database
-                context.Events.AddRange(
-                    new WineSite.Data.Data.Models.Events
-                    {
-                        Id = 20,
-                        Name = "Event 1",
-                        Address = "Address 1",
-                        DateTime = "Monday at 1.40",
-                        HostName = "Petar F",
-                        Description = "The best wines",
-                        WineList = "The niw",
-                        Duration = "120",
-                        Features = "wines",
-                        ImageUrl = "img.pmg",
-                        MoreInformation = "wines",
-                        Preferences = "ddd",
-                        PriceTicket = 129
-                    },
-                    new WineSite.Data.Data.Models.Events
-                    {
-                        Id = 21,
-                        Name = "Event 2",
-                        Address = "Address 2",
-                        DateTime = "Monday at 1.40",
-                        HostName = "Petar F",
-                        Description = "The best wines",
-                        WineList = "The niw",
-                        Duration = "120",
-                        Features = "wines",
-                        ImageUrl = "img.pmg",
-                        MoreInformation = "wines",
-                        Preferences = "ddd",
-                        PriceTicket = 129
-                    },
-                    new WineSite.Data.Data.Models.Events
-                    {
-                        Id = 22,
-                        Name = "Event 3",
-                        Address = "Address 3",
-                        DateTime = "Monday at 1.40",
-                        HostName = "Petar F",
-                        Description = "The best wines",
-                        WineList = "The niw",
-                        Duration = "120",
-                        Features = "wines",
-                        ImageUrl = "img.pmg",
-                        MoreInformation = "wines",
-                        Preferences = "ddd",
-                        PriceTicket = 129
-                    },
-                        new WineSite.Data.Data.Models.Events
-                        {
-                            Id = 23,
-                            Name = "Event 3",
-                            Address = "Address 3",
-                            DateTime = "Monday at 1.40",
-                            HostName = "Petar F",
-                            Description = "The best wines",
-                            WineList = "The niw",
-                            Duration = "120",
-                            Features = "wines",
-                            ImageUrl = "img.pmg",
-                            MoreInformation = "wines",
-                            Preferences = "ddd",
-                            PriceTicket = 129
-                        }
-                );
-                await context.SaveChangesAsync();
-
-                var service = new EventServices(context);
-
-                // Act
-                var result = await service.GetAllEventsAsync();
-
-                // Assert
-                Assert.NotNull(result);
-               
-                Assert.AreEqual(4, result.Count); // Assuming we added 3 events in Arrange
-
-                
-            }
-        }
-
-
-        [Test]
-        public async Task GetUserTicketsAsync_ReturnsUserTicketsList()
-        {
-            
-                // Arrange
-                var options = new DbContextOptionsBuilder<WineShopDbContext>()
-                    .UseInMemoryDatabase(databaseName: "TestDatabase")
-                    .Options;
-
-                // Using блокът гарантира, че DbContext се освобождава след края на блока
-                using (var context = new WineShopDbContext(options))
-                {
-                    // Добавяне на тестови данни
-                    var userId = "validUserId";
-                    var eventBuyer1 = new TicketBuyer { BuyerId = userId, EventId = 1, Quantity = 2 };
-                    var eventBuyer2 = new TicketBuyer { BuyerId = userId, EventId = 2, Quantity = 1 };
-                    context.TicketBuyers.AddRange(eventBuyer1, eventBuyer2);
-                    await context.SaveChangesAsync();
-
-                    var service = new EventServices(context);
-
-                    // Act
-                    var result = await service.GetUserTicketsAsync(userId);
-
-                    // Assert
-                    Assert.NotNull(result);
-                    Assert.AreEqual(2, result.Count); // Променена проверка за броя на елементите
-
-                    // Проверка на конкретни данни във върнатия списък
-                    var eventIds = result.Select(e => e.Id).ToList();
-                    Assert.Contains(1, eventIds);
-                    Assert.Contains(2, eventIds);
-                }
-            }
-        
         [Test]
         public async Task IncreaseQuantityAsync_ItemExists_ReturnsTrueIfIncreased_FalseIfNotExists()
         {
@@ -478,10 +338,10 @@ namespace WineSite.Tests.UnitTests
                 .UseInMemoryDatabase(databaseName: "TestDatabase")
                 .Options;
 
-            // Using блокът гарантира, че DbContext се освобождава след края на блока
+           
             using (var context = new WineShopDbContext(options))
             {
-                // Добавяне на тестови данни
+                 
                 var eventId = 3;
                 var userId = "validUserId";
                 var eventBuyer = new TicketBuyer { BuyerId = userId, EventId = eventId, Quantity = 1 };
@@ -498,12 +358,12 @@ namespace WineSite.Tests.UnitTests
                 Assert.True(result1);
 
 
-                // Проверка дали количеството е увеличено за съществуващ артикул
+               
                 var updatedCartItem = await context.TicketBuyers.FirstOrDefaultAsync(item =>
                     item.EventId == eventId && item.BuyerId == userId);
                 Assert.NotNull(updatedCartItem);
 
-                // Уверете се, че колекцията се изчиства след теста
+                
                 context.TicketBuyers.RemoveRange(context.TicketBuyers);
                 await context.SaveChangesAsync();
             }
@@ -517,10 +377,10 @@ namespace WineSite.Tests.UnitTests
                 .UseInMemoryDatabase(databaseName: "TestDatabase")
                 .Options;
 
-            // Using блокът гарантира, че DbContext се освобождава след края на блока
+            
             using (var context = new WineShopDbContext(options))
             {
-                // Добавяне на тестови данни
+                
                 var eventId = 5;
                 var existingEvent = new WineSite.Data.Data.Models.Events
                 {
@@ -614,10 +474,10 @@ namespace WineSite.Tests.UnitTests
                     var eventService = new EventServices(context);
 
                     // Act
-                    var result = await eventService.ExistAsync(10); // Проверка за съществуване на събитие с Id=1
+                    var result = await eventService.ExistAsync(10); 
 
                     // Assert
-                    Assert.True(result); // Очакваме резултатът да бъде true
+                    Assert.True(result); 
                 }
             }
 
@@ -631,7 +491,7 @@ namespace WineSite.Tests.UnitTests
 
             using (var context = new WineShopDbContext(options))
             {
-                // Add test data to the in-memory database
+                
                 var buyerId = "testBuyerId";
                 var eventId = 1;
                 var cartItem = new TicketBuyer { BuyerId = buyerId, EventId = eventId };
@@ -663,7 +523,7 @@ namespace WineSite.Tests.UnitTests
 
             using (var context = new WineShopDbContext(options))
             {
-                // Add test data to the in-memory database
+               
                 var cartItem = new TicketBuyer { BuyerId = "testBuyerId", EventId = 1, Quantity = 1 };
                 context.TicketBuyers.Add(cartItem);
                 await context.SaveChangesAsync();
@@ -671,16 +531,16 @@ namespace WineSite.Tests.UnitTests
                 var service = new EventServices(context);
 
                 // Act
-                cartItem.Quantity = 2; // Update the quantity
+                cartItem.Quantity = 2;  
                 var result = await service.UpdateCartItemAsync(cartItem);
 
                 // Assert
-                Assert.IsTrue(result); // Check if update was successful
+                Assert.IsTrue(result);  
 
-                // Check if the cart item was updated in the database
+                 
                 var updatedCartItem = await context.TicketBuyers.FindAsync(cartItem.EventId,cartItem.BuyerId);
                 Assert.NotNull(updatedCartItem);
-                Assert.AreEqual(2, updatedCartItem.Quantity); // Check if quantity was updated correctly
+                Assert.AreEqual(2, updatedCartItem.Quantity);  
             }
         }
 

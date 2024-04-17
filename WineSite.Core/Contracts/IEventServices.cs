@@ -23,8 +23,6 @@ namespace WineSite.Core.Contracts
 
         Task<EventsViewModel> GetEventAsync(int id);
 
-        Task UpdateEventAsync(int id, EventsViewModel events);
-
         Task<bool> DeleteEventAsync(int id);
 
         Task<bool> AddEventToCartAsync(int eventId, string userId);
@@ -35,9 +33,6 @@ namespace WineSite.Core.Contracts
 
         Task<bool> UpdateCartItemAsync(TicketBuyer cartItem);
 
-        
-
-
-
+        Task UpdateEventAsync(int id, EventsViewModel events);
     }
 }

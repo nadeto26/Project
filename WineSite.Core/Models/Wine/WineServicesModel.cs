@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
- 
+using WineSite.Core.Contracts;
 
 namespace WineSite.Core.Models.Wine
 {
-    public class WineServicesModel
+    public class WineServicesModel: IWineModel
     {
 
         public int Id { get; set; }

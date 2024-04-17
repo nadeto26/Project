@@ -13,7 +13,8 @@
             
             <br />
 
-            <a asp-controller="Wine" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-primary btn-fixed-size">Детайли</a>
+            <a asp-controller="Wine" asp-action="Details" asp-route-id="@Model.Id" 
+              class="btn btn-primary btn-fixed-size">Детайли</a>
 
             @{
                 if (User.IsInRole("Administrator"))

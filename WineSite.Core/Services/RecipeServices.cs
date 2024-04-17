@@ -15,8 +15,6 @@ namespace WineSite.Core.Services
         {
             _dbcontext = dbContext;
         }
-
-       
         public async Task<bool> DeleteRecipeAsync(int id)
         {
             var recipeToDelete = await _dbcontext.Recipes.FindAsync(id);
@@ -91,11 +89,11 @@ namespace WineSite.Core.Services
                 throw new ArgumentException("Recipe not found");
             }
 
-             recipeToEdit.Name = recipe.Name;
-             recipeToEdit.Notes = recipe.Notes;
-             recipeToEdit.Description = recipe.Description;
-             recipeToEdit.ImageUrl = recipe.ImageUrl;
-           
+            recipeToEdit.Name = recipe.Name;
+            recipeToEdit.Notes = recipe.Notes;
+            recipeToEdit.Description = recipe.Description;
+            recipeToEdit.ImageUrl = recipe.ImageUrl;
+
             await _dbcontext.SaveChangesAsync();
         }
     }

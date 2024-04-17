@@ -85,7 +85,7 @@ namespace WineSite.Core.Services
         }
 
         public async Task Edit(int wineId, string name, int typeId, int year, string imageUrl, string description, 
-            string country, string manufucturer, decimal price, string sort, int harvest, int alcoholcontent, int bottle, string importer)
+            string country, string manufucturer, decimal price, int harvest, int alcoholcontent, int bottle, string importer)
         {
              var wine = _db.Wines.Find(wineId);
 
@@ -98,7 +98,6 @@ namespace WineSite.Core.Services
              wine.Country = country;
              wine.Manufucturer = manufucturer;
              wine.Price = price;
-             wine.Sort = sort;
              wine.Harvest = harvest;
              wine.Bottle = bottle;
              wine.AlcoholContent = alcoholcontent;

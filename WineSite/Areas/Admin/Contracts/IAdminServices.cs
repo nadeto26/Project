@@ -15,7 +15,7 @@ namespace WineSite.Areas.Admin.Contracts
         Task<int> Create(string name, int typeId, int year,
         string imageUrl, string description, string country,
         string manufucturer, decimal price,
-        string sort, int harvest, int alcoholcontent,
+        int harvest, int alcoholcontent,
         int bottle, string importer);
 
         Task<IEnumerable<WineTypeServicesModel>> AllTypes();

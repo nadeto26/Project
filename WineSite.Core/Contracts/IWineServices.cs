@@ -26,7 +26,7 @@ namespace WineSite.Core.Contracts
         Task Edit(int wineId, string name, int typeId, int year,
             string imageUrl, string description, string country,
             string manufucturer, decimal price,
-            string sort, int harvest, int alcoholcontent,
+            int harvest, int alcoholcontent,
             int bottle, string importer);
 
         Task<int> GetWineTypeId(int wineId);
@@ -37,8 +37,6 @@ namespace WineSite.Core.Contracts
 
         Task<List<WineCart>> GetUserWineAsync(string userId);
 
-        
-
         Task ConfirmOrderAsync(string currentUserId);
 
         Task WineDeliveryAsync(WineDeliveryDetailsViewModel deliveryDetails);
@@ -48,7 +46,5 @@ namespace WineSite.Core.Contracts
         Task<bool> UpdateCartItemAsync(WineBuyers cartItem);
 
         Task<bool> RemoveWineFromCartAsync(string buyerId, int wineId);
-
-
     }
 }

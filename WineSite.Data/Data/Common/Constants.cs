@@ -24,9 +24,6 @@ namespace WineSite.Data.Data.Common
             public const int ImporterMaxLength = 60;
             public const int ImporterMinLength = 4;
 
-            public const int SortMaxLength = 70;
-            public const int SortMinLength = 4;
-
             public const int MaxPricePerBottle = 500;
         }
 
@@ -115,6 +112,38 @@ namespace WineSite.Data.Data.Common
             //Email
             public const int WineDeliveryEmailMaxLength = 50;
             public const int WineDeliveryEmailMinLength = 7;
+
+        }
+
+        public static class Messeges
+        {
+            //FullName 
+            public const int UserNameMaxLength = 50;
+            public const int UserNameMinLength = 5;
+
+            //Messege
+            public const int MessegeMaxLength = 1000;
+            public const int MessegeMinLength = 10;
+
+            //Email
+            public const int UserEmailMaxLength = 50;
+            public const int UserEmailMinLength = 6;
+
+            //About 
+            public const int AboutMaxLength = 50;
+            public const int AboutMinLength = 3;
+
+        }
+
+        public static class Orders
+        {
+            //FullName 
+            public const int UserNameMaxLength = 50;
+            public const int UserNameMinLength = 5;
+
+            //Email
+            public const int UserEmailMaxLength = 50;
+            public const int UserEmailMinLength = 6;
 
         }
     }
