@@ -190,8 +190,45 @@ namespace WineSite.Controllers
             }
 
             // Пренасочване към страницата за количката или друга страница
-            return RedirectToAction("CartTickets", "Event");
+            return RedirectToAction("CartTickets");
         }
+
+        public async Task<IActionResult> DecreaseQuantity(int id)
+        {
+            string currentUserId = GetUserId();
+            var wineCartItem = await eventServices.GetCartItemByIdAsync(currentUserId, id);
+
+            if (wineCartItem != null)
+            {
+                if (wineCartItem.Quantity > 1)
+                {
+                    wineCartItem.Quantity--;
+                    await eventServices.UpdateCartItemAsync(wineCartItem);
+                }
+                else
+                {
+                    await eventServices.RemoveEventFromCartAsync(id, currentUserId);
+                }
+            }
+
+            return RedirectToAction(nameof(CartTickets));
+        }
+
+        public async Task<IActionResult> IncreaseQuantity(int id)
+        {
+            string currentUserId = GetUserId();
+            var wineCartItem = await eventServices.GetCartItemByIdAsync(currentUserId, id);
+
+            if (wineCartItem != null)
+            {
+                wineCartItem.Quantity++;
+                await eventServices.UpdateCartItemAsync(wineCartItem);
+            }
+
+            return RedirectToAction(nameof(CartTickets));
+        }
+
+
 
 
         private string GetUserId()

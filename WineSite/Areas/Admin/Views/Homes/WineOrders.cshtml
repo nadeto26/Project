@@ -35,7 +35,7 @@
                                 <hr />
                                 <p class="mb-0"><span class="fw-bold">Име на вино: </span>@order.WineName</p>
                                 <p class="mb-0"><span class="fw-bold">Количество билети: </span>@order.QuentityWine</p>
-                                <form method="post" action="DeleteWineOrder" onsubmit="return confirm('Сигурни ли сте, че искате да изтриете това съобщение?')">
+                                <form method="post" action="DeleteWineOrder" onsubmit="return confirm('Сигурни ли сте, че сте извършили поръчката?')">
                                     <input type="hidden" name="Id"
                                     value="@order.Id" />
                                     <br>

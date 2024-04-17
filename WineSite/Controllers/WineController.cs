@@ -176,9 +176,6 @@ namespace WineSite.Controllers
         }
 
 
-
-
-
         [Authorize]
         public async Task<IActionResult> AddToCart(int id)
         {
@@ -190,7 +187,7 @@ namespace WineSite.Controllers
             {
                 ModelState.AddModelError(string.Empty, "Неуспешно добавяне на вино в кошницата.");
             }
-            TempData[UserMessageSuccess] = "Добавихте успешно виното!";
+             
             return RedirectToAction(nameof(Cart)) ;
         }
 

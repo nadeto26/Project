@@ -7,6 +7,12 @@ using WineSite.Data.Data;
 using WineSite.Areas.Admin.Contracts;
 using WineSite.Areas.Admin.Sevices;
 using WineSite.Data.Data.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+using WineSite.Areas.Admin.Controllers;
+using WineSite.Core.Models.Event;
+using WineSite.Data.Data.Migrations;
 
 namespace WineSite.Tests.UnitTests
 {
@@ -27,9 +33,8 @@ namespace WineSite.Tests.UnitTests
             this.recipeServices = new RecipeServices(this._db);
         }
 
-        
+
         [Test]
-      
         public async Task AddRecipeAsync_ValidRecipe_ShouldAddRecipeToDatabase()
         {
             // Arrange
@@ -40,13 +45,13 @@ namespace WineSite.Tests.UnitTests
             using (var context = new WineShopDbContext(options))
             {
                 // Добавяне на вашия тестов обект към контекста
-                var recipe = new Recipe
+                var recipe = new WineSite.Data.Data.Models.Recipe
                 {
-                     Id =5,
-                     Name = "Recipe",
-                     Description = "Brake the eggs",
-                     ImageUrl = "Recipe2.jpg",
-                     Notes = "recipes"
+                    Id = 5,
+                    Name = "Recipe",
+                    Description = "Brake the eggs",
+                    ImageUrl = "Recipe2.jpg",
+                    Notes = "recipes"
                 };
                 context.Recipes.Add(recipe);
                 await context.SaveChangesAsync();
@@ -54,10 +59,10 @@ namespace WineSite.Tests.UnitTests
 
             using (var context = new WineShopDbContext(options))
             {
-                var service = new AdminServices(context);  
+                var service = new AdminServices(context);
                 var model = new ReceiptViewModel
                 {
-                   Name = "Recipe",
+                    Name = "Recipe",
                     Description = "Brake the eggs",
                     ImageUrl = "Recipe2.jpg",
                     Notes = "recipes"
@@ -74,8 +79,6 @@ namespace WineSite.Tests.UnitTests
                 }
             }
         }
-
-
 
         [Test]
         public async Task Create_ValidInput_ShouldReturnNewWineId()
@@ -116,7 +119,6 @@ namespace WineSite.Tests.UnitTests
                 // Уверете се, че тук извиквате нужните методи за сравнение и уверки за данните на виното
             }
         }
-
 
         [Test]
         public async Task AllTypesNames_ShouldReturnCorrectResult()
@@ -176,10 +178,19 @@ namespace WineSite.Tests.UnitTests
             {
                 // Add a ticket order to the context
                 var orderId = 1;
-                context.Orders.Add(new Orders { Id = orderId, Address = "Drama", City="Gotse Delchev", Email= "nade@gmail.com",
-                    FullName = "Nadezhda Karapetrova", Phonenumber = "089087799", PostCode = "2300", EventName = "Vino Festival",
-                    QuentityEvent = 5,BuyerId = "12352"
-                     });
+                context.Orders.Add(new Orders
+                {
+                    Id = orderId,
+                    Address = "Drama",
+                    City = "Gotse Delchev",
+                    Email = "nade@gmail.com",
+                    FullName = "Nadezhda Karapetrova",
+                    Phonenumber = "089087799",
+                    PostCode = "2300",
+                    EventName = "Vino Festival",
+                    QuentityEvent = 5,
+                    BuyerId = "12352"
+                });
 
 
                 await context.SaveChangesAsync();
@@ -190,7 +201,7 @@ namespace WineSite.Tests.UnitTests
                 var service = new AdminServices(context);
 
                 // Act
-                var result = await service.DeleteTicketOrderAsync(1);  
+                var result = await service.DeleteTicketOrderAsync(1);
 
                 // Assert
                 Assert.IsTrue(result, "The method should return true for an existing order Id.");
@@ -213,9 +224,9 @@ namespace WineSite.Tests.UnitTests
             using (var context = new WineShopDbContext(options))
             {
                 var service = new AdminServices(context);
-                var orderId = 1;  
+                var orderId = 1;
 
-                
+
                 context.OrderWines.Add(new OrderWines
                 {
                     Id = orderId,
@@ -244,6 +255,147 @@ namespace WineSite.Tests.UnitTests
 
         }
 
+        [Test]
+        public async Task AddEventAsync_AddsEventToDatabase()
+        {
+            // Arrange
+            var options = new DbContextOptionsBuilder<WineShopDbContext>()
+                .UseInMemoryDatabase(databaseName: "TestDatabase")
+                .Options;
+
+            using (var context = new WineShopDbContext(options))
+            {
+                // Initialize your service
+                var service = new AdminServices(context); // Adjust as needed
+
+                // Create a test event
+                var model = new EventsViewModel
+                {
+                    Name = "Test Event",
+                    HostName = "Test Host",
+                    Address = "Test Address",
+                    DateTime = "Monday at 2 o clock",
+                    Description = "Test Description",
+                    ImageUrl = "test.jpg",
+                    PriceTicket = 10,
+                    WineList = "Test Wine List",
+                    Features = "Test Features",
+                    Preferences = "Test Preferences",
+                    MoreInformation = "Test More Information",
+                    Duration = "2 hours"
+                };
+
+                // Act
+                await service.AddEventAsync(model);
+                await context.SaveChangesAsync(); // Ensure changes are saved
+
+                // Assert
+                var addedEvent = await context.Events.FirstOrDefaultAsync(e => e.Name == model.Name);
+                Assert.NotNull(addedEvent);
+                // Add more assertions to check other properties of the added event
+            }
+        }
+
+        [Test]
+        public async Task GetOrdersForTicketsAsync_ReturnsOrderViewModelList()
+        {
+            // Arrange
+            var options = new DbContextOptionsBuilder<WineShopDbContext>()
+                .UseInMemoryDatabase(databaseName: "TestDatabase")
+                .Options;
+
+            using (var context = new WineShopDbContext(options))
+            {
+                // Add test data to the in-memory database
+                context.Orders.AddRange(
+                    new WineSite.Data.Data.Models.Orders { Id = 1, FullName = "John Doe", PostCode = "12345", Address = "123 Main St", City = "SomeCity", QuentityEvent = 2, EventName = "Event 1", Phonenumber = "123-456-7890", BuyerId = "124", Email = "na@" },
+                    new WineSite.Data.Data.Models.Orders { Id = 2, FullName = "Jane Smith", PostCode = "54321", Address = "456 Elm St", City = "AnotherCity", QuentityEvent = 1, EventName = "Event 2", Phonenumber = "987-654-3210", BuyerId = "214", Email = "dd" }
+                );
+                await context.SaveChangesAsync();
+
+                var service = new AdminServices(context);
+
+                // Act
+                var result = await service.GetOrdersForTicketsAsync();
+
+                // Assert
+                Assert.NotNull(result);
+                Assert.AreEqual(2, result.Count); // Assuming we added 2 orders in Arrange
+
+                // Add more specific assertions if needed to check the properties of OrderViewModel
+                Assert.AreEqual("John Doe", result[0].FullName);
+                Assert.AreEqual("Jane Smith", result[1].FullName);
+                // Check other properties as needed
+            }
+        }
+
+        [Test]
+        public async Task GetWinesOrdersAsync_ReturnsWineOrderViewModelList()
+        {
+            // Arrange
+            var options = new DbContextOptionsBuilder<WineShopDbContext>()
+                .UseInMemoryDatabase(databaseName: "TestDatabase")
+                .Options;
+
+            using (var context = new WineShopDbContext(options))
+            {
+                // Add test data to the in-memory database
+                context.OrderWines.AddRange(
+                    new OrderWines { Id = 1, FullName = "John Doe", PostCode = "12345", Address = "123 Main St", City = "SomeCity", QuentityWine = 2, WineName = "Wine 1", Phonenumber = "123-456-7890", BuyerId = "124", Email = "nad" },
+                    new OrderWines { Id = 2, FullName = "Jane Smith", PostCode = "54321", Address = "456 Elm St", City = "AnotherCity", QuentityWine = 1, WineName = "Wine 2", Phonenumber = "987-654-3210", BuyerId = "212", Email = "iva" }
+                );
+                await context.SaveChangesAsync();
+
+                var service = new AdminServices(context);
+
+                // Act
+                var result = await service.GetWinesOrdersAsync();
+
+                // Assert
+                Assert.NotNull(result);
+                Assert.AreEqual(2, result.Count); // Assuming we added 2 wine orders in Arrange
+
+                // Add more specific assertions if needed to check the properties of WineOrderViewModel
+                Assert.AreEqual("John Doe", result[0].FullName);
+                Assert.AreEqual("Jane Smith", result[1].FullName);
+                // Check other properties as needed
+            }
+        }
+
+        [Test]
+        public async Task GetAllMessagesAsync_ReturnsMessagesList()
+        {
+            // Arrange
+            var options = new DbContextOptionsBuilder<WineShopDbContext>()
+                .UseInMemoryDatabase(databaseName: "TestDatabase")
+                .Options;
+
+            using (var context = new WineShopDbContext(options))
+            {
+                // Add test data to the in-memory database
+                context.Messages.AddRange(
+                    new Messages { Id = 1, Name = "John Doe", Message = "Hello World", About = "Question", Email = "john@example.com", PhoneNumber = "123-456-7890" },
+                    new Messages { Id = 2, Name = "Jane Smith", Message = "Testing", About = "Feedback", Email = "jane@example.com", PhoneNumber = "987-654-3210" }
+                );
+                await context.SaveChangesAsync();
+
+                var service = new AdminServices(context);
+
+                // Act
+                var result = await service.GetAllMessagesAsync();
+
+                // Assert
+                Assert.NotNull(result);
+                Assert.AreEqual(2, result.Count); // Assuming we added 2 messages in Arrange
+
+                // Add more specific assertions if needed to check the properties of AddMessage
+                Assert.AreEqual("John Doe", result[0].Name);
+                Assert.AreEqual("Jane Smith", result[1].Name);
+                // Check other properties as needed
+            }
+        }
 
     }
-}
+
+    }
+

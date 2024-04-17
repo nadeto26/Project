@@ -238,7 +238,7 @@ namespace WineSite.Web.Migrations
                         {
                             Id = "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b77deae3-2179-493d-a097-a7e2f8c40d9c",
+                            ConcurrencyStamp = "f1c3c01a-c012-4b27-8ca8-2464b97a4e59",
                             Email = "ivana.burgilova@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "Ivana",
@@ -246,9 +246,9 @@ namespace WineSite.Web.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ivana.burgilova@gmail.com",
                             NormalizedUserName = "ivana.burgilova@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEIlUXwliHJru9M8GCDDLQ1HnFAke6To699kioD1XsQCBC3D9Jzm5CC6gRVFy9cOQkg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENcx2Xut5EjoCIWyzZwRzBI7ly0aX2DfjoXJDGMhrpBEvLflEdw8UoYd7OiuSrL/mg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "99db13a2-ade9-4027-bc5f-b7bfd4af89ce",
+                            SecurityStamp = "4ddc2376-a3c4-413c-9376-a6698c94ad0d",
                             TwoFactorEnabled = false,
                             UserName = "ivana.burgilova@gmail.com"
                         });
@@ -530,10 +530,6 @@ namespace WineSite.Web.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int")
                         .HasComment("Quantity for tickets");
-
-                    b.Property<decimal>("WholePrice")
-                        .HasColumnType("decimal(18,2)")
-                        .HasComment("The whole price for the tickets, based on the quantity");
 
                     b.HasKey("EventId", "BuyerId");
 

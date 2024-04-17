@@ -20,23 +20,46 @@ namespace WineSite.Core.Services
 
         public async Task<bool> AddEventToCartAsync(int eventId, string userId)
         {
-            var adToAdd = await _context.Events.FindAsync(eventId);
-
-            if (adToAdd == null)
+            try
             {
-                return false;  
+                // Проверка дали събитието съществува
+                var eventToAdd = await _context.Events.FindAsync(eventId);
+
+                if (eventToAdd == null)
+                {
+                    return false; // Ако събитието не съществува, връщаме false
+                }
+
+                // Проверка дали събитието вече е в кошницата
+                var existingCartItem = await _context.TicketBuyers
+                    .FirstOrDefaultAsync(ci => ci.BuyerId == userId && ci.EventId == eventId);
+
+                if (existingCartItem != null)
+                {
+                    // Увеличаваме количеството на съществуващия артикул в кошницата
+                    existingCartItem.Quantity++;
+                }
+                else
+                {
+                    // Ако събитието не е в кошницата, създаваме нов запис
+                    var newCartItem = new TicketBuyer()
+                    {
+                        BuyerId = userId,
+                        EventId = eventId,
+                        Quantity = 1 // Започваме с количеството 1
+                    };
+                    _context.TicketBuyers.Add(newCartItem);
+                }
+
+                await _context.SaveChangesAsync();
+                return true;
             }
-
-            var entry = new TicketBuyer()
+            catch (Exception ex)
             {
-                BuyerId = userId,
-                EventId = adToAdd.Id
-            };
-
-            _context.TicketBuyers.Add(entry);
-            await _context.SaveChangesAsync();
-
-            return true;
+                // Можете да добавите логика за обработка на грешки тук
+                Console.WriteLine($"Грешка при добавяне на събитие в кошницата: {ex.Message}");
+                return false;
+            }
         }
 
         public async Task AddTicketDeliveryAsync(DeliveryDetailsViewModel deliveryDetails)
@@ -272,6 +295,30 @@ namespace WineSite.Core.Services
             await _context.SaveChangesAsync();
         }
 
+        public async Task<TicketBuyer> GetCartItemByIdAsync(string buyerId, int eventid)
+        {
+            return await _context.TicketBuyers.FirstOrDefaultAsync(e => e.EventId == eventid && e.BuyerId == buyerId);
+        }
 
+        public async Task<bool> UpdateCartItemAsync(TicketBuyer cartItem)
+        {
+            try
+            {
+                _context.Update(cartItem);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Грешка при актуализиране на артикул в кошницата: {ex.Message}");
+                return false;
+            }
+        }
+
+        
     }
 }
+
+
+
+    

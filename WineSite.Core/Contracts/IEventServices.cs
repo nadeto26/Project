@@ -1,4 +1,5 @@
 ﻿using WineSite.Core.Models.Event;
+using WineSite.Data.Data.Models;
 
 namespace WineSite.Core.Contracts
 {
@@ -30,6 +31,13 @@ namespace WineSite.Core.Contracts
 
         Task<List<AddToCartViewModel>> GetUserTicketsAsync(string userId);
 
-       
+        Task<TicketBuyer> GetCartItemByIdAsync(string buyerId, int eventid);
+
+        Task<bool> UpdateCartItemAsync(TicketBuyer cartItem);
+
+        
+
+
+
     }
 }

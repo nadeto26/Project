@@ -21,7 +21,5 @@ namespace WineSite.Data.Data.Models
         [Comment("Quantity for tickets")]
         public int Quantity { get; set; } = 1;
 
-        [Comment("The whole price for the tickets, based on the quantity")]
-        public decimal WholePrice  { get; set; } 
     }
 }

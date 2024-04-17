@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WineSite.Core.Contracts;
+using WineSite.Core.Models.Receipt;
 using WineSite.Core.Services;
 using WineSite.Data.Data;
 using WineSite.Data.Data.Migrations;
@@ -152,6 +153,56 @@ namespace WineSite.Tests.UnitTests
                 Assert.IsNotNull(result, "The method should return a non-null AllRecipeViewModel.");
             }
         }
-    }
 
+        [Test]
+
+        public async Task UpdateRecipeAsync_ValidData_SuccessfullyUpdatesRecipe()
+        {
+            // Подготовка на тестови данни
+            int recipeId = 1;
+            var testRecipe = new ReceiptViewModel
+            {
+                Name = "Test Recipe",
+                Notes = "Test Notes",
+                Description = "Test Description",
+                ImageUrl = "test.jpg"
+            };
+
+            // Настройка на DbContext за тестови цели с паметна база данни
+            var options = new DbContextOptionsBuilder<WineShopDbContext>()
+                .UseInMemoryDatabase(databaseName: "Test_Db")
+                .Options;
+            using var dbContext = new WineShopDbContext(options);
+
+            // Добавяне на тестов рецепт в базата данни
+            var recipeToAdd = new WineSite.Data.Data.Models.Recipe
+            {
+                Id = recipeId,
+                Name = "Initial Name",
+                Notes = "Initial Notes",
+                Description = "Initial Description",
+                ImageUrl = "initial.jpg"
+            };
+            dbContext.Recipes.Add(recipeToAdd);
+            await dbContext.SaveChangesAsync();
+
+            // Инициализация на RecipeService с тестовия DbContext
+            var recipeService = new RecipeServices(dbContext);
+
+            // Извикване на метода, който ще тестваме
+            await recipeService.UpdateRecipeAsync(recipeId, testRecipe);
+
+            // Проверка дали рецептът е актуализиран в базата данни
+            var updatedRecipe = await dbContext.Recipes.FindAsync(recipeId);
+
+            // Проверка за очакван резултат
+            Assert.NotNull(updatedRecipe);
+            Assert.AreEqual(testRecipe.Name, updatedRecipe.Name);
+            Assert.AreEqual(testRecipe.Notes, updatedRecipe.Notes);
+            Assert.AreEqual(testRecipe.Description, updatedRecipe.Description);
+            Assert.AreEqual(testRecipe.ImageUrl, updatedRecipe.ImageUrl);
+
+        }
+    }
 }
+

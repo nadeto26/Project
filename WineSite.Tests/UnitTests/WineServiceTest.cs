@@ -10,6 +10,7 @@ using Wine = WineSite.Data.Data.Models.Wine;
 using Microsoft.EntityFrameworkCore;
 using WineSite.Data.Data;
 using WineSite.Data.Data.Migrations;
+using WineDelivery = WineSite.Data.Data.Models.WineDelivery;
 
 namespace WineSite.Tests.UnitTests
 {
@@ -17,12 +18,11 @@ namespace WineSite.Tests.UnitTests
     public class WineServiceTest : UnitTestsBase
     {
         private IWineServices wineServices;
-       
 
         [OneTimeSetUp]
         public void SetUp()
         {
-            
+
             this.wineServices = new WineServices(this._db);
         }
 
@@ -51,7 +51,7 @@ namespace WineSite.Tests.UnitTests
             var wineId = Wine.Id;
 
             // Act
-            var result = await  wineServices.Exist(wineId);
+            var result = await wineServices.Exist(wineId);
 
             // Assert
             Assert.IsTrue(result);
@@ -199,7 +199,6 @@ namespace WineSite.Tests.UnitTests
             }
         }
 
-
         [Test]
         public async Task GetUserWineAsync_ShouldReturnUserWines()
         {
@@ -246,6 +245,235 @@ namespace WineSite.Tests.UnitTests
             }
         }
 
+        [Test]
+        public async Task GetWineTypeId_WithValidId_ReturnsTypeId()
+        {
+            // Подготовка на тестови данни
+            int wineId = 10;
+            int expectedTypeId = 123; // Предполагаме, че това е очакваният тип на виното
 
+            // Настройка на DbContext за тестови цели с паметна база данни
+            var options = new DbContextOptionsBuilder<WineShopDbContext>()
+                .UseInMemoryDatabase(databaseName: "Test_Db")
+                .Options;
+            using var dbContext = new WineShopDbContext(options);
+
+            // Добавяне на тестово вино в базата данни
+            var wineToAdd = new Wine
+            {
+                Id = wineId,
+                TypeId = expectedTypeId,
+                Country = "Bulgaria",
+                Harvest = 2020,
+                AlcoholContent = 12,
+                Bottle = 750,
+                Description = "description",
+                ImageUrl = "image.png",
+                Importer = "Bulgaria",
+                Manufucturer = "Germany",
+                Name = "Wine",
+                Price = 20,
+                Sort = "Gorn",
+                Year = 2020
+            };
+            dbContext.Wines.Add(wineToAdd);
+            await dbContext.SaveChangesAsync();
+
+            // Инициализация на WineService с тестовия DbContext
+            var wineService = new WineServices(dbContext);
+
+            // Извикване на метода, който ще тестваме
+            var actualTypeId = await wineService.GetWineTypeId(wineId);
+
+            // Проверка за очакван резултат
+            Assert.AreEqual(expectedTypeId, actualTypeId);
+        }
+
+        [Test]
+        public async Task GetCartItemByIdAsync_WithValidId_ReturnsCartItem()
+        {
+            string cartItemId = "buyer"; // Assuming BuyerId is an integer
+            var expectedCartItem = new Data.Data.Models.WineBuyers
+            {
+                BuyerId = cartItemId,
+                WineId = 2
+            };
+
+            // Настройка на DbContext за тестови цели с паметна база данни
+            var options = new DbContextOptionsBuilder<WineShopDbContext>()
+                .UseInMemoryDatabase(databaseName: "Test_Db")
+                .Options;
+            using var dbContext = new WineShopDbContext(options);
+
+            // Добавяне на тестов обект в базата данни
+            dbContext.WineBuyers.Add(expectedCartItem);
+            await dbContext.SaveChangesAsync();
+
+            // Инициализация на WineBuyersService с тестовия DbContext
+            var wineBuyersService = new WineServices(dbContext);
+
+            // Извикване на метода, който ще тестваме
+            var actualCartItem = await wineBuyersService.GetCartItemByIdAsync(expectedCartItem.BuyerId, expectedCartItem.WineId);
+
+            // Проверка за очакван резултат
+            Assert.NotNull(actualCartItem);
+            Assert.AreEqual(expectedCartItem.BuyerId, actualCartItem.BuyerId);
+        }
+
+        [Test]
+        public async Task RemoveWineFromCartAsync_ItemExists_RemovesItem()
+        {
+            // Prepare test data
+            string buyerId = "123";
+            int wineId = 1;
+            var cartItems = new[]
+            {
+            new Data.Data.Models.WineBuyers { BuyerId = buyerId, WineId = wineId },
+            new Data.Data.Models.WineBuyers { BuyerId = "456", WineId = 2 } // Another item not in our cart
+        };
+
+            // Set up DbContext for in-memory database
+            var options = new DbContextOptionsBuilder<WineShopDbContext>()
+                .UseInMemoryDatabase(databaseName: "Test_Db")
+                .Options;
+            using var dbContext = new WineShopDbContext(options);
+
+            // Add test items to the database
+            await dbContext.WineBuyers.AddRangeAsync(cartItems);
+            await dbContext.SaveChangesAsync();
+
+            // Initialize WineService with the test DbContext
+            var wineService = new WineServices(dbContext);
+
+            // Call the method we want to test
+            var result = await wineService.RemoveWineFromCartAsync(buyerId, wineId);
+
+            // Check the expected result
+            Assert.True(result); // Expecting successful removal from the cart
+
+            // Check if the item is removed from the database
+            var remainingItem = await dbContext.WineBuyers.FirstOrDefaultAsync(ci => ci.BuyerId == buyerId && ci.WineId == wineId);
+            Assert.Null(remainingItem); // Expecting the item to be removed
+        }
+
+        [Test]
+        public async Task WineDeliveryAsyncValidDetailsAddsDeliveryToDb()
+        {
+            // Prepare test data
+            var deliveryDetails = new WineDeliveryDetailsViewModel
+            {
+                FullName = "John Doe",
+                Address = "123 Main St",
+                City = "Example City",
+                PostalCode = "12345",
+                PhoneNumber = "555-123-4567",
+                Email = "user@example.com"
+            };
+
+            // Set up DbContext for in-memory database
+            var options = new DbContextOptionsBuilder<WineShopDbContext>()
+                .UseInMemoryDatabase(databaseName: "Test_Db")
+                .Options;
+            using var dbContext = new WineShopDbContext(options);
+
+            // Initialize WineService with the test DbContext
+            var wineService = new WineServices(dbContext);
+
+            // Call the method we want to test
+            await wineService.WineDeliveryAsync(deliveryDetails);
+
+            // Check if the delivery was added to the database
+            var addedDelivery = await dbContext.WineDeliveries.FirstOrDefaultAsync();
+
+            Assert.NotNull(addedDelivery); // Ensure a delivery was added
+            Assert.AreEqual(deliveryDetails.FullName, addedDelivery.FullName);
+            Assert.AreEqual(deliveryDetails.Address, addedDelivery.Address);
+            Assert.AreEqual(deliveryDetails.City, addedDelivery.City);
+            Assert.AreEqual(deliveryDetails.PostalCode, addedDelivery.PostCode);
+            Assert.AreEqual(deliveryDetails.PhoneNumber, addedDelivery.PhoneNumber);
+            Assert.AreEqual(deliveryDetails.Email, addedDelivery.Email);
+        }
+
+        [Test]
+        public async Task ConfirmOrderAsync_ValidUserId_ConfirmsOrderAndClearsCart()
+        {
+            // Prepare test data
+            string userId = "user123";
+            var user = new Data.Data.Models.ApplicationUser { Id = userId, Email = "user@example.com", FirstName = "User", LastName = "Example" };
+            var deliveryDetails = new Data.Data.Models.WineDelivery
+            {
+                FullName = "John Doe",
+                Address = "123 Main St",
+                City = "Example City",
+                PostCode = "12345",
+                PhoneNumber = "555-123-4567",
+                Email = user.Email,
+
+            };
+            var cartEvents = new List<Data.Data.Models.WineBuyers>
+        {
+            new Data.Data.Models.WineBuyers { BuyerId = userId, WineId = 1, Quantity = 2, Wine = new Wine { Id = 1, Name = "Wine 1",Sort = "ss",Description= "The best wines", AlcoholContent = 12, Bottle= 750, Country = "Italy", Harvest = 2020, ImageUrl= "image.png", Importer= "Italy", Manufucturer = "Mn", Price=12, Year= 2020 } },
+            new Data.Data.Models.WineBuyers { BuyerId = userId, WineId = 2, Quantity = 1, Wine = new Wine { Id = 2, Name = "Wine 2",Sort = "ss",Description= "The best wines", AlcoholContent = 12, Bottle= 750, Country = "Italy", Harvest = 2020, ImageUrl= "image.png", Importer= "Italy", Manufucturer = "Mn", Price=12, Year= 2020 } }
+        };
+
+            // Set up DbContext for in-memory database
+            var options = new DbContextOptionsBuilder<WineShopDbContext>()
+                .UseInMemoryDatabase(databaseName: "Test_Db")
+                .Options;
+            using var dbContext = new WineShopDbContext(options);
+
+            // Add test data to the DbContext
+            await dbContext.Users.AddAsync(user);
+            await dbContext.WineDeliveries.AddAsync(deliveryDetails);
+            await dbContext.WineBuyers.AddRangeAsync(cartEvents);
+            await dbContext.SaveChangesAsync();
+
+            // Initialize WineService with the test DbContext
+            var wineService = new WineServices(dbContext);
+
+            // Call the method we want to test
+            await wineService.ConfirmOrderAsync(userId);
+
+            // Check if orders were added and cart is cleared
+            var ordersInDb = await dbContext.OrderWines.ToListAsync();
+            var cartItemsInDb = await dbContext.WineBuyers.ToListAsync();
+
+            Assert.IsNotEmpty(ordersInDb); // Ensure orders were added
+            Assert.IsEmpty(cartItemsInDb); // Ensure cart is empty after confirmation
+        }
+
+        [Test]
+        public async Task WineDeliveryAsync_ValidDetails_AddsDeliveryToDb()
+        {
+            // Arrange
+            var options = new DbContextOptionsBuilder<WineShopDbContext>()
+                .UseInMemoryDatabase(databaseName: "TestDatabase")
+                .Options;
+
+            using (var context = new WineShopDbContext(options))
+            {
+                var wineService = new WineServices(context);
+
+                var deliveryDetails = new WineDeliveryDetailsViewModel
+                {
+                    FullName = "John Doe",
+                    Address = "123 Main St",
+                    City = "City",
+                    PostalCode = "12345",
+                    PhoneNumber = "555-555-5555",
+                    Email = "test@example.com"
+                };
+
+                // Act
+                await wineService.WineDeliveryAsync(deliveryDetails);
+            }
+
+            // Assert
+            using (var context = new WineShopDbContext(options))
+            {
+                Assert.AreEqual(1, await context.WineDeliveries.CountAsync());
+                 
+            }
+        }
     }
 }
