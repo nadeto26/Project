@@ -156,7 +156,7 @@ namespace WineSite.Core.Services
             var wineToDelete = await _db.Wines.FindAsync(id);
             if (wineToDelete == null)
             {
-                return false; // Връщаме false, ако събитието не е намерено
+                return false;  
             }
 
             _db.Wines.Remove(wineToDelete);
@@ -169,23 +169,23 @@ namespace WineSite.Core.Services
         {
             try
             {
-                // Проверка дали артикулът вече е в кошницата
+                
                 var existingCartItem = await _db.WineBuyers
                     .FirstOrDefaultAsync(ci => ci.BuyerId == userId && ci.WineId == wineId);
 
                 if (existingCartItem != null)
                 {
-                    // Увеличаваме количеството на съществуващия артикул в кошницата
+                     
                     existingCartItem.Quantity++;
                 }
                 else
                 {
-                    // Ако артикулът не е в кошницата, създаваме нов запис
+                    
                     var newCartItem = new WineBuyers()
                     {
                         BuyerId = userId,
                         WineId = wineId,
-                        Quantity = 1 // Започваме с количеството 1
+                        Quantity = 1  
                     };
                     _db.WineBuyers.Add(newCartItem);
                 }
@@ -195,7 +195,7 @@ namespace WineSite.Core.Services
             }
             catch (Exception ex)
             {
-                // Можете да добавите логика за обработка на грешки тук
+               
                 Console.WriteLine($"Грешка при добавяне на артикул в кошницата: {ex.Message}");
                 return false;
             }
@@ -205,7 +205,7 @@ namespace WineSite.Core.Services
         public async Task<List<WineCart>> GetUserWineAsync(string userId)
         {
             var userBuyer = await _db.WineBuyers
-               .Where(ab => ab.BuyerId == userId /*&& ab.IsPurchased*/) // Само закупените билети
+               .Where(ab => ab.BuyerId == userId)  
                .Select(ab => new WineCart()
                {
                    Id = ab.Wine.Id,
@@ -324,7 +324,7 @@ namespace WineSite.Core.Services
                     await _db.SaveChangesAsync();
                     return true;
                 }
-                return false; // Артикулът не беше намерен в кошницата
+                return false;  
             }
             catch (Exception ex)
             {
